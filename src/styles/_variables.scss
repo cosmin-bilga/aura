@@ -42,3 +42,8 @@ $shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.12);
 // Règles à respecter
 //Esseyons de mettre en place des règles de bonne pratique.
 
+// Si fond blanc le texte secondaire est en primary ou secondary color
+$on-white-text: $color-secondary;
+$on-white-icon: $color-primary;
+
+
