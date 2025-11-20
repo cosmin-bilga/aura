@@ -46,4 +46,9 @@ $shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.12);
 $on-white-text: $color-secondary;
 $on-white-icon: $color-primary;
 
+// Si fond primaire ou secondaire texte blanc
+$on-color-text: $color-white;
 
+//Section très claire
+$bg-peach-light: rgba($color-primary, 0.25);
+$bg-mint-light: rgba($color-secondary, 0.2);
