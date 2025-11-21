@@ -1,17 +1,19 @@
-@charset "UTF-8";
 .aura-footer {
   background-color: #FFFBF6;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
 }
 
-/* layout mobile : tout centré en colonne */
+.aura-footer__bottombar {
+  display: none;
+}
+
 .aura-footer__content {
   max-width: 960px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   text-align: center;
 }
 
@@ -24,15 +26,15 @@
 
 /* logo */
 .aura-footer__logo {
-  width: 96px;
-  height: 96px;
+  width: 80px;
+  height: 80px;
   -o-object-fit: contain;
      object-fit: contain;
 }
 
-/* liens "Mes missions" (mobile : colonne au centre) */
+/* liens "Mes missions" */
 .aura-footer__block--links {
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .aura-footer__link {
@@ -41,19 +43,19 @@
   font-weight: 600;
   color: #FFB798;
   text-decoration: none;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 /* socials */
 .aura-footer__socials {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .aura-footer__social {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   background-color: #B8D3C4;
   display: flex;
@@ -62,10 +64,13 @@
   text-decoration: none;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
-.aura-footer__social span {
-  font-size: 1rem;
+.aura-footer__social span,
+.aura-footer__social img {
+  font-size: 0.875rem;
   color: #FFFFFF;
   font-weight: 600;
+  max-width: 60%;
+  max-height: 60%;
 }
 
 /* bouton CGV / CGU */
@@ -73,7 +78,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 999px;
   background-color: #FFB798;
   color: #FFFFFF;
@@ -84,19 +89,16 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* ==========================
-      DESKTOP (>= 768px)
-   ========================== */
 @media (min-width: 768px) {
   .aura-footer {
-    padding: 2.5rem 2rem;
+    padding: 2rem 2rem;
   }
-  /* 3 colonnes : logo | social+cta | liens */
   .aura-footer__content {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     text-align: left;
+    gap: 1.5rem;
   }
   .aura-footer__block--logo {
     align-items: flex-start;
@@ -107,13 +109,37 @@
   .aura-footer__block--links {
     align-items: flex-end;
   }
+  .aura-footer__logo {
+    width: 96px;
+    height: 96px;
+  }
   .aura-footer__link {
     font-size: 1.25rem;
   }
   .aura-footer__socials {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+  }
+  .aura-footer__social {
+    width: 44px;
+    height: 44px;
   }
   .aura-footer__cta {
     margin-top: 0.5rem;
+    padding: 0.75rem 2rem;
+  }
+  .aura-footer__bottombar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFB798;
+    color: #FFFFFF;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
   }
 }/*# sourceMappingURL=Footer.css.map */

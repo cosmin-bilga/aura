@@ -1,11 +1,15 @@
 import "./Footer.scss";
 import logoAura from "../../assets/logo_aura.png";
 
+import instagramIcon from "../../assets/icons/instagram.svg";
+import facebookIcon from "../../assets/icons/facebook.svg";
+import mailIcon from "../../assets/icons/mail.svg";
+
 const footerLinks = [
-  { label: "Mes missions", href: "/missions" },
-  { label: "Mes missions", href: "/missions" },
-  { label: "Mes missions", href: "/missions" },
-  { label: "Mes missions", href: "/missions" },
+  { label: "Accueil", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Connexion", href: "/connexion" },
+  { label: "Inscription", href: "/inscription" },
 ];
 
 export default function Footer() {
@@ -23,21 +27,17 @@ export default function Footer() {
               aria-label="Instagram"
               className="aura-footer__social"
             >
-              <span>IG</span>
+              <img src={instagramIcon} alt="Instagram" />
             </a>
             <a
               href="#facebook"
               aria-label="Facebook"
               className="aura-footer__social"
             >
-              <span>f</span>
+              <img src={facebookIcon} alt="Facebook" />
             </a>
-            <a
-              href="#email"
-              aria-label="Contact par mail"
-              className="aura-footer__social"
-            >
-              <span>✉</span>
+            <a href="#email" aria-label="Mail" className="aura-footer__social">
+              <img src={mailIcon} alt="Mail" />
             </a>
           </div>
 
@@ -45,7 +45,7 @@ export default function Footer() {
             CGV et CGU
           </a>
         </div>
-     
+
         <div className="aura-footer__block aura-footer__block--links">
           {footerLinks.map((link, index) => (
             <a
@@ -57,6 +57,9 @@ export default function Footer() {
             </a>
           ))}
         </div>
+      </div>
+      <div className="aura-footer__bottombar">
+        © 2025 Aura Tous droits réservés
       </div>
     </footer>
   );

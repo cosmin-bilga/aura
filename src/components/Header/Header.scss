@@ -2,14 +2,12 @@
 
 .aura-header {
   background-color: $color-bg;
-  padding: 0 0 $spacing-4; 
+  padding: 0 0 $spacing-4;
 }
 
 .aura-header__topbar {
   display: none;
 }
-
-
 
 .aura-header__bar {
   display: flex;
@@ -138,28 +136,27 @@
   }
 }
 
-
 @media (min-width: 768px) {
   .aura-header__topbar {
-    height: 4.125rem; 
+    height: 4.125rem;
   }
 
   .aura-header__topbar {
     display: block;
     width: 100%;
-    height: 4.125rem; 
+    height: 4.125rem;
     background-image: linear-gradient(
         to right,
         rgba($color-secondary, 0.9),
         rgba($color-secondary, 0.9)
       ),
-      url("/header-top.jpg"); 
+      url("/header-top.jpg");
     background-size: cover;
     background-position: center;
   }
 
   .aura-header__topbar-inner {
-    max-width: 1285px; 
+    max-width: 1285px;
     margin: 0 auto;
     padding-inline: $spacing-4;
     height: 100%;
@@ -168,9 +165,8 @@
     justify-content: space-between;
   }
 
- 
   .aura-header__topbar-left {
-    width: 72px; 
+    width: 72px;
     height: 100%;
   }
 
@@ -183,10 +179,10 @@
   }
 
   .aura-header__topbar-profile-icon {
-    font-size: 1.4rem;
-    color: $on-color-text; 
+    color: $on-color-text;
+    width: 44px;
+    height: 44px;
   }
-
 
   .aura-header__bar {
     padding-top: $spacing-6;

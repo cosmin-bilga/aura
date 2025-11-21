@@ -2,18 +2,13 @@ import { useState } from "react";
 import "./Header.scss";
 import logoAura from "../../assets/logo_aura.png";
 import whiteAura from "../../assets/logo_aura_white.png";
+import peopleIcon from "../../assets/icons/people.svg";
 
-const navLinksMain = [
-  { label: "Sign in", href: "/signin" },
-  { label: "Profile", href: "/profile" },
-  { label: "Mes missions", href: "/missions" },
-  { label: "Annonces", href: "/annonces" },
-];
-
-const navLinksExtended = [
-  ...navLinksMain,
-  { label: "Témoignages", href: "/temoignages" },
-  { label: "Besoin d’aide ?", href: "/aide" },
+const navLinks = [
+  { label: "Accueil", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Connexion", href: "/connexion" },
+  { label: "Inscription", href: "/inscription" },
 ];
 
 export default function Header() {
@@ -25,24 +20,21 @@ export default function Header() {
   return (
     <>
       <header className="aura-header">
-        {/* BARRE VERTE AVEC BG IMAGE + OVERLAY */}
+
         <div className="aura-header__topbar">
           <div className="aura-header__topbar-inner">
-            {/* espace à gauche pour le futur stick réseaux sociaux */}
             <div className="aura-header__topbar-left" />
-<div className="aura-header__topbar-profile">
-  <span className="aura-header__topbar-profile-icon">👤</span>
-</div>
-
+            <div className="aura-header__topbar-profile">
+              <img className="aura-header__topbar-profile-icon" src={peopleIcon} alt="Profile" />
+            </div>
           </div>
         </div>
 
-        {/* NAV + LOGO */}
         <div className="aura-header__bar">
-          {/* Colonne gauche (desktop: liens "Sign in" + "Profile") */}
+
           <div className="aura-header__side aura-header__side--left">
             <nav className="aura-header__nav aura-header__nav--left">
-              {navLinksMain.slice(0, 2).map((link) => (
+              {navLinks.slice(0, 2).map((link) => (
                 <a key={link.label} href={link.href} onClick={closeMenu}>
                   {link.label}
                 </a>
@@ -50,7 +42,6 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Centre : logo Aura */}
           <div className="aura-header__center">
             <img
               src={logoAura}
@@ -59,10 +50,9 @@ export default function Header() {
             />
           </div>
 
-          {/* Colonne droite : burger (mobile) ou liens (desktop) */}
           <div className="aura-header__side aura-header__side--right">
             <nav className="aura-header__nav aura-header__nav--right">
-              {navLinksMain.slice(2).map((link) => (
+              {navLinks.slice(2).map((link) => (
                 <a key={link.label} href={link.href} onClick={closeMenu}>
                   {link.label}
                 </a>
@@ -85,7 +75,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Menu plein écran mobile */}
       <div
         className={`aura-header__overlay ${
           isMenuOpen ? "aura-header__overlay--open" : ""
@@ -93,7 +82,7 @@ export default function Header() {
       >
         <div className="aura-header__overlay-header">
           <div className="aura-header__overlay-user">
-            <span className="aura-header__overlay-user-icon">👤</span>
+            <span className="aura-header__overlay-user-icon"></span>
           </div>
           <div className="aura-header__overlay-logo">
             <img src={whiteAura} alt="Aura" />
@@ -109,7 +98,7 @@ export default function Header() {
         </div>
 
         <nav className="aura-header__overlay-nav">
-          {navLinksExtended.map((link) => (
+          {navLinks.map((link) => (
             <a key={link.label} href={link.href} onClick={closeMenu}>
               {link.label}
             </a>
