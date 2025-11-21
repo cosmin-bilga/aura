@@ -1,0 +1,124 @@
+@use "../../styles/_variables" as *;
+
+.aura-footer {
+  background-color: $color-bg;
+  padding: $spacing-8 $spacing-4;
+}
+
+
+.aura-footer__content {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-6;
+  text-align: center;
+}
+
+/* blocs */
+.aura-footer__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* logo */
+.aura-footer__logo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+
+
+.aura-footer__block--links {
+  gap: $spacing-2;
+}
+
+.aura-footer__link {
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  color: $color-primary;
+  text-decoration: none;
+  line-height: 1.6;
+}
+
+/* socials */
+.aura-footer__socials {
+  display: flex;
+  gap: $spacing-4;
+  margin-bottom: $spacing-4;
+}
+
+.aura-footer__social {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background-color: $color-secondary; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: $shadow-soft;
+
+  span {
+    font-size: $font-size-base;
+    color: $color-white;
+    font-weight: 600;
+  }
+}
+
+/* bouton CGV / CGU */
+.aura-footer__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-8;
+  border-radius: $radius-pill;
+  background-color: $color-primary;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: $shadow-soft;
+}
+
+@media (min-width: 768px) {
+  .aura-footer {
+    padding: $spacing-10 $spacing-8;
+  }
+
+ 
+  .aura-footer__content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    text-align: left;
+  }
+
+  .aura-footer__block--logo {
+    align-items: flex-start;
+  }
+
+  .aura-footer__block--center {
+    align-items: center;
+  }
+
+  .aura-footer__block--links {
+    align-items: flex-end;
+  }
+
+  .aura-footer__link {
+    font-size: $font-size-lg;
+  }
+
+  .aura-footer__socials {
+    margin-bottom: $spacing-3;
+  }
+
+  .aura-footer__cta {
+    margin-top: $spacing-2;
+  }
+}

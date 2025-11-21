@@ -1,0 +1,243 @@
+@use "../../styles/_variables" as *;
+
+.aura-header {
+  background-color: $color-bg;
+  padding: 0 0 $spacing-4; 
+}
+
+.aura-header__topbar {
+  display: none;
+}
+
+
+
+.aura-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: $spacing-4;
+}
+
+.aura-header__side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.aura-header__side--left {
+  justify-content: flex-start;
+}
+
+.aura-header__side--right {
+  justify-content: flex-end;
+  gap: $spacing-3;
+}
+
+/* Logo */
+.aura-header__center {
+  flex: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.aura-header__logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  display: block;
+}
+
+/* nav */
+.aura-header__nav {
+  display: none;
+  gap: $spacing-4;
+
+  a {
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    color: $color-primary;
+    text-decoration: none;
+  }
+}
+
+/* menu burger */
+.aura-header__burger {
+  width: 36px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+
+  span {
+    height: 4px;
+    border-radius: 999px;
+    background-color: $color-primary;
+  }
+}
+
+.aura-header__burger--open span:nth-child(2) {
+  opacity: 0.4;
+}
+
+.aura-header__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: $color-primary;
+  color: $on-color-text;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-6 $spacing-4;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s ease;
+  z-index: 40;
+}
+
+.aura-header__overlay--open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.aura-header__overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-6;
+}
+
+.aura-header__overlay-logo img {
+  width: 56px;
+  height: 56px;
+}
+
+.aura-header__overlay-close {
+  background: transparent;
+  border: none;
+  color: $on-color-text;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.aura-header__overlay-nav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  a {
+    padding: $spacing-3 $spacing-2;
+    border-bottom: 2px solid rgba($color-white, 0.7);
+    font-family: $font-family-primary;
+    font-size: $font-size-lg;
+    color: $on-color-text;
+    text-decoration: none;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .aura-header__topbar {
+    height: 4.125rem; 
+  }
+
+  .aura-header__topbar {
+    display: block;
+    width: 100%;
+    height: 4.125rem; 
+    background-image: linear-gradient(
+        to right,
+        rgba($color-secondary, 0.9),
+        rgba($color-secondary, 0.9)
+      ),
+      url("/header-top.jpg"); 
+    background-size: cover;
+    background-position: center;
+  }
+
+  .aura-header__topbar-inner {
+    max-width: 1285px; 
+    margin: 0 auto;
+    padding-inline: $spacing-4;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+ 
+  .aura-header__topbar-left {
+    width: 72px; 
+    height: 100%;
+  }
+
+  .aura-header__topbar-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  .aura-header__topbar-profile-icon {
+    font-size: 1.4rem;
+    color: $on-color-text; 
+  }
+
+
+  .aura-header__bar {
+    padding-top: $spacing-6;
+  }
+
+  .aura-header__logo {
+    width: 90px;
+    height: 90px;
+  }
+  .aura-header__bar {
+    max-width: 650px;
+    margin: 0 auto;
+    padding-inline: $spacing-4;
+    display: grid;
+    grid-template-columns: 1fr auto 1.4fr;
+    align-items: center;
+  }
+
+  .aura-header__side {
+    flex: 0 0 auto;
+  }
+
+  .aura-header__nav {
+    display: flex;
+
+    a {
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+  }
+
+  .aura-header__nav--left,
+  .aura-header__nav--right {
+    gap: $spacing-6;
+  }
+
+  .aura-header__nav--left {
+    justify-content: flex-end;
+    margin-right: $spacing-6;
+  }
+
+  .aura-header__nav--right {
+    justify-content: flex-start;
+    margin-left: $spacing-6;
+  }
+
+  .aura-header__burger {
+    display: none;
+  }
+
+  .aura-header__overlay {
+    display: none;
+  }
+}

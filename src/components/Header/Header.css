@@ -1,0 +1,234 @@
+@charset "UTF-8";
+.aura-header {
+  background-color: #FFFBF6;
+  padding: 0 0 1rem;
+}
+
+.aura-header__topbar {
+  display: none;
+}
+
+/* ==========================
+   BARRE PRINCIPALE (LOGO + NAV)
+   ========================== */
+/* BAR PRINCIPALE (MOBILE → FLEX SIMPLE) */
+.aura-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+/* Colonnes latérales */
+.aura-header__side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.aura-header__side--left {
+  justify-content: flex-start;
+}
+
+.aura-header__side--right {
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Logo */
+.aura-header__center {
+  flex: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.aura-header__logo {
+  width: 72px;
+  height: 72px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+
+/* NAVIGATION (mobile hidden) */
+.aura-header__nav {
+  display: none;
+  gap: 1rem;
+}
+.aura-header__nav a {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #FFB798;
+  text-decoration: none;
+}
+
+/* BURGER */
+.aura-header__burger {
+  width: 36px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.aura-header__burger span {
+  height: 4px;
+  border-radius: 999px;
+  background-color: #FFB798;
+}
+
+.aura-header__burger--open span:nth-child(2) {
+  opacity: 0.4;
+}
+
+/* ==========================
+      MENU OVERLAY MOBILE
+   ========================== */
+.aura-header__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #FFB798;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s ease;
+  z-index: 40;
+}
+
+.aura-header__overlay--open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.aura-header__overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.aura-header__overlay-logo img {
+  width: 56px;
+  height: 56px;
+}
+
+.aura-header__overlay-close {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.aura-header__overlay-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.aura-header__overlay-nav a {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/* ==========================
+      DESKTOP (>= 768px)
+   ========================== */
+@media (min-width: 768px) {
+  .aura-header__topbar {
+    height: 4.125rem;
+  }
+  /* BARRE VERTE AVEC BG IMAGE + FILTRE MENTHE */
+  .aura-header__topbar {
+    display: block;
+    width: 100%;
+    height: 4.125rem;
+    background-image: linear-gradient(to right, rgba(184, 211, 196, 0.9), rgba(184, 211, 196, 0.9)), url("/header-top.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  .aura-header__topbar-inner {
+    max-width: 1285px;
+    margin: 0 auto;
+    padding-inline: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  /* réserve pour le stick réseaux sociaux à gauche */
+  .aura-header__topbar-left {
+    width: 72px;
+    height: 100%;
+  }
+  /* simple icône, pas un bouton */
+  .aura-header__topbar-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+  .aura-header__topbar-profile-icon {
+    font-size: 1.4rem;
+    color: #FFFFFF;
+  }
+  .aura-header__bar {
+    padding-top: 1.5rem;
+  }
+  .aura-header__logo {
+    width: 90px;
+    height: 90px;
+  }
+  /* BAR COMPACTE + SYMÉTRIQUE (ta version qui marche) */
+  .aura-header__bar {
+    max-width: 650px;
+    margin: 0 auto;
+    padding-inline: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1.4fr;
+    align-items: center;
+  }
+  /* plus besoin de flex:1 dans les sides en desktop */
+  .aura-header__side {
+    flex: 0 0 auto;
+  }
+  /* NAV visible + texte */
+  .aura-header__nav {
+    display: flex;
+  }
+  .aura-header__nav a {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+  /* ESPACE ENTRE LES LIENS */
+  .aura-header__nav--left,
+  .aura-header__nav--right {
+    gap: 1.5rem;
+  }
+  /* MÊME MARGE DE CHAQUE CÔTÉ DU LOGO */
+  .aura-header__nav--left {
+    justify-content: flex-end;
+    margin-right: 1.5rem;
+  }
+  .aura-header__nav--right {
+    justify-content: flex-start;
+    margin-left: 1.5rem;
+  }
+  .aura-header__burger {
+    display: none;
+  }
+  .aura-header__overlay {
+    display: none;
+  }
+}/*# sourceMappingURL=Header.css.map */

@@ -1,0 +1,119 @@
+@charset "UTF-8";
+.aura-footer {
+  background-color: #FFFBF6;
+  padding: 2rem 1rem;
+}
+
+/* layout mobile : tout centré en colonne */
+.aura-footer__content {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+/* blocs */
+.aura-footer__block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* logo */
+.aura-footer__logo {
+  width: 96px;
+  height: 96px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+/* liens "Mes missions" (mobile : colonne au centre) */
+.aura-footer__block--links {
+  gap: 0.5rem;
+}
+
+.aura-footer__link {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFB798;
+  text-decoration: none;
+  line-height: 1.6;
+}
+
+/* socials */
+.aura-footer__socials {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.aura-footer__social {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background-color: #B8D3C4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.aura-footer__social span {
+  font-size: 1rem;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* bouton CGV / CGU */
+.aura-footer__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  background-color: #FFB798;
+  color: #FFFFFF;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================
+      DESKTOP (>= 768px)
+   ========================== */
+@media (min-width: 768px) {
+  .aura-footer {
+    padding: 2.5rem 2rem;
+  }
+  /* 3 colonnes : logo | social+cta | liens */
+  .aura-footer__content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    text-align: left;
+  }
+  .aura-footer__block--logo {
+    align-items: flex-start;
+  }
+  .aura-footer__block--center {
+    align-items: center;
+  }
+  .aura-footer__block--links {
+    align-items: flex-end;
+  }
+  .aura-footer__link {
+    font-size: 1.25rem;
+  }
+  .aura-footer__socials {
+    margin-bottom: 0.75rem;
+  }
+  .aura-footer__cta {
+    margin-top: 0.5rem;
+  }
+}/*# sourceMappingURL=Footer.css.map */
