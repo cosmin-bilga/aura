@@ -1,0 +1,139 @@
+@use "../styles/_variables" as *;
+
+.aura-home {
+  background-color: $color-bg;
+}
+
+
+.aura-hero {
+  padding: $spacing-8 $spacing-4 $spacing-10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Texte + bouton */
+.aura-hero__content {
+  max-width: 320px;
+}
+
+.aura-hero__title {
+  font-family: $font-family-primary;
+  font-weight: 500; // medium
+  color: $color-secondary;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+
+  span {
+    display: block;
+  }
+}
+
+.aura-hero__cta {
+  margin-top: $spacing-6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-10;
+  border: none;
+  border-radius: $radius-pill;
+  background-color: $color-primary;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: $shadow-soft;
+}
+
+/* Visuel cercle + femme */
+.aura-hero__visual {
+  margin-top: $spacing-8;
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.aura-hero__circle {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: $color-primary;
+  position: relative;
+}
+
+
+.aura-hero__image {
+  position: absolute;
+  bottom: -$spacing-2;
+  max-height: 115%;
+  width: auto;
+}
+
+
+@media (min-width: 768px) {
+  /* empêche les scrolls horizontaux si le rond dépasse un peu */
+  .aura-home {
+    overflow-x: hidden;
+  }
+
+  .aura-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $spacing-16 $spacing-8 $spacing-16;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  /* Bloc texte à gauche */
+  .aura-hero__content {
+    flex: 0 0 40%;
+    padding-left: $spacing-10; // marge gauche comme sur la maquette
+  }
+
+  .aura-hero__title {
+    font-size: 3rem;
+    line-height: 1.15;
+  }
+
+  .aura-hero__cta {
+    margin-top: $spacing-8;
+    font-size: 1.1rem;
+    padding: $spacing-3 $spacing-10;
+  }
+
+  /* Bloc visuel à droite */
+  .aura-hero__visual {
+    flex: 0 0 60%;
+    margin-top: 0;
+    position: relative;
+    min-height: 420px; // donne de la hauteur pour le rond + la femme
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* Gros rond pêche qui déborde un peu à droite */
+  .aura-hero__circle {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background-color: $color-primary;
+    top: 4rem;
+    right: -12%; // déborde sans forcer trop → pas de gros bug
+  }
+
+  /* Image de la femme par-dessus le rond */
+  .aura-hero__image {
+    position: absolute;
+    bottom: -$spacing-4;
+    right: 0;
+    max-height: 115%;
+    width: auto;
+  }
+}
