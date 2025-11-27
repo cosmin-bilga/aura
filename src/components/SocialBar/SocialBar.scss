@@ -1,0 +1,60 @@
+@use "../../styles/_variables" as *;
+
+/* ===== BARRE RÉSEAUX — MOBILE FIRST ===== */
+
+.aura-social {
+  position: fixed;
+  top: 0;                // sous la topbar verte
+  left: $spacing-2;
+  z-index: 30;
+
+  width: 60px;
+  padding: $spacing-6 $spacing-3;
+
+  background-color: $color-primary;
+  border-radius: 0 0 3rem 3rem;  // haut droit, bas très arrondi
+  box-shadow: $shadow-soft;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.aura-social__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+}
+
+/* Mail caché en mobile */
+.aura-social__item--desktop {
+  display: none;
+}
+
+/* ===== DESKTOP (>= 768px) ===== */
+@media (min-width: 768px) {
+  .aura-social {
+    top: 0;                    // vient toucher la barre verte
+    left: $spacing-4;
+    width: 60px;
+    padding: $spacing-6 $spacing-2;
+    gap: $spacing-6;
+    border-radius: 0 0 4rem 4rem;
+  }
+
+  .aura-social__item img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .aura-social__item--desktop {
+    display: flex;             // on affiche le mail en desktop
+  }
+}

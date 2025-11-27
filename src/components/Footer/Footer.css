@@ -1,10 +1,21 @@
 .aura-footer {
-  background-color: #FFFBF6;
+  background-color: #fffbf6;
   padding: 1.5rem 1rem;
 }
 
 .aura-footer__bottombar {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  padding: 1rem 0;
+  text-align: center;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .aura-footer__content {
@@ -41,7 +52,7 @@
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  color: #FFB798;
+  color: #ffb798;
   text-decoration: none;
   line-height: 1.4;
 }
@@ -57,7 +68,7 @@
   width: 40px;
   height: 40px;
   border-radius: 999px;
-  background-color: #B8D3C4;
+  background-color: #b8d3c4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +78,7 @@
 .aura-footer__social span,
 .aura-footer__social img {
   font-size: 0.875rem;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 600;
   max-width: 60%;
   max-height: 60%;
@@ -80,8 +91,8 @@
   justify-content: center;
   padding: 0.5rem 1.5rem;
   border-radius: 999px;
-  background-color: #FFB798;
-  color: #FFFFFF;
+  background-color: #ffb798;
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   font-weight: 700;
@@ -132,8 +143,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFB798;
-    color: #FFFFFF;
+    background-color: #ffb798;
+    color: #ffffff;
     font-family: "Poppins", sans-serif;
     font-size: 1rem;
     padding: 1rem 0;

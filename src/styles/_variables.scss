@@ -1,15 +1,12 @@
+$color-primary: #ffb798; // Couleur pêche (Background de Section et de certaines Font)
+$color-secondary: #b8d3c4; // Couleur Menthe
 
-
-$color-primary: #FFB798;     // Couleur pêche (Background de Section et de certaines Font)
-$color-secondary: #B8D3C4;   // Couleur Menthe
-
-$color-bg: #FFFBF6;          // Fond faux blanc
-$color-white: #FFFFFF;
-
+$color-bg: #fffbf6; // Fond faux blanc
+$color-white: #ffffff;
 
 // Typographie
-$font-family-primary: 'Poppins', sans-serif;
-$font-family-secondary: 'Inter', sans-serif;
+$font-family-primary: "Poppins", sans-serif;
+$font-family-secondary: "Inter", sans-serif;
 
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
@@ -18,7 +15,7 @@ $font-size-lg: 1.25rem;
 $font-size-xl: 1.875rem;
 $font-size-2xl: 2.25rem;
 
-// Space 
+// Space
 $spacing-1: 0.25rem;
 $spacing-2: 0.5rem;
 $spacing-3: 0.75rem;
@@ -29,7 +26,7 @@ $spacing-10: 2.5rem;
 $spacing-12: 3rem;
 $spacing-16: 4rem;
 
-// Border radius 
+// Border radius
 $radius-sm: 0.375rem;
 $radius-md: 0.5rem;
 $radius-lg: 0.75rem;
@@ -52,3 +49,4 @@ $on-color-text: $color-white;
 //Section très claire
 $bg-peach-light: rgba($color-primary, 0.25);
 $bg-mint-light: rgba($color-secondary, 0.2);
+

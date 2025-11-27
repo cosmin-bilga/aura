@@ -43,6 +43,7 @@
   height: 72px;
   object-fit: contain;
   display: block;
+  margin-left: 35px;
 }
 
 /* nav */
@@ -137,14 +138,11 @@
 }
 
 @media (min-width: 768px) {
-  .aura-header__topbar {
-    height: 3.125rem;
-  }
 
   .aura-header__topbar {
     display: block;
     width: 100%;
-    height: 4.125rem;
+    height: 2.525rem;
     background-image: linear-gradient(
         to right,
         rgba($color-secondary, 0.9),

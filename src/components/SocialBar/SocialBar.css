@@ -1,0 +1,52 @@
+@charset "UTF-8";
+/* ===== BARRE RÉSEAUX — MOBILE FIRST ===== */
+.aura-social {
+  position: fixed;
+  top: 0;
+  left: 0.5rem;
+  z-index: 30;
+  width: 60px;
+  padding: 1.5rem 0.75rem;
+  background-color: #ffb798;
+  border-radius: 0 0 3rem 3rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aura-social__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aura-social__item img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* Mail caché en mobile */
+.aura-social__item--desktop {
+  display: none;
+}
+
+/* ===== DESKTOP (>= 768px) ===== */
+@media (min-width: 768px) {
+  .aura-social {
+    top: 0;
+    left: 1rem;
+    width: 60px;
+    padding: 1.5rem 0.5rem;
+    gap: 1.5rem;
+    border-radius: 0 0 4rem 4rem;
+  }
+  .aura-social__item img {
+    width: 30px;
+    height: 30px;
+  }
+  .aura-social__item--desktop {
+    display: flex;
+  }
+}/*# sourceMappingURL=SocialBar.css.map */

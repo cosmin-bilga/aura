@@ -6,7 +6,18 @@
 }
 
 .aura-footer__bottombar {
-  display: none; 
+      display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-primary;
+    color: $color-white;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    padding: $spacing-4 0;
+    text-align: center;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
 }
 .aura-footer__content {
   max-width: 960px;

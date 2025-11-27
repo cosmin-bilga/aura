@@ -1,15 +1,11 @@
-@use "../styles/_variables" as *;
-
-
-  
+@charset "UTF-8";
 .aura-home {
-  background-color: $color-bg;
-  overflow-x: hidden; 
+  background-color: #fffbf6;
+  overflow-x: hidden;
 }
 
-
 .aura-hero {
-  padding: $spacing-8 $spacing-4 $spacing-10;
+  padding: 2rem 1rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,38 +17,36 @@
 }
 
 .aura-hero__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-secondary;
-  font-size: $font-size-2xl;
+  color: #b8d3c4;
+  font-size: 2.25rem;
   line-height: 1.25;
-
-  span {
-    display: block;
-  }
+}
+.aura-hero__title span {
+  display: block;
 }
 
 .aura-hero__cta {
-  margin-top: $spacing-6;
+  margin-top: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-3 $spacing-10;
+  padding: 0.75rem 2.5rem;
   border: none;
-  border-radius: $radius-pill;
-  background-color: $color-primary;
-  color: $color-white;
-  font-family: $font-family-primary;
-  font-size: $font-size-base;
+  border-radius: 999px;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: $shadow-soft;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 /* Visuel cercle + femme */
-
 .aura-hero__visual {
-  margin-top: $spacing-8;
+  margin-top: 2rem;
   width: 100%;
   max-width: 360px;
   position: relative;
@@ -64,13 +58,13 @@
   width: 260px;
   height: 260px;
   border-radius: 50%;
-  background-color: $color-primary;
+  background-color: #ffb798;
   position: relative;
 }
 
 .aura-hero__image {
   position: absolute;
-  bottom: -$spacing-2;
+  bottom: -0.5rem;
   max-height: 115%;
   width: auto;
 }
@@ -78,97 +72,89 @@
 /* =======================
       SERVICES — MOBILE FIRST
    ======================= */
-
 .aura-services {
-  padding: $spacing-12 $spacing-4;
-
-  background-image: linear-gradient(
-      rgba($color-secondary, 0.75),
-      rgba($color-secondary, 0.75)
-    ),
-    url("../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-10.jpg");
+  padding: 3rem 1rem;
+  background-image: linear-gradient(rgba(184, 211, 196, 0.75), rgba(184, 211, 196, 0.75)), url("../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-10.jpg");
   background-size: cover;
   background-position: center;
   text-align: center;
 }
 
 .aura-services__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-white;
-  font-size: $font-size-2xl;
+  color: #ffffff;
+  font-size: 2.25rem;
   line-height: 1.25;
 }
 
 .aura-services__subtitle {
   max-width: 700px;
-  margin: 0 auto $spacing-10;
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: rgba($color-white, 0.9);
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* GRID — mobile */
 .aura-services__grid {
   display: grid;
-  gap: $spacing-16;
+  gap: 4rem;
   grid-template-columns: 1fr;
 }
 
 .aura-service-card {
   position: relative;
   overflow: hidden;
-  box-shadow: $shadow-soft;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transform: translateY(0);
   transition: 0.25s ease;
   cursor: pointer;
-
-  &:hover {
-    transform: translateY(-8px);
-  }
-
-  img {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.9);
-  }
+}
+.aura-service-card:hover {
+  transform: translateY(-8px);
+}
+.aura-service-card img {
+  width: 100%;
+  height: 320px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  filter: brightness(0.9);
 }
 
 .aura-service-card__overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba($color-primary, 0.2);
+  background-color: rgba(255, 183, 152, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: 0.25s ease;
-
-  .aura-service-card:hover & {
-    opacity: 1;
-  }
+}
+.aura-service-card:hover .aura-service-card__overlay {
+  opacity: 1;
 }
 
 .aura-service-card__btn {
-  padding: $spacing-2 $spacing-6;
+  padding: 0.5rem 1.5rem;
   background-color: transparent;
-  border: 2px solid $color-white;
-  color: $color-white;
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
   transition: 0.25s ease;
-
-  &:hover {
-    background-color: rgba($color-primary, 0.85);
-    border-color: rgba($color-white, 0.95);
-  }
+}
+.aura-service-card__btn:hover {
+  background-color: rgba(255, 183, 152, 0.85);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
 .aura-about {
-  padding: $spacing-12 $spacing-4;
-  background-color: $color-bg;
+  padding: 3rem 1rem;
+  background-color: #fffbf6;
   text-align: center;
 }
 
@@ -178,46 +164,41 @@
 }
 
 .aura-about__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-secondary;
-  font-size: $font-size-2xl;
+  color: #b8d3c4;
+  font-size: 2.25rem;
   line-height: 1.25;
 }
 
 .aura-about__text {
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: $color-secondary;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #b8d3c4;
   line-height: 1.6;
-  margin-bottom: $spacing-8;
+  margin-bottom: 2rem;
 }
 
 .aura-about__cta {
-  margin-top: $spacing-6;
+  margin-top: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-3 $spacing-10;
+  padding: 0.75rem 2.5rem;
   border: none;
-  border-radius: $radius-pill;
-  background-color: $color-primary;
-  color: $color-white;
-  font-family: $font-family-primary;
-  font-size: $font-size-base;
+  border-radius: 999px;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: $shadow-soft;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .aura-annecdotes {
-  padding: $spacing-12 $spacing-4;
-
-  background-image: linear-gradient(
-      rgba($color-secondary, 0.75),
-      rgba($color-secondary, 0.75)
-    ),
-    url("../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-10.jpg");
+  padding: 3rem 1rem;
+  background-image: linear-gradient(rgba(184, 211, 196, 0.75), rgba(184, 211, 196, 0.75)), url("../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-10.jpg");
   background-size: cover;
   background-position: center;
   text-align: center;
@@ -225,36 +206,31 @@
 }
 
 .aura-annecdotes__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-white;
-  font-size: $font-size-2xl;
+  color: #ffffff;
+  font-size: 2.25rem;
   line-height: 1.25;
 }
 
 .aura-annecdotes__subtitle {
   max-width: 700px;
-  margin: 0 auto $spacing-10;
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: rgba($color-white, 0.9);
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* GRID — mobile */
 .aura-annecdotes__grid {
   display: grid;
-  gap: $spacing-16;
+  gap: 4rem;
   grid-template-columns: 1fr;
 }
 
 .aura-annecdotes {
-  padding: $spacing-12 $spacing-4;
-
-  background-image: linear-gradient(
-      rgba($color-secondary, 0.75),
-      rgba($color-secondary, 0.75)
-    ),
-    url("../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-9.jpg");
+  padding: 3rem 1rem;
+  background-image: linear-gradient(rgba(184, 211, 196, 0.75), rgba(184, 211, 196, 0.75)), url("../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-9.jpg");
   background-size: cover;
   background-position: center;
   text-align: center;
@@ -262,32 +238,31 @@
 }
 
 .aura-annecdotes__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-white;
-  font-size: $font-size-2xl;
+  color: #ffffff;
+  font-size: 2.25rem;
   line-height: 1.25;
 }
 
 .aura-annecdotes__subtitle {
   max-width: 700px;
-  margin: 0 auto $spacing-10;
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: rgba($color-white, 0.9);
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* GRID — mobile */
 .aura-annecdotes__grid {
   display: grid;
-  gap: $spacing-16;
+  gap: 4rem;
   grid-template-columns: 1fr;
 }
 
 .aura-define {
-  padding: $spacing-12 $spacing-4;
-
-  background-color:$color-primary;
+  padding: 3rem 1rem;
+  background-color: #ffb798;
   background-size: cover;
   background-position: center;
   text-align: center;
@@ -295,89 +270,84 @@
 }
 
 .aura-define__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-white;
-  font-size: $font-size-2xl;
+  color: #ffffff;
+  font-size: 2.25rem;
   line-height: 1.25;
 }
 
 .aura-define__subtitle {
   max-width: 700px;
-  margin: 0 auto $spacing-10;
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: rgba($color-white, 0.9);
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* GRID — mobile */
 .aura-define__grid {
   display: grid;
-  gap: $spacing-16;
+  gap: 4rem;
   grid-template-columns: 1fr;
 }
 
 .aura-define {
-  padding: $spacing-12 $spacing-4;
-  background-color: $color-primary;
+  padding: 3rem 1rem;
+  background-color: #ffb798;
   min-height: 500px;
 }
 
 .aura-define__title {
-  font-family: $font-family-primary;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  color: $color-white;
-  font-size: $font-size-2xl;
+  color: #ffffff;
+  font-size: 2.25rem;
   line-height: 1.25;
 }
 
 .aura-define__subtitle {
   max-width: 700px;
-  margin: 0 auto $spacing-10;
-  font-family: $font-family-primary;
-  font-size: $font-size-lg;
-  color: rgba($color-white, 0.9);
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* GRID — mobile */
 .aura-define__grid {
   display: grid;
-  gap: $spacing-16;
+  gap: 4rem;
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 768px) {
   .aura-home {
-    overflow-x: hidden; // empêche défilement si le cercle déborde
+    overflow-x: hidden;
   }
-
   /* HERO */
   .aura-hero {
     max-width: 1200px;
     margin: 0 auto;
-    padding: $spacing-16 $spacing-8 $spacing-16;
+    padding: 4rem 2rem 4rem;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     text-align: left;
   }
-
   /* Texte */
   .aura-hero__content {
     flex: 0 0 42%;
-    padding-left: $spacing-12;
+    padding-left: 3rem;
   }
-
   .aura-hero__title {
     font-size: 3rem;
     line-height: 1.15;
   }
-
   .aura-hero__cta {
-    margin-top: $spacing-8;
+    margin-top: 2rem;
     font-size: 1.1rem;
   }
-
   /* Visuel + cercle + femme */
   .aura-hero__visual {
     flex: 0 0 58%;
@@ -386,52 +356,44 @@
     display: flex;
     justify-content: flex-end;
   }
-
   .aura-hero__circle {
     position: absolute;
     width: 430px;
     height: 430px;
     border-radius: 50%;
-    background-color: $color-primary;
+    background-color: #ffb798;
     top: 5rem;
     right: -12%;
   }
-
   .aura-hero__image {
     position: absolute;
-    bottom: -$spacing-8;
+    bottom: -2rem;
     left: 0%;
     transform: translateX(-20%);
     max-height: 116%;
     width: auto;
   }
-
   /* SERVICES GRID DESKTOP */
   .aura-services__grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-12;
-    padding-inline: $spacing-8; // plus d'espace sur les côtés
+    gap: 3rem;
+    padding-inline: 2rem;
   }
-
-  // ABOUT
   .aura-about {
-    background-color: $color-primary;
-    padding: $spacing-16 $spacing-4;
+    background-color: #ffb798;
+    padding: 4rem 1rem;
   }
-
   .aura-about__inner {
-    background-color: $color-bg;
-    padding: $spacing-12;
+    background-color: #fffbf6;
+    padding: 3rem;
   }
-
   .aura-about__title {
     font-size: 3rem;
   }
-
   /* ANNECDOTES GRID DESKTOP */
   .aura-annecdotes__grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-12;
-    padding-inline: $spacing-8; // plus d'espace sur les côtés
+    gap: 3rem;
+    padding-inline: 2rem;
   }
-}
+}/*# sourceMappingURL=Home.css.map */

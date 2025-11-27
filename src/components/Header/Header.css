@@ -1,5 +1,5 @@
 .aura-header {
-  background-color: #FFFBF6;
+  background-color: #fffbf6;
   padding: 0 0 1rem;
 }
 
@@ -52,7 +52,7 @@
 .aura-header__nav a {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  color: #FFB798;
+  color: #ffb798;
   text-decoration: none;
 }
 
@@ -70,7 +70,7 @@
 .aura-header__burger span {
   height: 4px;
   border-radius: 999px;
-  background-color: #FFB798;
+  background-color: #ffb798;
 }
 
 .aura-header__burger--open span:nth-child(2) {
@@ -80,8 +80,8 @@
 .aura-header__overlay {
   position: fixed;
   inset: 0;
-  background-color: #FFB798;
-  color: #FFFFFF;
+  background-color: #ffb798;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   padding: 1.5rem 1rem;
@@ -113,7 +113,7 @@
 .aura-header__overlay-close {
   background: transparent;
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.6rem;
   cursor: pointer;
 }
@@ -128,18 +128,15 @@
   border-bottom: 2px solid rgba(255, 255, 255, 0.7);
   font-family: "Poppins", sans-serif;
   font-size: 1.25rem;
-  color: #FFFFFF;
+  color: #ffffff;
   text-decoration: none;
 }
 
 @media (min-width: 768px) {
   .aura-header__topbar {
-    height: 4.125rem;
-  }
-  .aura-header__topbar {
     display: block;
     width: 100%;
-    height: 4.125rem;
+    height: 2.525rem;
     background-image: linear-gradient(to right, rgba(184, 211, 196, 0.9), rgba(184, 211, 196, 0.9)), url("/header-top.jpg");
     background-size: cover;
     background-position: center;
@@ -165,9 +162,9 @@
     height: 32px;
   }
   .aura-header__topbar-profile-icon {
-    color: #FFFFFF;
-    width: 44px;
-    height: 44px;
+    color: #ffffff;
+    width: 35px;
+    height: 35px;
   }
   .aura-header__bar {
     padding-top: 1.5rem;
