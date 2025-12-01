@@ -16,32 +16,36 @@ export default function Footer() {
   return (
     <footer className="aura-footer">
       <div className="aura-footer__content">
+
         <div className="aura-footer__block aura-footer__block--logo">
-          <img src={logoAura} alt="Aura logo" className="aura-footer__logo" />
+
+          <a href="/" aria-label="Revenir à l’accueil">
+            <img src={logoAura} alt="Aura logo" className="aura-footer__logo" />
+          </a>
         </div>
 
         <div className="aura-footer__block aura-footer__block--center">
           <div className="aura-footer__socials">
             <a
-              href="#instagram"
+              href="https://www.instagram.com/"
               aria-label="Instagram"
               className="aura-footer__social"
             >
               <img src={instagramIcon} alt="Instagram" />
             </a>
             <a
-              href="#facebook"
+              href="https://fr-fr.facebook.com/"
               aria-label="Facebook"
               className="aura-footer__social"
             >
               <img src={facebookIcon} alt="Facebook" />
             </a>
-            <a href="#email" aria-label="Mail" className="aura-footer__social">
+            <a href="https://outlook.live.com/mail/0/" aria-label="Mail" className="aura-footer__social">
               <img src={mailIcon} alt="Mail" />
             </a>
           </div>
 
-          <a href="/cgv-cgu" className="aura-footer__cta">
+          <a href="/Legal" className="aura-footer__cta">
             CGV et CGU
           </a>
         </div>

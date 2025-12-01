@@ -3,10 +3,10 @@
 /**
  * METHODS: POST, OPTIONS
  * 
- * -- POST: CONNEXION ET RECUPERATION TOKEN ADMIN
+ * -- POST:
  * PARAMS : email, password
  * AUTH: none
- * RETURN: ?admin_token, message
+ * RETURN: ?token, message
  */
 
 declare(strict_types=1);
@@ -19,7 +19,7 @@ header("Content-Type: application/json; charset=UTF-8");
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         $requestData = $_POST;
-        admin_connect($requestData);
+        provider_connect($requestData);
         break;
     default:
         echo json_encode(["message" => "Invalid request"]);
@@ -27,21 +27,23 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 }
 
-function admin_connect(array $requestData): void
+function provider_connect(array $requestData): void
 {
     if (!isset($requestData["email"])) {
         http_response_code(400);
         echo json_encode(["message" => "Login required"]);
+        return;
     }
     if (!isset($requestData["password"])) {
         http_response_code(400);
         echo json_encode(["message" => "Password required"]);
+        return;
     }
 
     $conn = Connection::getConnection();
 
     try {
-        $sql = "SELECT * FROM admins WHERE email=:login";
+        $sql = "SELECT * FROM service_providers WHERE email=:login";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
             ":login" => $requestData["email"]
@@ -52,6 +54,7 @@ function admin_connect(array $requestData): void
         http_response_code(500);
     }
 
+    //var_dump($res);
     if (!$res) {
         http_response_code(202); // ACCEPTED
         echo json_encode(["message" => "Login not found"]);
@@ -59,9 +62,9 @@ function admin_connect(array $requestData): void
     }
     if (password_verify($requestData["password"], $res["password"])) {
         $token = generate_token();
-        add_token($token, $res["id_admin"], "admin");
+        add_token($token, $res["id_provider"], "provider");
         http_response_code(202); // ACCEPTED
-        echo json_encode(["token" => $token, "message" => "Admin logged in"]);
+        echo json_encode(["token" => $token, "message" => "User logged in"]);
         return;
     }
     http_response_code(403); // FORBIDDEN

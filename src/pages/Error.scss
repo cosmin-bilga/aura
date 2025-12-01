@@ -1,0 +1,66 @@
+@use "../styles/_variables" as *;
+
+.error-page {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $spacing-10 $spacing-4;
+  position: relative;
+  overflow: hidden;
+  background-color: $color-bg;
+}
+
+.error-title {
+  font-family: $font-family-error;
+  font-weight: 800;
+  font-size: 8rem;
+  letter-spacing: -0.04em;
+  color: $color-primary;
+  position: relative;
+  z-index: 1;
+  margin-bottom: $spacing-3;
+}
+
+.error-text {
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: $color-secondary;
+  max-width: 460px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  margin-bottom: $spacing-8;
+}
+
+/* Bouton */
+.error-btn {
+  display: inline-block;
+  padding: $spacing-3 $spacing-8;
+  background-color: $color-primary;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  border-radius: $radius-pill;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba($color-primary, 0.25);
+  transition: 0.25s ease;
+  z-index: 1;
+  position: relative;
+
+  &:hover {
+    background-color: darken($color-primary, 4%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba($color-primary, 0.3);
+  }
+}
+
+@media (min-width: 768px) {
+  .error-title {
+    font-size: 14rem;
+  }
+
+}

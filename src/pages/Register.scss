@@ -1,0 +1,383 @@
+// C:\wamp64\www\aura\src\pages\Register.scss
+@use "../styles/_variables" as *;
+
+/* PAGE */
+
+.register-page {
+  background-color: $color-bg;
+  padding: $spacing-12 $spacing-4 $spacing-16;
+}
+
+/* HERO */
+
+.register-hero {
+  max-width: 900px;
+  margin: 0 auto $spacing-10;
+  text-align: center;
+}
+
+.register-hero__title {
+  font-family: $font-family-primary;
+  font-weight: 500;
+  color: $color-secondary;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+  margin-bottom: $spacing-4;
+}
+
+.register-hero__subtitle {
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: $color-secondary;
+}
+
+/* CARD PRINCIPALE */
+
+.register-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.register-card {
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-soft;
+  padding: $spacing-8 $spacing-6;
+}
+
+/* ÉTAPES */
+
+.register-steps {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-6;
+}
+
+.register-step {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 2px solid $color-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: $color-secondary;
+  background-color: transparent;
+  transition: 0.25s ease;
+
+  &--active {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+  }
+
+  &--done {
+    background-color: $bg-peach-light;
+    border-color: $color-primary;
+  }
+}
+
+.register-step__index {
+  font-weight: 600;
+}
+
+/* FORMULAIRE */
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.register-card__section-title {
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: $color-secondary;
+  margin-bottom: $spacing-3;
+}
+
+/* TOGGLE CLIENT / PRESTATAIRE */
+
+/* SWITCH CLIENT / PRESTATAIRE */
+
+.register-switch {
+  display: flex;
+  justify-content: center;
+  margin: $spacing-4 0;
+}
+
+/* Le “pills” qui contient tout : texte + thumb */
+.register-switch__track {
+  position: relative;
+  width: 210px;
+  height: 40px;
+  border-radius: $radius-pill;
+  border: none;
+  padding: 0 $spacing-2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: $shadow-soft;
+  background-color: $color-primary; // par défaut
+
+  &--client {
+    background-color: $color-primary;
+  }
+
+  &--prestataire {
+    background-color: $color-secondary;
+  }
+}
+
+/* Les deux libellés “Client” et “Prestataire” à l’INTÉRIEUR du switch */
+.register-switch__option {
+  flex: 1;
+  text-align: center;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: rgba($color-white, 0.7);
+  font-weight: 500;
+  z-index: 1;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+/* Celui qui est actif devient bien blanc et un peu plus marqué */
+.register-switch__track--client .register-switch__option--client,
+.register-switch__track--prestataire .register-switch__option--prestataire {
+  color: $color-white;
+  font-weight: 600;
+}
+
+/* Pastille de sélection qui glisse derrière le texte */
+.register-switch__thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 50%;
+  border-radius: $radius-pill;
+  background-color: rgba($color-white, 0.22);
+  transition: transform 0.25s ease;
+}
+
+/* Position de la pastille selon le rôle */
+.register-switch__track--client .register-switch__thumb {
+  transform: translateX(0);
+}
+
+.register-switch__track--prestataire .register-switch__thumb {
+  transform: translateX(100%);
+}
+
+
+/* CHAMPS */
+
+.register-card__grid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+
+  &__label {
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    color: $color-secondary;
+  }
+
+  select {
+    border-radius: $radius-md;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: $spacing-2 $spacing-3;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    color: $color-secondary;
+    background-color: $color-bg;
+    outline: none;
+    transition: 0.2s ease;
+  }
+
+  input,
+  textarea {
+    border-radius: $radius-md;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: $spacing-2 $spacing-3;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    color: $color-secondary;
+    background-color: $color-bg;
+    outline: none;
+    transition: 0.2s ease;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.3);
+      background-color: $color-white;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+}
+
+/* ZONE D’ERREURS GLOBALE */
+
+.register-form__errors {
+  margin-top: $spacing-4;
+  padding: $spacing-3 $spacing-3;
+  border-radius: $radius-md;
+  background-color: rgba($color-primary, 0.12);
+  border: 1px solid rgba($color-primary, 0.5);
+  text-align: left;
+
+  p {
+    margin-bottom: $spacing-2;
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $color-primary;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: $spacing-4;
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    color: $color-primary;
+
+    li + li {
+      margin-top: $spacing-1;
+    }
+  }
+}
+
+/* BOUTONS D’ACTION */
+
+.register-form__actions {
+  margin-top: $spacing-6;
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+}
+
+.register-btn {
+  padding: $spacing-2 $spacing-6;
+  border-radius: $radius-lg; 
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+
+  &--primary {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: $shadow-soft;
+
+    &:hover {
+      background-color: darken($color-primary, 3%);
+      box-shadow: $shadow-medium;
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: $color-secondary;
+    border: 1px solid $color-secondary;
+
+    &:hover {
+      background-color: rgba($color-secondary, 0.15);
+    }
+  }
+}
+
+/* ÉTAT SUCCESS */
+
+.register-card__success {
+  text-align: center;
+  padding: $spacing-10 $spacing-4;
+
+  h2 {
+    font-family: $font-family-primary;
+    font-size: $font-size-xl;
+    color: $color-secondary;
+    margin-bottom: $spacing-4;
+  }
+
+  p {
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    color: $color-secondary;
+    line-height: 1.6;
+  }
+}
+
+/* LIENS D’INSCRIPTION POUR LA PAGE LOGIN */
+
+.register-card--secondary {
+  margin-top: $spacing-6;
+}
+
+.register-links {
+  margin-top: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  text-decoration: none;
+}
+
+.register-links__btn {
+  justify-content: center;
+  text-decoration: none;
+  width: 130px;
+}
+
+/* DESKTOP */
+
+@media (min-width: 768px) {
+  .register-page {
+    padding: $spacing-16 $spacing-8 $spacing-16;
+  }
+
+  .register-hero__title {
+    font-size: 3rem;
+  }
+
+  .register-hero__subtitle {
+    font-size: $font-size-lg;
+  }
+
+  .register-card {
+    padding: $spacing-10 $spacing-10;
+  }
+
+  .register-card__grid {
+    flex-direction: row;
+  }
+
+  .register-field {
+    flex: 1;
+  }
+
+  .register-links {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .register-links__btn {
+    width: auto;
+  }
+}

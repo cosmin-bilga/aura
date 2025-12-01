@@ -1,3 +1,4 @@
+// src/components/layout/Header.scss
 @use "../../styles/_variables" as *;
 
 .aura-header {
@@ -46,16 +47,37 @@
   margin-left: 35px;
 }
 
-/* nav */
+/* nav (desktop) */
 .aura-header__nav {
   display: none;
   gap: $spacing-4;
 
   a {
+    position: relative;
     font-family: $font-family-primary;
     font-size: $font-size-base;
     color: $color-primary;
     text-decoration: none;
+    transition: color 0.2s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.2rem;
+      width: 0;
+      height: 2px;
+      background-color: $color-secondary;
+      transition: width 0.2s ease;
+    }
+
+    &:hover {
+      color: $color-secondary;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
   }
 }
 
@@ -81,6 +103,7 @@
   opacity: 0.4;
 }
 
+/* OVERLAY MOBILE */
 .aura-header__overlay {
   position: fixed;
   inset: 0;
@@ -109,6 +132,21 @@
   margin-bottom: $spacing-6;
 }
 
+/* Icône profil dans l’overlay (à gauche) */
+.aura-header__overlay-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.aura-header__overlay-user-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
 .aura-header__overlay-logo img {
   width: 56px;
   height: 56px;
@@ -128,17 +166,19 @@
   gap: $spacing-3;
 
   a {
+    position: relative;
     padding: $spacing-3 $spacing-2;
     border-bottom: 2px solid rgba($color-white, 0.7);
     font-family: $font-family-primary;
     font-size: $font-size-lg;
     color: $on-color-text;
     text-decoration: none;
+    // PAS DE HOVER EN MOBILE POUR L’OVERLAY
   }
 }
 
+/* DESKTOP */
 @media (min-width: 768px) {
-
   .aura-header__topbar {
     display: block;
     width: 100%;
@@ -169,6 +209,7 @@
   }
 
   .aura-header__topbar-profile {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,9 +218,27 @@
   }
 
   .aura-header__topbar-profile-icon {
-    color: $on-color-text;
     width: 35px;
     height: 35px;
+    display: block;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .aura-header__topbar-profile-icon--hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .aura-header__topbar-profile:hover
+    .aura-header__topbar-profile-icon--default {
+    opacity: 0;
+    transform: translateY(-1px);
+  }
+
+  .aura-header__topbar-profile:hover .aura-header__topbar-profile-icon--hover {
+    opacity: 1;
+    transform: translateY(-1px);
   }
 
   .aura-header__bar {
@@ -190,6 +249,7 @@
     width: 90px;
     height: 90px;
   }
+
   .aura-header__bar {
     max-width: 650px;
     margin: 0 auto;

@@ -6,40 +6,71 @@ declare(strict_types=1);
  * Fichier avec les fonctions necessaires pour manipuler les tokens de connexion à l'API
  */
 
-session_start();
-
-if (!isset($_SESSION["token_list"]))
-    $_SESSION["token_list"] = [];
-
-require_once "../connection.php";
+require_once "connection.php";
 
 function generate_token(): string
 {
     $token = str_replace("=", "", base64_encode(random_bytes(160 / 8)));
     return $token;
 }
+function add_token(string $token, int $id, string $role = "customer"): void
+{
+    $conn = Connection::getConnection();
+
+    $sql = "INSERT INTO tokens (token, id_customer, role)
+            VALUES (:token, :id_customer, :role)";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([
+        ":token"       => $token,
+        ":id_customer" => $id,
+        ":role"       => $role
+    ]);
+}
+
 
 // On verifie le token d'acces: s'il existe, si l'utilisateur a acces à la donné ou si token admin
-function check_token(string $token, int $id = -1, bool $admin = false): bool
+function check_token(string $token, int $id = -1, string $role = "customer"): bool
 {
-    /*  var_dump($_SESSION["token_list"]);
-    echo "/n -- " . $token . " -- " . $id; */
+    try {
+        $conn = Connection::getConnection();
+        
+        $sql = "SELECT id_customer, admin FROM tokens WHERE token = :token";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([":token" => $token]);
+        $tokenData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (isset($_SESSION["token_list"][$token])) {
-
-        if ($id !== -1 && $admin === false)
+        
+        if (!$tokenData) {
             return false;
-        if ($id !== -1 && $_SESSION["token_list"][$token]["id"] === $id)
-            return true;
-        if ($admin !== false && $_SESSION["token_list"][$token]["admin"] === true)
-            return true;
+        }
+
+    $sql = "SELECT id_customer, role
+            FROM tokens
+            WHERE token = :token";
+
+       
+        if ($id !== -1) {
+            return (int)$tokenData["id_customer"] === $id;
+        }
+
+        
+        return true;
+
+    } catch (PDOException $e) {
+        
+        return false;
     }
+
+
+    if ($id === -1 && $role === "admin")
+        return $tokenData["role"] === $role;
+    if ($id !== -1)
+        if ($tokenData["role"] === "admin")
+            return true;
+        else
+            return ($tokenData["role"] === $role && $tokenData["id_customer"] === $id);
     return false;
 }
 
-// Ajout du token à la liste des tokens, format: [ ... token => { "id_customer" => int , "admin" => bool}]
-function add_token(string $token, int $id, bool $admin = false): void
-{
-    $_SESSION["token_list"][$token] = ["id" => $id, "admin" => $admin];
-    //var_dump($_SESSION["token_list"]);
-}
+

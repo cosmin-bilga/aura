@@ -1,9 +1,9 @@
 <?php
 
 /**
- * METHODS: GET, OPTIONS
+ * METHODS: POST, OPTIONS
  * 
- * -- GET:
+ * -- POST:
  * PARAMS : email, password
  * AUTH: none
  * RETURN: ?token, message
@@ -17,8 +17,8 @@ require_once "../tokens.php";
 header("Content-Type: application/json; charset=UTF-8");
 
 switch ($_SERVER['REQUEST_METHOD']) {
-    case 'GET':
-        $requestData = $_GET;
+    case 'POST':
+        $requestData = $_POST;
         customer_connect($requestData);
         break;
     default:
@@ -29,6 +29,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function customer_connect(array $requestData): void
 {
+    if (!isset($requestData["email"])) {
+        http_response_code(400);
+        echo json_encode(["message" => "Login required"]);
+    }
+    if (!isset($requestData["password"])) {
+        http_response_code(400);
+        echo json_encode(["message" => "Password required"]);
+    }
+
     $conn = Connection::getConnection();
 
     try {
@@ -44,13 +53,18 @@ function customer_connect(array $requestData): void
     }
 
     //var_dump($res);
-    if ($res["password"] === $requestData["password"]) {
+    if (!$res) {
+        http_response_code(202); // ACCEPTED
+        echo json_encode(["message" => "Login not found"]);
+        return;
+    }
+    if (password_verify($requestData["password"], $res["password"])) {
         $token = generate_token();
-        add_token($token, $res["id_customer"]);
+        add_token($token, $res["id_customer"], "customer");
         http_response_code(202); // ACCEPTED
         echo json_encode(["token" => $token, "message" => "User logged in"]);
         return;
     }
     http_response_code(403); // FORBIDDEN
-    echo json_encode(["message" => "Invalid login"]);
+    echo json_encode(["message" => "Wrong password"]);
 }

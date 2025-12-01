@@ -1,0 +1,93 @@
+{
+  "auth": {
+    "client_success": {
+      "user": {
+        "id_customer": 1,
+        "name": "Dupont",
+        "firstname": "Marie",
+        "email": "marie.dupont@client.com",
+        "phone_number": "0145678901",
+        "address": "123 rue Client, 75002 Paris",
+        "sex": "F",
+        "role": "customer"
+      },
+      "token": "MOCKED_CLIENT_JWT_TOKEN"
+    },
+    "provider_success": {
+      "user": {
+        "id_provider": 1,
+        "name": "Martin",
+        "firstname": "Sophie",
+        "email": "sophie.martin@aura.com",
+        "phone_number": "0123456789",
+        "address": "15 rue de la Paix, 75001 Paris",
+        "profile_picture": "default.WebP",
+        "education_experience": "CAP Esthétique, 5 ans d'expérience",
+        "subscriber": "basique",
+        "sex": "F",
+        "SIREN": "123456789",
+        "status": "Micro-entreprise",
+        "role": "provider"
+      },
+      "token": "MOCKED_PROVIDER_JWT_TOKEN"
+    }
+  },
+  "services": [
+    {
+      "id_offer": 1,
+      "description": "Soin du visage complet avec nettoyage et hydratation",
+      "duration": "1h30",
+      "category": "Beauté",
+      "disponibility": "Lun-Ven 9h-18h",
+      "perimeter_of_displacement": "10km",
+      "price": 65.0,
+      "id_provider": 1
+    },
+    {
+      "id_offer": 4,
+      "description": "Massage relaxant corps entier",
+      "duration": "1h",
+      "category": "Massage",
+      "disponibility": "Lun-Dim 10h-20h",
+      "perimeter_of_displacement": "20km",
+      "price": 80.0,
+      "id_provider": 1
+    },
+    {
+      "id_offer": 6,
+      "description": "Ménage complet appartement 2-3 pièces",
+      "duration": "2h",
+      "category": "Ménage",
+      "disponibility": "Lun-Sam 8h-18h",
+      "perimeter_of_displacement": "20km",
+      "price": 40.0,
+      "id_provider": 2
+    },
+    {
+      "id_offer": 9,
+      "description": "Garde d'enfant à domicile (3-10 ans)",
+      "duration": "Variable",
+      "category": "Garde_denfant",
+      "disponibility": "Lun-Ven 16h-20h",
+      "perimeter_of_displacement": "15km",
+      "price": 15.0,
+      "id_provider": 2
+    }
+  ],
+  "wishlist": [
+    {
+      "id_favOffer": 1,
+      "id_offer": 1,
+      "description": "Soin du visage complet avec nettoyage et hydratation",
+      "category": "Beauté",
+      "price": 65.0
+    },
+    {
+      "id_favOffer": 2,
+      "id_offer": 6,
+      "description": "Ménage complet appartement 2-3 pièces",
+      "category": "Ménage",
+      "price": 40.0
+    }
+  ]
+}

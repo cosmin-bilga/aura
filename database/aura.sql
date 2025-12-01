@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
-<<<<<<< HEAD
--- Généré le : ven. 21 nov. 2025 à 08:58
-=======
--- Généré le : ven. 21 nov. 2025 à 10:56
->>>>>>> origin/dev
+-- Généré le : jeu. 27 nov. 2025 à 15:08
 -- Version du serveur : 8.4.3
 -- Version de PHP : 8.3.16
 
@@ -60,6 +56,20 @@ CREATE TABLE `comments` (
   `comment_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ;
 
+--
+-- Déchargement des données de la table `comments`
+--
+
+INSERT INTO `comments` (`id_comment`, `id_service`, `notation`, `comment`, `comment_date`) VALUES
+(2, 1, 4, 'Très bon service, ma peau est douce après le soin.', '2025-11-25 09:29:50'),
+(3, 1, 5, 'Parfait, exactement ce que j\'attendais !', '2025-11-25 09:29:50'),
+(4, 2, 5, 'Ménage impeccable ! Pierre est efficace et respectueux.', '2025-11-25 09:29:50'),
+(5, 3, 4, 'Bon massage relaxant, je me sens détendue.', '2025-11-25 09:29:50'),
+(6, 3, 3, 'Service correct mais un peu cher pour la durée.', '2025-11-25 09:29:50'),
+(7, 4, 5, 'Épilation parfaite ! Sophie maîtrise sa technique.', '2025-11-25 09:29:50'),
+(8, 5, 5, 'Pierre est formidable avec les enfants !', '2025-11-25 09:29:50'),
+(9, 5, 4, 'Mes enfants l\'adorent, service de qualité.', '2025-11-25 09:29:50');
+
 -- --------------------------------------------------------
 
 --
@@ -80,6 +90,15 @@ CREATE TABLE `customers` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `customers`
+--
+
+INSERT INTO `customers` (`id_customer`, `name`, `firstname`, `email`, `password`, `phone_number`, `address`, `sex`, `additional_information`, `created_at`, `updated_at`) VALUES
+(1, 'Dupont', 'Marie', 'marie.dupont@client.com', '$2y$10$hashclient1', '0145678901', '123 rue Client, 75002 Paris', 'F', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(2, 'Bernard', 'Jean', 'jean.bernard@client.com', '$2y$10$hashclient2', '0156789012', '456 av Client, 69002 Lyon', 'M', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(3, 'Moreau', 'Claire', 'claire.moreau@client.com', '$2y$10$hashclient3', '0167890123', '789 bd Client, 13001 Marseille', 'F', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
+
 -- --------------------------------------------------------
 
 --
@@ -92,6 +111,17 @@ CREATE TABLE `fav_offers` (
   `id_offer` int UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `fav_offers`
+--
+
+INSERT INTO `fav_offers` (`id_favOffer`, `id_customer`, `id_offer`, `created_at`) VALUES
+(1, 1, 1, '2025-11-27 14:24:52'),
+(2, 1, 4, '2025-11-27 14:24:52'),
+(3, 1, 7, '2025-11-27 14:24:52'),
+(4, 2, 2, '2025-11-27 14:24:52'),
+(5, 2, 6, '2025-11-27 14:24:52');
 
 -- --------------------------------------------------------
 
@@ -125,6 +155,22 @@ CREATE TABLE `offers` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `offers`
+--
+
+INSERT INTO `offers` (`id_offer`, `description`, `duration`, `category`, `disponibility`, `perimeter_of_displacement`, `price`, `id_provider`, `created_at`, `updated_at`) VALUES
+(1, 'Soin du visage complet avec nettoyage et hydratation', '1h30', 'Beauté', 'Lun-Ven 9h-18h', '10km', 65.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(2, 'Épilation jambes complètes à la cire', '45min', 'Beauté', 'Mar-Sam 10h-19h', '15km', 45.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(3, 'Manucure avec pose de vernis semi-permanent', '1h', 'Beauté', 'Lun-Sam 9h-18h', '10km', 35.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(4, 'Massage relaxant corps entier', '1h', 'Massage', 'Lun-Dim 10h-20h', '20km', 80.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(5, 'Massage sportif pour récupération', '45min', 'Massage', 'Mar-Sam 14h-19h', '15km', 70.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(6, 'Ménage complet appartement 2-3 pièces', '2h', 'Ménage', 'Lun-Sam 8h-18h', '20km', 40.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(7, 'Grand ménage de printemps', '4h', 'Ménage', 'Lun-Ven 8h-16h', '15km', 80.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(8, 'Repassage à domicile', '2h', 'Ménage', 'Mar-Sam 14h-18h', '10km', 30.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(9, 'Garde d\'enfant à domicile (3-10 ans)', 'Variable', 'Garde_denfant', 'Lun-Ven 16h-20h', '15km', 15.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(10, 'Baby-sitting ponctuel soirée', 'Variable', 'Garde_denfant', 'Ven-Dim 18h-23h', '20km', 12.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
+
 -- --------------------------------------------------------
 
 --
@@ -136,11 +182,7 @@ CREATE TABLE `services` (
   `id_customer` int UNSIGNED NOT NULL,
   `id_offer` int UNSIGNED NOT NULL,
   `service_date` datetime NOT NULL,
-<<<<<<< HEAD
-  `statut` enum('en_attente','validé','effectué','payé','annulé') NOT NULL DEFAULT 'en_attente',
-=======
   `status` enum('en_attente','validé','effectué','payé','annulé') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'en_attente',
->>>>>>> origin/dev
   `amount` decimal(10,2) NOT NULL,
   `payment_date` datetime DEFAULT NULL,
   `payment_method` varchar(50) DEFAULT NULL,
@@ -148,6 +190,21 @@ CREATE TABLE `services` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `services`
+--
+
+INSERT INTO `services` (`id_service`, `id_customer`, `id_offer`, `service_date`, `status`, `amount`, `payment_date`, `payment_method`, `payment_reference`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2024-11-15 14:00:00', 'effectué', 65.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(2, 2, 6, '2024-11-16 10:00:00', 'effectué', 40.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(3, 1, 4, '2024-11-17 16:00:00', 'effectué', 80.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(4, 3, 2, '2024-11-18 11:00:00', 'effectué', 45.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(5, 2, 9, '2024-11-19 17:00:00', 'effectué', 60.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(6, 3, 5, '2024-11-20 15:00:00', 'effectué', 70.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(7, 1, 8, '2024-11-21 14:00:00', 'effectué', 30.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(8, 2, 3, '2024-11-25 10:00:00', 'validé', 35.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(9, 3, 7, '2024-11-26 09:00:00', 'en_attente', 80.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
 
 -- --------------------------------------------------------
 
@@ -171,12 +228,39 @@ CREATE TABLE `service_providers` (
   `additional_information` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-<<<<<<< HEAD
-  `statut` enum('EI','Micro-entreprise','EURL','SASU','SARL','SAS') NOT NULL DEFAULT 'Micro-entreprise'
-=======
   `status` enum('EI','Micro-entreprise','EURL','SASU','SARL','SAS') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'Micro-entreprise'
->>>>>>> origin/dev
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `service_providers`
+--
+
+INSERT INTO `service_providers` (`id_provider`, `name`, `firstname`, `email`, `password`, `phone_number`, `address`, `profile_picture`, `education_experience`, `subscriber`, `sex`, `SIREN`, `additional_information`, `created_at`, `updated_at`, `status`) VALUES
+(1, 'Martin', 'Sophie', 'sophie.martin@aura.com', '$2y$10$hashexample1', '0123456789', '15 rue de la Paix, 75001 Paris', 'default.WebP', 'CAP Esthétique, 5 ans d\'expérience', 'basique', 'F', '123456789', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50', 'Micro-entreprise'),
+(2, 'Dubois', 'Pierre', 'pierre.dubois@aura.com', '$2y$10$hashexample2', '0987654321', '42 avenue des Services, 69001 Lyon', 'default.WebP', 'Formation aide à domicile, 3 ans d\'expérience', 'none', 'M', '987654321', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50', 'Micro-entreprise');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tokens`
+--
+
+CREATE TABLE `tokens` (
+  `token` varchar(255) NOT NULL,
+  `id_customer` int NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `tokens`
+--
+
+INSERT INTO `tokens` (`token`, `id_customer`, `admin`, `created_at`) VALUES
+('token_admin_2025', 1, 1, '2025-11-27 16:08:25'),
+('token_claire_2025', 3, 0, '2025-11-27 16:08:25'),
+('token_jean_2025', 2, 0, '2025-11-27 16:08:25'),
+('token_marie_2025', 1, 0, '2025-11-27 16:08:25');
 
 --
 -- Index pour les tables déchargées
@@ -242,6 +326,12 @@ ALTER TABLE `service_providers`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Index pour la table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`token`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -261,13 +351,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id_customer` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_customer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `fav_offers`
 --
 ALTER TABLE `fav_offers`
-  MODIFY `id_favOffer` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_favOffer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `fav_providers`
@@ -279,19 +369,19 @@ ALTER TABLE `fav_providers`
 -- AUTO_INCREMENT pour la table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id_offer` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_offer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id_service` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_service` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `service_providers`
 --
 ALTER TABLE `service_providers`
-  MODIFY `id_provider` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_provider` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées

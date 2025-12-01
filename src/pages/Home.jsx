@@ -1,4 +1,5 @@
 import "./Home.scss";
+
 import heroWoman from "../assets/hero-woman.png";
 import nailService from "../assets/Rhapsody-Road-Photography-Sherille-Riley-Beauty-Edit-Launch-Nails-Brows-Mayfair-©-Emma-Lambe-0005-DSC_5730-scaled.jpg";
 import massageService from "../assets/R.jpeg";
@@ -7,6 +8,7 @@ import menageService from "../assets/femme de ménage.png";
 export default function Home() {
   return (
     <main className="aura-home">
+      {/* HERO */}
       <section className="aura-hero">
         <div className="aura-hero__content">
           <h1 className="aura-hero__title">
@@ -30,74 +32,133 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NOS SERVICES – fond menthe + 3 grandes cartes */}
       <section className="aura-services">
-        <h2 className="aura-services__title">Nos Services</h2>
-        <p className="aura-services__subtitle">
-          Découvrez nos prestations bien-être, beauté et aide à domicile.
-        </p>
+        <div className="aura-services__inner">
+          <h2 className="aura-services__title">Nos services</h2>
+          <p className="aura-services__subtitle">
+            Soutenir votre quotidien avec des prestations de bien-être, de
+            beauté et d&apos;aide à domicile pensées pour vraiment vous
+            soulager.
+          </p>
 
-        <div className="aura-services__grid">
-          {/* Onglerie */}
-          <div className="aura-service-card">
-            <img src={nailService} alt="Onglerie" />
-            <div className="aura-service-card__overlay">
-              <button className="aura-service-card__btn">En savoir plus</button>
-            </div>
-          </div>
+          <div className="aura-services__grid">
+            {/* Carte 1 */}
+            <article className="aura-services-card">
+              <img src={nailService} alt="Onglerie et soins beauté" />
+              <div className="aura-services-card__overlay">
+                <h3 className="aura-services-card__title">
+                  Beauté &amp; soins
+                </h3>
+                <button className="aura-services-card__btn">
+                  En savoir plus
+                </button>
+              </div>
+            </article>
 
-          {/* Massage */}
-          <div className="aura-service-card">
-            <img src={menageService} alt="Massage" />
-            <div className="aura-service-card__overlay">
-              <button className="aura-service-card__btn">En savoir plus</button>
-            </div>
-          </div>
+            {/* Carte 2 */}
+            <article className="aura-services-card">
+              <img src={massageService} alt="Moment de détente massage" />
+              <div className="aura-services-card__overlay">
+                <h3 className="aura-services-card__title">Bien-être</h3>
+                <button className="aura-services-card__btn">
+                  En savoir plus
+                </button>
+              </div>
+            </article>
 
-          {/* Femme de ménage */}
-          <div className="aura-service-card">
-            <img src={massageService} alt="Femme de ménage" />
-            <div className="aura-service-card__overlay">
-              <button className="aura-service-card__btn">En savoir plus</button>
-            </div>
+            {/* Carte 3 */}
+            <article className="aura-services-card">
+              <img src={menageService} alt="Aide ménagère à domicile" />
+              <div className="aura-services-card__overlay">
+                <h3 className="aura-services-card__title">
+                  Aide à domicile &amp; ménage
+                </h3>
+                <button className="aura-services-card__btn">
+                  En savoir plus
+                </button>
+              </div>
+            </article>
           </div>
         </div>
       </section>
-      {/* SECTION QUI SOMMES NOUS */}
+
+      {/* COMMENT ÇA MARCHE – bande 3 colonnes style carte pastel */}
+      <section className="aura-how">
+        <div className="aura-how__inner">
+          <h2 className="aura-how__title">Comment ça marche ?</h2>
+          <p className="aura-how__subtitle">
+            Aura vous accompagne à chaque étape, de la première demande à la
+            prestation réalisée à domicile.
+          </p>
+
+          <div className="aura-how__grid">
+            <article className="aura-how-card aura-how-card--left">
+              <div className="aura-how-card__icon">♡</div>
+              <h3 className="aura-how-card__title">
+                1. Parlez-nous de vos besoins
+              </h3>
+              <p className="aura-how-card__text">
+                Vous décrivez votre situation, vos contraintes et vos envies.
+                Nous prenons le temps de comprendre ce qui vous ferait vraiment
+                du bien.
+              </p>
+            </article>
+
+            <article className="aura-how-card aura-how-card--center">
+              <div className="aura-how-card__icon">★</div>
+              <h3 className="aura-how-card__title">
+                2. Nous trouvons le bon prestataire
+              </h3>
+              <p className="aura-how-card__text">
+                Nous sélectionnons des professionnels de confiance, vérifiés et
+                alignés avec vos attentes, pour intervenir chez vous en toute
+                sérénité.
+              </p>
+            </article>
+
+            <article className="aura-how-card aura-how-card--right">
+              <div className="aura-how-card__icon">⏱</div>
+              <h3 className="aura-how-card__title">
+                3. Vous gagnez du temps &amp; de l&apos;énergie
+              </h3>
+              <p className="aura-how-card__text">
+                Vous profitez de votre temps libre pendant que les prestations
+                sont réalisées à domicile, dans le respect de votre rythme.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION QUI SOMMES NOUS (on laisse simple pour l’instant) */}
       <section className="aura-about">
         <div className="aura-about__inner">
-          <h2 className="aura-about__title">Qui sommes nous ?</h2>
+          <h2 className="aura-about__title">Qui sommes-nous ?</h2>
 
           <p className="aura-about__text">
-            <p className="aura-about__text">
-              Chez Aura, nous croyons qu’un quotidien plus simple et plus léger
-              change tout. Notre équipe accompagne chaque personne avec
-              bienveillance et professionnalisme, en proposant des services
-              adaptés à ses besoins réels. Nous mettons le bien-être, la
-              confiance et la qualité au cœur de chaque intervention afin de
-              vous offrir un environnement plus serein, plus organisé et plus
-              harmonieux jour après jour.
-            </p>
+            Chez Aura, nous croyons qu&apos;un quotidien plus simple et plus
+            léger change tout. Notre équipe accompagne chaque personne avec
+            bienveillance et professionnalisme, en proposant des services
+            adaptés à ses besoins réels. Nous mettons le bien-être, la confiance
+            et la qualité au cœur de chaque intervention afin de vous offrir un
+            environnement plus serein, plus organisé et plus harmonieux jour
+            après jour.
           </p>
 
           <button className="aura-about__cta">Témoignages</button>
         </div>
       </section>
+
+      {/* OFFRE SPÉCIALE – placeholder (tu pourras remplir après) */}
       <section className="aura-annecdotes">
-        <h2 className="aura-annecdotes__title">Annecdotes</h2>
+        <h2 className="aura-annecdotes__title">Offre spéciale</h2>
         <p className="aura-annecdotes__subtitle">
-          Découvrez nos prestations bien-être, beauté et aide à domicile.
+          Des avantages ponctuels pour profiter de nos services au meilleur
+          prix.
         </p>
 
         <div className="aura-annecdotes__grid"></div>
-      </section>
-
-      <section className="aura-define">
-        <h2 className="aura-define__title">Annecdotes</h2>
-        <p className="aura-define__subtitle">
-          Découvrez nos prestations bien-être, beauté et aide à domicile.
-        </p>
-
-        <div className="aura-define__grid"></div>
       </section>
     </main>
   );
