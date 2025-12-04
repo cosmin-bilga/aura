@@ -9,7 +9,7 @@ const footerLinks = [
   { label: "Accueil", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Connexion", href: "/connexion" },
-  { label: "Inscription", href: "/inscription" },
+  { label: "Nos offres", href: "/offre" },
 ];
 
 export default function Footer() {

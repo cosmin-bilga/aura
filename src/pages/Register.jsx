@@ -9,6 +9,11 @@ const passwordRegex =
 
 const phoneNumberRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
 
+// URL EXACTE de l’API prestataire
+const PROVIDER_API_URL = "/api/provider/index.php";
+// URL EXACTE de l’API client
+const CUSTOMER_API_URL = "/api/customer/index.php";
+
 const Register = () => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
@@ -26,6 +31,7 @@ const Register = () => {
     address: "",
     sex: "Autre",
     additionalInformation: "",
+    profile_picture: "",
 
     // Champs prestataire
     siren: "",
@@ -39,7 +45,7 @@ const Register = () => {
   const getStepErrors = (data, currentStep) => {
     const newErrors = {};
 
-    // Step 1
+    // Step 1 : email + password
     if (currentStep === 1) {
       if (!data.email) {
         newErrors.email = "L’adresse email est obligatoire.";
@@ -62,7 +68,7 @@ const Register = () => {
       }
     }
 
-    // Step 2
+    // Step 2 : infos perso
     if (currentStep === 2) {
       if (!data.firstname.trim() || data.firstname.trim().length < 2) {
         newErrors.firstname = "Le prénom doit contenir au moins 2 caractères.";
@@ -84,7 +90,7 @@ const Register = () => {
       }
     }
 
-    // Step 3
+    // Step 3 : adresse + éventuels champs prestataire
     if (currentStep === 3) {
       if (!data.address.trim()) {
         newErrors.address = "L’adresse est obligatoire.";
@@ -127,7 +133,6 @@ const Register = () => {
 
     setFormData(updatedData);
 
-    // Erreur
     const stepErrors = getStepErrors(updatedData, step);
     setErrors(stepErrors);
   };
@@ -139,7 +144,6 @@ const Register = () => {
     };
     setFormData(updatedData);
 
-    // Re-valider l’étape 3 si on change de rôle
     if (step === 3) {
       const stepErrors = getStepErrors(updatedData, 3);
       setErrors(stepErrors);
@@ -159,67 +163,160 @@ const Register = () => {
     setErrors({});
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateStep()) return;
 
     setLoading(true);
 
-    if (formData.role === "client") {
-      // Données pour la table customers
-      const registrationData = {
-        name: formData.name,
-        firstname: formData.firstname,
-        email: formData.email,
-        password: formData.password,
-        phone_number: formData.phoneNumber,
-        address: formData.address,
-        sex: formData.sex,
-        additional_information: formData.additionalInformation || null,
-      };
+    try {
+      if (formData.role === "client") {
+        // ========= BRANCHE CLIENT : appel API =========
+        const registrationData = {
+          name: formData.name,
+          firstname: formData.firstname,
+          email: formData.email,
+          password: formData.password,
 
-      console.log(
-        "Inscription Client validée et prête à être envoyée:",
-        registrationData
-      );
+          // IMPORTANT : pour matcher customer_validation.php
+          password_confirm: formData.confirmPassword,
 
-      // simulation
-      setTimeout(() => {
+          phone_number: formData.phoneNumber,
+          address: formData.address,
+          sex: formData.sex,
+          additional_information: formData.additionalInformation || "",
+        };
+
+        console.log(
+          "Inscription Client – données envoyées à l’API :",
+          registrationData
+        );
+
+        const formBody = new URLSearchParams();
+        Object.entries(registrationData).forEach(([key, value]) => {
+          if (value !== null && value !== undefined) {
+            formBody.append(key, value);
+          }
+        });
+
+        const response = await fetch(CUSTOMER_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: formBody.toString(),
+        });
+
+        const rawText = await response.text();
+        console.log(
+          "Réponse brute API client (register) :",
+          response.status,
+          rawText
+        );
+
+        let data = null;
+        try {
+          data = JSON.parse(rawText);
+        } catch (e) {
+          console.warn(
+            "Réponse non-JSON ou JSON invalide côté client :",
+            rawText
+          );
+        }
+
+        if (!response.ok) {
+          const errorMessage =
+            (data && data.message) ||
+            rawText ||
+            "Une erreur est survenue lors de l’inscription client.";
+          alert(errorMessage);
+          setLoading(false);
+          return;
+        }
+
         alert(
-          "Inscription Client validée (simulée). Redirection vers la connexion."
+          (data && data.message) ||
+            "Inscription Client validée. Redirection vers la connexion."
         );
         setLoading(false);
         navigate("/connexion");
-      }, 1500);
-    } else {
-      // Les données exactes à envoyer au Backend
-      const registrationData = {
-        name: formData.name,
-        firstname: formData.firstname,
-        email: formData.email,
-        password: formData.password,
-        phone_number: formData.phoneNumber,
-        address: formData.address,
-        sex: formData.sex,
-        SIREN: formData.siren,
-        statut: formData.statut,
-        education_experience: formData.education,
-        additional_information: formData.additionalInformation || null,
-      };
+      } else {
+        // ========= BRANCHE PRESTATAIRE : appel API prestataire =========
+        const registrationData = {
+          name: formData.name,
+          firstname: formData.firstname,
+          email: formData.email,
+          password: formData.password,
 
-      console.log(
-        "Inscription Prestataire validée et prête à être envoyée:",
-        registrationData
-      );
+          // On envoie plusieurs variantes pour coller à ce que le back attend
+          password_confirm: formData.confirmPassword,
+          confirm_password: formData.confirmPassword,
+          passwordConfirm: formData.confirmPassword,
+          confirmPassword: formData.confirmPassword,
 
-      // --- SIMULATION (à remplacer par l'API POST /api/inscription/prestataire) ---
-      setTimeout(() => {
+          phone_number: formData.phoneNumber,
+          address: formData.address,
+          sex: formData.sex,
+          SIREN: formData.siren,
+          statut: formData.statut,
+          education_experience: formData.education,
+          additional_information: formData.additionalInformation || "",
+          profile_picture: "",
+        };
+
+        console.log(
+          "Inscription Prestataire – données envoyées à l’API :",
+          registrationData
+        );
+
+        const formBody = new URLSearchParams();
+        Object.entries(registrationData).forEach(([key, value]) => {
+          if (value !== null && value !== undefined) {
+            formBody.append(key, value);
+          }
+        });
+
+        const response = await fetch(PROVIDER_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: formBody.toString(),
+        });
+
+        const rawText = await response.text();
+        console.log("Réponse brute API prestataire :", rawText);
+
+        let data = null;
+        try {
+          data = JSON.parse(rawText);
+        } catch (e) {
+          console.warn("Réponse non-JSON ou JSON invalide :", rawText);
+        }
+
+        if (!response.ok) {
+          const errorMessage =
+            (data && data.message) ||
+            rawText ||
+            "Une erreur est survenue lors de l’inscription prestataire.";
+          alert(errorMessage);
+          setLoading(false);
+          return;
+        }
+
         alert(
-          "Inscription Prestataire validée (simulation). Redirection vers la connexion."
+          (data && data.message) ||
+            "Inscription Prestataire validée. Redirection vers la connexion."
         );
         setLoading(false);
         navigate("/connexion");
-      }, 1500);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l’inscription :", error);
+      alert(
+        "Erreur réseau ou serveur : " + (error.message || "Erreur inconnue")
+      );
+      setLoading(false);
     }
   };
 
@@ -272,7 +369,7 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Formulaire rn pludieurrs étapes */}
+          {/* Formulaire en plusieurs étapes */}
           <form
             className="register-form"
             onSubmit={step === 3 ? handleSubmit : handleNext}
@@ -499,7 +596,6 @@ const Register = () => {
               </>
             )}
 
-            {/* bloc d'erreur */}
             {Object.keys(errors).length > 0 && (
               <div className="register-form__errors">
                 <p>Merci de vérifier les points suivants :</p>

@@ -17,16 +17,20 @@ function add_token(string $token, int $id, string $role = "customer"): void
 {
     $conn = Connection::getConnection();
 
-    $sql = "INSERT INTO tokens (token, id_customer, role)
-            VALUES (:token, :id_customer, :role)";
+    // On mappe le "role" sur la colonne admin : admin = 1 si rôle "admin", sinon 0
+    $isAdmin = ($role === "admin") ? 1 : 0;
+
+    $sql = "INSERT INTO tokens (token, id_customer, admin)
+            VALUES (:token, :id_customer, :admin)";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute([
         ":token"       => $token,
         ":id_customer" => $id,
-        ":role"       => $role
+        ":admin"       => $isAdmin
     ]);
 }
+
 
 
 // On verifie le token d'acces: s'il existe, si l'utilisateur a acces à la donné ou si token admin
