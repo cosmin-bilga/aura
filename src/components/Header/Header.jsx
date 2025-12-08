@@ -1,5 +1,7 @@
 // src/components/layout/Header.jsx
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import ServiceDropdown from "../ServiceDropdown/ServiceDropdown";
 import "./Header.scss";
 import logoAura from "../../assets/logo_aura.png";
 import whiteAura from "../../assets/logo_aura_white.png";
@@ -8,7 +10,7 @@ import peopleIconHover from "../../assets/icons/people_h.svg";
 
 const navLinks = [
   { label: "Accueil", href: "/" },
-  { label: "Services", href: "/services" },
+  { label: "Services", href: "/services" }, // NOTE: Ce lien ne sera plus utilisé directement
   { label: "Connexion", href: "/connexion" },
   { label: "Nos offres", href: "/offre" },
 ];
@@ -18,6 +20,13 @@ export default function Header() {
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
+
+  // Fonction utilitaire pour le rendu des liens avec la bonne balise
+  const renderLink = (link) => (
+    <Link key={link.label} to={link.href} onClick={closeMenu}>
+      {link.label}
+    </Link>
+  );
 
   return (
     <>
@@ -54,11 +63,11 @@ export default function Header() {
         <div className="aura-header__bar">
           <div className="aura-header__side aura-header__side--left">
             <nav className="aura-header__nav aura-header__nav--left">
-              {navLinks.slice(0, 2).map((link) => (
-                <a key={link.label} href={link.href} onClick={closeMenu}>
-                  {link.label}
-                </a>
-              ))}
+              {/* LIEN ACCUEIL (Index 0) */}
+              {renderLink(navLinks[0])}
+
+              {/* REMPLACEMENT DYNAMIQU: DROPDOWN DES SERVICES */}
+              <ServiceDropdown className="nav-item" />
             </nav>
           </div>
 
@@ -75,11 +84,8 @@ export default function Header() {
 
           <div className="aura-header__side aura-header__side--right">
             <nav className="aura-header__nav aura-header__nav--right">
-              {navLinks.slice(2).map((link) => (
-                <a key={link.label} href={link.href} onClick={closeMenu}>
-                  {link.label}
-                </a>
-              ))}
+              {/* LIENS CONNEXION/INSCRIPTION (Index 2 et 3) */}
+              {navLinks.slice(2).map(renderLink)}
             </nav>
 
             <button
@@ -133,11 +139,14 @@ export default function Header() {
         </div>
 
         <nav className="aura-header__overlay-nav">
-          {navLinks.map((link) => (
-            <a key={link.label} href={link.href} onClick={closeMenu}>
-              {link.label}
-            </a>
-          ))}
+          {/* LIEN ACCUEIL */}
+          {renderLink(navLinks[0])}
+
+          {/* DROPDOWN DES SERVICES DANS L'OVERLAY */}
+          <ServiceDropdown className="overlay-item" />
+
+          {/* LIENS CONNEXION/INSCRIPTION */}
+          {navLinks.slice(2).map(renderLink)}
         </nav>
       </div>
     </>

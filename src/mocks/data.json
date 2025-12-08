@@ -32,15 +32,41 @@
       "token": "MOCKED_PROVIDER_JWT_TOKEN"
     }
   },
-  "services": [
+  "categories_list": [
+    { "key": "Beauté", "name": "Beauté" },
+    { "key": "Garde_denfant", "name": "Garde d'enfant" },
+    { "key": "Massage", "name": "Massage" },
+    { "key": "Ménage", "name": "Ménage" }
+  ],
+  "offers": [
     {
       "id_offer": 1,
-      "description": "Soin du visage complet avec nettoyage et hydratation",
+      "description": "Soin du visage complet",
       "duration": "1h30",
       "category": "Beauté",
       "disponibility": "Lun-Ven 9h-18h",
       "perimeter_of_displacement": "10km",
       "price": 65.0,
+      "id_provider": 1
+    },
+    {
+      "id_offer": 2,
+      "description": "Épilation jambes complètes",
+      "duration": "45min",
+      "category": "Beauté",
+      "disponibility": "Mar-Sam 10h-19h",
+      "perimeter_of_displacement": "15km",
+      "price": 45.0,
+      "id_provider": 1
+    },
+    {
+      "id_offer": 3,
+      "description": "Manucure semi-permanente",
+      "duration": "1h",
+      "category": "Beauté",
+      "disponibility": "Lun-Sam 9h-18h",
+      "perimeter_of_displacement": "10km",
+      "price": 35.0,
       "id_provider": 1
     },
     {
@@ -54,6 +80,16 @@
       "id_provider": 1
     },
     {
+      "id_offer": 5,
+      "description": "Massage sportif",
+      "duration": "45min",
+      "category": "Massage",
+      "disponibility": "Mar-Sam 14h-19h",
+      "perimeter_of_displacement": "15km",
+      "price": 70.0,
+      "id_provider": 2
+    },
+    {
       "id_offer": 6,
       "description": "Ménage complet appartement 2-3 pièces",
       "duration": "2h",
@@ -64,30 +100,108 @@
       "id_provider": 2
     },
     {
+      "id_offer": 7,
+      "description": "Grand ménage de printemps",
+      "duration": "4h",
+      "category": "Ménage",
+      "disponibility": "Lun-Ven 8h-16h",
+      "perimeter_of_displacement": "15km",
+      "price": 80.0,
+      "id_provider": 3
+    },
+    {
+      "id_offer": 8,
+      "description": "Repassage à domicile",
+      "duration": "2h",
+      "category": "Ménage",
+      "disponibility": "Mar-Sam 14h-18h",
+      "perimeter_of_displacement": "10km",
+      "price": 30.0,
+      "id_provider": 3
+    },
+    {
       "id_offer": 9,
-      "description": "Garde d'enfant à domicile (3-10 ans)",
+      "description": "Garde d'enfant 3-10 ans",
       "duration": "Variable",
       "category": "Garde_denfant",
       "disponibility": "Lun-Ven 16h-20h",
       "perimeter_of_displacement": "15km",
       "price": 15.0,
       "id_provider": 2
-    }
-  ],
-  "wishlist": [
-    {
-      "id_favOffer": 1,
-      "id_offer": 1,
-      "description": "Soin du visage complet avec nettoyage et hydratation",
-      "category": "Beauté",
-      "price": 65.0
     },
     {
-      "id_favOffer": 2,
-      "id_offer": 6,
-      "description": "Ménage complet appartement 2-3 pièces",
-      "category": "Ménage",
-      "price": 40.0
+      "id_offer": 10,
+      "description": "Baby-sitting ponctuel soirée",
+      "duration": "Variable",
+      "category": "Garde_denfant",
+      "disponibility": "Ven-Dim 18h-23h",
+      "perimeter_of_displacement": "20km",
+      "price": 12.0,
+      "id_provider": 2
+    },
+    {
+      "id_offer": 11,
+      "description": "Massage Shiatsu",
+      "duration": "1h",
+      "category": "Massage",
+      "disponibility": "Sam-Dim 10h-20h",
+      "perimeter_of_displacement": "10km",
+      "price": 75.0,
+      "id_provider": 1
+    },
+    {
+      "id_offer": 12,
+      "description": "Soin des mains et pieds",
+      "duration": "2h",
+      "category": "Beauté",
+      "disponibility": "Mar-Ven 10h-18h",
+      "perimeter_of_displacement": "5km",
+      "price": 50.0,
+      "id_provider": 2
+    }
+  ],
+  "service_providers": [
+    {
+      "id_provider": 1,
+      "name": "Martin",
+      "firstname": "Sophie",
+      "email": "sophie.martin@aura.com",
+      "phone_number": "0123456789",
+      "address": "15 rue de la Paix, 75001 Paris",
+      "profile_picture": "default.WebP",
+      "education_experience": "CAP Esthétique, 5 ans d'expérience",
+      "subscriber": "basique",
+      "sex": "F",
+      "SIREN": "123456789",
+      "status": "Micro-entreprise"
+    },
+    {
+      "id_provider": 2,
+      "name": "Dubois",
+      "firstname": "Pierre",
+      "email": "pierre.dubois@aura.com",
+      "phone_number": "0987654321",
+      "address": "42 avenue des Services, 69001 Lyon",
+      "profile_picture": "default.WebP",
+      "education_experience": "Formation aide à domicile, 3 ans d'expérience",
+      "subscriber": "none",
+      "sex": "M",
+      "SIREN": "987654321",
+      "status": "Micro-entreprise"
+    },
+    {
+      "id_provider": 3,
+      "name": "Leroy",
+      "firstname": "Claire",
+      "email": "claire.leroy@aura.com",
+      "phone_number": "0678901234",
+      "address": "10 rue du Service, 13001 Marseille",
+      "profile_picture": "default.WebP",
+      "education_experience": "Formation massage relaxant, 4 ans d'expérience",
+      "subscriber": "none",
+      "sex": "F",
+      "SIREN": "234567890",
+      "status": "Micro-entreprise"
     }
   ]
 }

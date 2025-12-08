@@ -1,0 +1,38 @@
+@use "../../styles/_variables" as *;
+
+.aura-header__nav-dropdown {
+  position: relative;
+
+  .dropdown-trigger {
+    cursor: pointer;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    color: $color-primary;
+    user-select: none;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: $color-white;
+    box-shadow: $shadow-soft;
+    border-radius: $radius-md;
+    min-width: 180px;
+    padding: $spacing-2 0;
+    z-index: 50;
+
+    .dropdown-link {
+      display: block;
+      padding: $spacing-2 $spacing-4;
+      color: $color-primary;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        background-color: $bg-peach-light;
+        color: $color-secondary;
+      }
+    }
+  }
+}

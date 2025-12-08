@@ -1,0 +1,23 @@
+.categoryOffers__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+
+  select,
+  input {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    transition: 0.2s;
+
+    &:focus {
+      border-color: #000;
+      outline: none;
+    }
+  }
+}

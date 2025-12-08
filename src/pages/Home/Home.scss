@@ -1,0 +1,416 @@
+@use "../../styles/variables" as *;
+
+.aura-home {
+  background-color: $color-bg;
+  overflow-x: hidden;
+}
+
+.aura-hero {
+  position: relative;
+  z-index: 1;
+  padding: $spacing-8 $spacing-4 $spacing-10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.aura-hero__content {
+  max-width: 320px;
+}
+
+.aura-hero__title {
+  font-family: $font-family-primary;
+  font-weight: 500;
+  color: $color-secondary;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+
+  span {
+    display: block;
+  }
+}
+
+.aura-hero__cta {
+  margin-top: $spacing-6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-10;
+  border: none;
+  border-radius: $radius-lg;
+  background-color: $color-primary;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: $shadow-soft;
+}
+
+.aura-hero__visual {
+  margin-top: $spacing-8;
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.aura-hero__circle {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: $color-primary;
+  position: relative;
+}
+
+.aura-hero__image {
+  position: absolute;
+  bottom: -$spacing-2;
+  max-height: 115%;
+  width: auto;
+}
+
+.aura-services {
+  position: relative;
+  z-index: 0;
+  margin-top: -$spacing-8; 
+  padding: $spacing-12 $spacing-4 $spacing-16;
+  background-image: linear-gradient(
+      rgba($color-secondary, 0.85),
+      rgba($color-secondary, 0.85)
+    ),
+    url("../../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-10.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.aura-services__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.aura-services__title {
+  font-family: $font-family-primary;
+  font-weight: 500;
+  color: $on-color-text;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+  margin-bottom: $spacing-3;
+}
+
+.aura-services__subtitle {
+  max-width: 720px;
+  margin: 0 auto $spacing-10;
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: rgba($color-white, 0.9);
+}
+
+.aura-services__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-8;
+}
+
+.aura-services-card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: $shadow-soft;
+  cursor: pointer;
+  border-radius: $radius-sm;
+
+  img {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.9);
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
+  }
+
+  &:hover .aura-services-card__overlay {
+    background: rgba($color-primary, 0.78);
+  }
+}
+
+.aura-services-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.5)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-4;
+  padding: $spacing-6;
+}
+
+.aura-services-card__title {
+  font-family: $font-family-primary;
+  font-size: $font-size-xl;
+  color: $color-white;
+  margin: 0;
+}
+
+.aura-services-card__btn {
+  padding: $spacing-2 $spacing-6;
+  border-radius: $radius-lg;
+  border: 2px solid $color-white;
+  background-color: transparent;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.aura-services-card__btn:hover {
+  background-color: $color-white;
+  color: $color-primary;
+  border-color: $color-white;
+}
+
+.aura-how {
+  background-color: $color-primary;
+  padding: $spacing-12 $spacing-4 $spacing-16;
+}
+
+.aura-how__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aura-how__title {
+  font-family: $font-family-primary;
+  font-weight: 500;
+  color: $on-color-text;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+  margin-bottom: $spacing-3;
+}
+
+.aura-how__subtitle {
+  max-width: 720px;
+  margin: 0 auto $spacing-10;
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: rgba($color-white, 0.95);
+}
+
+.aura-how__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-6;
+}
+
+.aura-how-card {
+  padding: $spacing-8 $spacing-4;
+  border-radius: 0;
+  text-align: center;
+}
+
+.aura-how-card--left,
+.aura-how-card--right {
+  background-color: lighten($color-primary, 7%);
+  color: $on-color-text;
+}
+
+.aura-how-card--center {
+  background-color: $color-primary;
+  color: $on-color-text;
+}
+
+.aura-how-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: $spacing-4;
+}
+
+.aura-how-card__title {
+  font-family: $font-family-primary;
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-3;
+}
+
+.aura-how-card__text {
+  font-family: $font-family-secondary;
+  font-size: $font-size-base;
+  line-height: 1.6;
+}
+
+
+.aura-about {
+  padding: $spacing-12 $spacing-4;
+  background-color: $color-bg;
+  text-align: center;
+}
+
+.aura-about__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.aura-about__title {
+  font-family: $font-family-primary;
+  font-weight: 500;
+  color: $color-secondary;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+  margin-bottom: $spacing-4;
+}
+
+.aura-about__text {
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: $color-secondary;
+  line-height: 1.6;
+  margin-bottom: $spacing-8;
+}
+
+.aura-about__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-10;
+  border: none;
+  border-radius: $radius-lg;
+  background-color: $color-primary;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: $shadow-soft;
+}
+
+
+.aura-annecdotes {
+  padding: $spacing-12 $spacing-4;
+  background-image: linear-gradient(
+      rgba($color-secondary, 0.75),
+      rgba($color-secondary, 0.75)
+    ),
+    url("../../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-9.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  min-height: 500px;
+}
+
+.aura-annecdotes__title {
+  font-family: $font-family-primary;
+  font-weight: 500;
+  color: $color-white;
+  font-size: $font-size-2xl;
+  line-height: 1.25;
+  margin-bottom: $spacing-4;
+}
+
+.aura-annecdotes__subtitle {
+  max-width: 700px;
+  margin: 0 auto $spacing-10;
+  font-family: $font-family-primary;
+  font-size: $font-size-lg;
+  color: rgba($color-white, 0.9);
+}
+
+.aura-annecdotes__grid {
+  display: grid;
+  gap: $spacing-16;
+  grid-template-columns: 1fr;
+}
+
+
+@media (min-width: 768px) {
+  .aura-home {
+    overflow-x: hidden;
+  }
+
+  .aura-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $spacing-16 $spacing-8 $spacing-16;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .aura-hero__content {
+    flex: 0 0 42%;
+    padding-left: $spacing-12;
+  }
+
+  .aura-hero__title {
+    font-size: 3rem;
+    line-height: 1.15;
+  }
+
+  .aura-hero__cta {
+    margin-top: $spacing-8;
+    font-size: 1.1rem;
+  }
+
+  .aura-hero__visual {
+    flex: 0 0 58%;
+    margin-top: 0;
+    min-height: 480px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .aura-hero__circle {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    border-radius: 50%;
+    background-color: $color-primary;
+    right: -12%;
+    bottom: -$spacing-8;
+    z-index: -1;
+  }
+
+  .aura-hero__image {
+    position: absolute;
+    bottom: -$spacing-8;
+    left: 0%;
+    transform: translateX(-20%);
+    max-height: 116%;
+    width: auto;
+  }
+
+  .aura-services__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-8;
+  }
+  .aura-services-card img {
+    aspect-ratio: 3 / 4;
+  }
+
+  .aura-how__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0; 
+  }
+
+  .aura-how-card {
+    padding: $spacing-10 $spacing-6;
+  }
+
+  .aura-annecdotes__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-12;
+    padding-inline: $spacing-8;
+  }
+}

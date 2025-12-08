@@ -1,0 +1,26 @@
+@use "../../styles/_variables" as *;
+
+.offer-card {
+  background-color: $color-white;
+  padding: $spacing-4;
+  border-radius: $radius-md;
+  box-shadow: $shadow-soft;
+
+  &__title {
+    font-size: $font-size-lg;
+    color: $color-primary;
+    margin-bottom: $spacing-2;
+  }
+
+  &__details {
+    font-size: $font-size-sm;
+    color: $color-secondary;
+    margin-bottom: $spacing-2;
+  }
+
+  &__provider {
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $color-primary;
+  }
+}

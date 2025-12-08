@@ -1,0 +1,62 @@
+.error-page {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  position: relative;
+  overflow: hidden;
+  background-color: #fffbf6;
+}
+
+.error-title {
+  font-family: "Indie Flower", cursive;
+  font-weight: 800;
+  font-size: 8rem;
+  letter-spacing: -0.04em;
+  color: #ffb798;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0.75rem;
+}
+
+.error-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #b8d3c4;
+  max-width: 460px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+
+/* Bouton */
+.error-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(255, 183, 152, 0.25);
+  transition: 0.25s ease;
+  z-index: 1;
+  position: relative;
+}
+.error-btn:hover {
+  background-color: rgb(255, 168.7398058252, 131.6);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(255, 183, 152, 0.3);
+}
+
+@media (min-width: 768px) {
+  .error-title {
+    font-size: 14rem;
+  }
+}/*# sourceMappingURL=Error.css.map */

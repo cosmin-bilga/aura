@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #FFFBF6;
+}
+
+.aura-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.aura-main {
+  flex: 1;
+  padding: 1rem;
+} 
+
+/*# sourceMappingURL=main.css.map */

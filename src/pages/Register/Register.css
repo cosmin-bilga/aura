@@ -1,0 +1,345 @@
+@charset "UTF-8";
+/* PAGE */
+.register-page {
+  background-color: #fffbf6;
+  padding: 3rem 1rem 4rem;
+}
+
+/* HERO */
+.register-hero {
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.register-hero__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #b8d3c4;
+  font-size: 2.25rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.register-hero__subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #b8d3c4;
+}
+
+/* CARD PRINCIPALE */
+.register-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.register-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 2rem 1.5rem;
+}
+
+/* ÉTAPES */
+.register-steps {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.register-step {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 2px solid #b8d3c4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: #b8d3c4;
+  background-color: transparent;
+  transition: 0.25s ease;
+}
+.register-step--active {
+  background-color: #ffb798;
+  border-color: #ffb798;
+  color: #ffffff;
+}
+.register-step--done {
+  background-color: rgba(255, 183, 152, 0.25);
+  border-color: #ffb798;
+}
+
+.register-step__index {
+  font-weight: 600;
+}
+
+/* FORMULAIRE */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-card__section-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #b8d3c4;
+  margin-bottom: 0.75rem;
+}
+
+/* TOGGLE CLIENT / PRESTATAIRE */
+/* SWITCH CLIENT / PRESTATAIRE */
+.register-switch {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+/* Le “pills” qui contient tout : texte + thumb */
+.register-switch__track {
+  position: relative;
+  width: 210px;
+  height: 40px;
+  border-radius: 999px;
+  border: none;
+  padding: 0 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  background-color: #ffb798;
+}
+.register-switch__track--client {
+  background-color: #ffb798;
+}
+.register-switch__track--prestataire {
+  background-color: #b8d3c4;
+}
+
+/* Les deux libellés “Client” et “Prestataire” à l’INTÉRIEUR du switch */
+.register-switch__option {
+  flex: 1;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  z-index: 1;
+  transition: color 0.2s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+/* Celui qui est actif devient bien blanc et un peu plus marqué */
+.register-switch__track--client .register-switch__option--client,
+.register-switch__track--prestataire .register-switch__option--prestataire {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Pastille de sélection qui glisse derrière le texte */
+.register-switch__thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 50%;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.22);
+  transition: transform 0.25s ease;
+}
+
+/* Position de la pastille selon le rôle */
+.register-switch__track--client .register-switch__thumb {
+  transform: translateX(0);
+}
+
+.register-switch__track--prestataire .register-switch__thumb {
+  transform: translateX(100%);
+}
+
+/* CHAMPS */
+.register-card__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.register-field__label {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: #b8d3c4;
+}
+.register-field select {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #b8d3c4;
+  background-color: #fffbf6;
+  outline: none;
+  transition: 0.2s ease;
+}
+.register-field input,
+.register-field textarea {
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #b8d3c4;
+  background-color: #fffbf6;
+  outline: none;
+  transition: 0.2s ease;
+}
+.register-field input:focus,
+.register-field textarea:focus {
+  border-color: #ffb798;
+  box-shadow: 0 0 0 2px rgba(255, 183, 152, 0.3);
+  background-color: #ffffff;
+}
+.register-field textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* ZONE D’ERREURS GLOBALE */
+.register-form__errors {
+  margin-top: 1rem;
+  padding: 0.75rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 183, 152, 0.12);
+  border: 1px solid rgba(255, 183, 152, 0.5);
+  text-align: left;
+}
+.register-form__errors p {
+  margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffb798;
+}
+.register-form__errors ul {
+  margin: 0;
+  padding-left: 1rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  color: #ffb798;
+}
+.register-form__errors ul li + li {
+  margin-top: 0.25rem;
+}
+
+/* BOUTONS D’ACTION */
+.register-form__actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.register-btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+.register-btn--primary {
+  background-color: #ffb798;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.register-btn--primary:hover {
+  background-color: rgb(255, 172.3048543689, 136.7);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+.register-btn--ghost {
+  background-color: transparent;
+  color: #b8d3c4;
+  border: 1px solid #b8d3c4;
+}
+.register-btn--ghost:hover {
+  background-color: rgba(184, 211, 196, 0.15);
+}
+
+/* ÉTAT SUCCESS */
+.register-card__success {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+.register-card__success h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.875rem;
+  color: #b8d3c4;
+  margin-bottom: 1rem;
+}
+.register-card__success p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #b8d3c4;
+  line-height: 1.6;
+}
+
+/* LIENS D’INSCRIPTION POUR LA PAGE LOGIN */
+.register-card--secondary {
+  margin-top: 1.5rem;
+}
+
+.register-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.register-links__btn {
+  justify-content: center;
+  text-decoration: none;
+  width: 130px;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .register-page {
+    padding: 4rem 2rem 4rem;
+  }
+  .register-hero__title {
+    font-size: 3rem;
+  }
+  .register-hero__subtitle {
+    font-size: 1.25rem;
+  }
+  .register-card {
+    padding: 2.5rem 2.5rem;
+  }
+  .register-card__grid {
+    flex-direction: row;
+  }
+  .register-field {
+    flex: 1;
+  }
+  .register-links {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .register-links__btn {
+    width: auto;
+  }
+}/*# sourceMappingURL=Register.css.map */

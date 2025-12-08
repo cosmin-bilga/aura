@@ -1,0 +1,21 @@
+.offer-card {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.offer-card__title {
+  font-size: 1.25rem;
+  color: #ffb798;
+  margin-bottom: 0.5rem;
+}
+.offer-card__details {
+  font-size: 0.875rem;
+  color: #b8d3c4;
+  margin-bottom: 0.5rem;
+}
+.offer-card__provider {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffb798;
+}/*# sourceMappingURL=OfferCard.css.map */

@@ -1,0 +1,386 @@
+.aura-home {
+  background-color: #fffbf6;
+  overflow-x: hidden;
+}
+
+.aura-hero {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.aura-hero__content {
+  max-width: 320px;
+}
+
+.aura-hero__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #b8d3c4;
+  font-size: 2.25rem;
+  line-height: 1.25;
+}
+.aura-hero__title span {
+  display: block;
+}
+
+.aura-hero__cta {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.aura-hero__visual {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.aura-hero__circle {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: #ffb798;
+  position: relative;
+}
+
+.aura-hero__image {
+  position: absolute;
+  bottom: -0.5rem;
+  max-height: 115%;
+  width: auto;
+}
+
+.aura-services {
+  position: relative;
+  z-index: 0;
+  margin-top: -2rem;
+  padding: 3rem 1rem 4rem;
+  background-image: linear-gradient(rgba(184, 211, 196, 0.85), rgba(184, 211, 196, 0.85)), url("../../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-10.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.aura-services__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.aura-services__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 2.25rem;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.aura-services__subtitle {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.aura-services__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.aura-services-card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  border-radius: 0.375rem;
+}
+.aura-services-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  filter: brightness(0.9);
+  transition: transform 0.4s ease;
+}
+.aura-services-card:hover img {
+  transform: scale(1.03);
+}
+.aura-services-card:hover .aura-services-card__overlay {
+  background: rgba(255, 183, 152, 0.78);
+}
+
+.aura-services-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.5));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.aura-services-card__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.875rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.aura-services-card__btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 2px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.aura-services-card__btn:hover {
+  background-color: #ffffff;
+  color: #ffb798;
+  border-color: #ffffff;
+}
+
+.aura-how {
+  background-color: #ffb798;
+  padding: 3rem 1rem 4rem;
+}
+
+.aura-how__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aura-how__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 2.25rem;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.aura-how__subtitle {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.aura-how__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.aura-how-card {
+  padding: 2rem 1rem;
+  border-radius: 0;
+  text-align: center;
+}
+
+.aura-how-card--left,
+.aura-how-card--right {
+  background-color: rgb(255, 207.9553398058, 187.7);
+  color: #ffffff;
+}
+
+.aura-how-card--center {
+  background-color: #ffb798;
+  color: #ffffff;
+}
+
+.aura-how-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.aura-how-card__title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.aura-how-card__text {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.aura-about {
+  padding: 3rem 1rem;
+  background-color: #fffbf6;
+  text-align: center;
+}
+
+.aura-about__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.aura-about__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #b8d3c4;
+  font-size: 2.25rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.aura-about__text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #b8d3c4;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.aura-about__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.aura-annecdotes {
+  padding: 3rem 1rem;
+  background-image: linear-gradient(rgba(184, 211, 196, 0.75), rgba(184, 211, 196, 0.75)), url("../../assets/pourquoi-et-comment-obtenir-une-aide-a-domicile-9.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  min-height: 500px;
+}
+
+.aura-annecdotes__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 2.25rem;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.aura-annecdotes__subtitle {
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.aura-annecdotes__grid {
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .aura-home {
+    overflow-x: hidden;
+  }
+  .aura-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem 4rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .aura-hero__content {
+    flex: 0 0 42%;
+    padding-left: 3rem;
+  }
+  .aura-hero__title {
+    font-size: 3rem;
+    line-height: 1.15;
+  }
+  .aura-hero__cta {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+  .aura-hero__visual {
+    flex: 0 0 58%;
+    margin-top: 0;
+    min-height: 480px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .aura-hero__circle {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    border-radius: 50%;
+    background-color: #ffb798;
+    right: -12%;
+    bottom: -2rem;
+    z-index: -1;
+  }
+  .aura-hero__image {
+    position: absolute;
+    bottom: -2rem;
+    left: 0%;
+    transform: translateX(-20%);
+    max-height: 116%;
+    width: auto;
+  }
+  .aura-services__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .aura-services-card img {
+    aspect-ratio: 3/4;
+  }
+  .aura-how__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .aura-how-card {
+    padding: 2.5rem 1.5rem;
+  }
+  .aura-annecdotes__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    padding-inline: 2rem;
+  }
+}/*# sourceMappingURL=Home.css.map */

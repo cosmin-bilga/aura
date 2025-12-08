@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : jeu. 27 nov. 2025 à 15:08
+-- Généré le : mer. 03 déc. 2025 à 09:37
 -- Version du serveur : 8.4.3
 -- Version de PHP : 8.3.16
 
@@ -102,6 +102,19 @@ INSERT INTO `customers` (`id_customer`, `name`, `firstname`, `email`, `password`
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `disponibilities`
+--
+
+CREATE TABLE `disponibilities` (
+  `id_disponibility` int NOT NULL,
+  `id_offer` int UNSIGNED NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `fav_offers`
 --
 
@@ -118,10 +131,10 @@ CREATE TABLE `fav_offers` (
 
 INSERT INTO `fav_offers` (`id_favOffer`, `id_customer`, `id_offer`, `created_at`) VALUES
 (1, 1, 1, '2025-11-27 14:24:52'),
-(2, 1, 4, '2025-11-27 14:24:52'),
 (3, 1, 7, '2025-11-27 14:24:52'),
 (4, 2, 2, '2025-11-27 14:24:52'),
-(5, 2, 6, '2025-11-27 14:24:52');
+(5, 2, 6, '2025-11-27 14:24:52'),
+(6, 1, 3, '2025-11-29 08:29:15');
 
 -- --------------------------------------------------------
 
@@ -147,7 +160,6 @@ CREATE TABLE `offers` (
   `description` text NOT NULL,
   `duration` varchar(50) NOT NULL,
   `category` enum('Beauté','Garde_denfant','Massage','Ménage') NOT NULL,
-  `disponibility` varchar(255) NOT NULL,
   `perimeter_of_displacement` enum('5km','10km','15km','20km','30km') DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `id_provider` int UNSIGNED NOT NULL,
@@ -159,17 +171,17 @@ CREATE TABLE `offers` (
 -- Déchargement des données de la table `offers`
 --
 
-INSERT INTO `offers` (`id_offer`, `description`, `duration`, `category`, `disponibility`, `perimeter_of_displacement`, `price`, `id_provider`, `created_at`, `updated_at`) VALUES
-(1, 'Soin du visage complet avec nettoyage et hydratation', '1h30', 'Beauté', 'Lun-Ven 9h-18h', '10km', 65.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(2, 'Épilation jambes complètes à la cire', '45min', 'Beauté', 'Mar-Sam 10h-19h', '15km', 45.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(3, 'Manucure avec pose de vernis semi-permanent', '1h', 'Beauté', 'Lun-Sam 9h-18h', '10km', 35.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(4, 'Massage relaxant corps entier', '1h', 'Massage', 'Lun-Dim 10h-20h', '20km', 80.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(5, 'Massage sportif pour récupération', '45min', 'Massage', 'Mar-Sam 14h-19h', '15km', 70.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(6, 'Ménage complet appartement 2-3 pièces', '2h', 'Ménage', 'Lun-Sam 8h-18h', '20km', 40.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(7, 'Grand ménage de printemps', '4h', 'Ménage', 'Lun-Ven 8h-16h', '15km', 80.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(8, 'Repassage à domicile', '2h', 'Ménage', 'Mar-Sam 14h-18h', '10km', 30.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(9, 'Garde d\'enfant à domicile (3-10 ans)', 'Variable', 'Garde_denfant', 'Lun-Ven 16h-20h', '15km', 15.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(10, 'Baby-sitting ponctuel soirée', 'Variable', 'Garde_denfant', 'Ven-Dim 18h-23h', '20km', 12.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
+INSERT INTO `offers` (`id_offer`, `description`, `duration`, `category`, `perimeter_of_displacement`, `price`, `id_provider`, `created_at`, `updated_at`) VALUES
+(1, 'Soin du visage complet avec nettoyage et hydratation', '1h30', 'Beauté', '10km', 65.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(2, 'Épilation jambes complètes à la cire', '45min', 'Beauté', '15km', 45.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(3, 'Manucure avec pose de vernis semi-permanent', '1h', 'Beauté', '10km', 35.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(4, 'Massage relaxant corps entier', '1h', 'Massage', '20km', 80.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(5, 'Massage sportif pour récupération', '45min', 'Massage', '15km', 70.00, 1, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(6, 'Ménage complet appartement 2-3 pièces', '2h', 'Ménage', '20km', 40.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(7, 'Grand ménage de printemps', '4h', 'Ménage', '15km', 80.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(8, 'Repassage à domicile', '2h', 'Ménage', '10km', 30.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(9, 'Garde d\'enfant à domicile (3-10 ans)', 'Variable', 'Garde_denfant', '15km', 15.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(10, 'Baby-sitting ponctuel soirée', 'Variable', 'Garde_denfant', '20km', 12.00, 2, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
 
 -- --------------------------------------------------------
 
@@ -182,7 +194,7 @@ CREATE TABLE `services` (
   `id_customer` int UNSIGNED NOT NULL,
   `id_offer` int UNSIGNED NOT NULL,
   `service_date` datetime NOT NULL,
-  `status` enum('en_attente','validé','effectué','payé','annulé') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'en_attente',
+  `status` enum('validé','effectué','payé','annulé') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `payment_date` datetime DEFAULT NULL,
   `payment_method` varchar(50) DEFAULT NULL,
@@ -203,8 +215,7 @@ INSERT INTO `services` (`id_service`, `id_customer`, `id_offer`, `service_date`,
 (5, 2, 9, '2024-11-19 17:00:00', 'effectué', 60.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
 (6, 3, 5, '2024-11-20 15:00:00', 'effectué', 70.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
 (7, 1, 8, '2024-11-21 14:00:00', 'effectué', 30.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(8, 2, 3, '2024-11-25 10:00:00', 'validé', 35.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(9, 3, 7, '2024-11-26 09:00:00', 'en_attente', 80.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
+(8, 2, 3, '2024-11-25 10:00:00', 'validé', 35.00, NULL, NULL, NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
 
 -- --------------------------------------------------------
 
@@ -248,19 +259,20 @@ INSERT INTO `service_providers` (`id_provider`, `name`, `firstname`, `email`, `p
 CREATE TABLE `tokens` (
   `token` varchar(255) NOT NULL,
   `id_customer` int NOT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `role` enum('admin','provider','customer') NOT NULL DEFAULT 'customer'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `tokens`
 --
 
-INSERT INTO `tokens` (`token`, `id_customer`, `admin`, `created_at`) VALUES
-('token_admin_2025', 1, 1, '2025-11-27 16:08:25'),
-('token_claire_2025', 3, 0, '2025-11-27 16:08:25'),
-('token_jean_2025', 2, 0, '2025-11-27 16:08:25'),
-('token_marie_2025', 1, 0, '2025-11-27 16:08:25');
+INSERT INTO `tokens` (`token`, `id_customer`, `created_at`, `role`) VALUES
+('Ji2ZEicHClBcStbrM2qheq8iV1k', 1, '2025-11-29 09:15:28', 'customer'),
+('token_admin_2025', 1, '2025-11-27 16:08:25', 'customer'),
+('token_claire_2025', 3, '2025-11-27 16:08:25', 'customer'),
+('token_jean_2025', 2, '2025-11-27 16:08:25', 'customer'),
+('token_marie_2025', 1, '2025-11-27 16:08:25', 'customer');
 
 --
 -- Index pour les tables déchargées
@@ -286,6 +298,13 @@ ALTER TABLE `comments`
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`id_customer`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Index pour la table `disponibilities`
+--
+ALTER TABLE `disponibilities`
+  ADD PRIMARY KEY (`id_disponibility`),
+  ADD KEY `id_offer` (`id_offer`);
 
 --
 -- Index pour la table `fav_offers`
@@ -354,10 +373,16 @@ ALTER TABLE `customers`
   MODIFY `id_customer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT pour la table `disponibilities`
+--
+ALTER TABLE `disponibilities`
+  MODIFY `id_disponibility` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `fav_offers`
 --
 ALTER TABLE `fav_offers`
-  MODIFY `id_favOffer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_favOffer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `fav_providers`
@@ -392,6 +417,12 @@ ALTER TABLE `service_providers`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`id_service`) REFERENCES `services` (`id_service`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `disponibilities`
+--
+ALTER TABLE `disponibilities`
+  ADD CONSTRAINT `disponibilities_ibfk_1` FOREIGN KEY (`id_offer`) REFERENCES `offers` (`id_offer`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `fav_offers`

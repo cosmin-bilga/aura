@@ -66,7 +66,7 @@ function favOffers_get(array $requestData): void {
     }
 
     
-    $isAuthorized = check_token($token, $id_customer, false);
+    $isAuthorized = check_token($token, $id_customer,"customer");
     if (!$isAuthorized) {
         echo json_encode(["message" => "Unauthorized"]);
         http_response_code(403);
@@ -93,7 +93,7 @@ function favOffers_get(array $requestData): void {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       
-        add_token($token, $id_customer, false);
+        add_token($token, $id_customer, "customer");
 
         echo json_encode($res);
         http_response_code(200);

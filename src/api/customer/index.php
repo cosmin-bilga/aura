@@ -31,8 +31,6 @@ require_once "../connection.php";
 require_once "../tokens.php";
 require_once "../customer_validation.php";
 
-header("Content-Type: application/json; charset=UTF-8");
-
 function getJsonBody(): array
 {
     $raw = file_get_contents("php://input");

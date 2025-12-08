@@ -1,6 +1,6 @@
 .aura-footer {
   background-color: #fffbf6;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1rem 0;
 }
 
 .aura-footer__bottombar {
@@ -16,6 +16,7 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+  margin-top: 0.75rem;
 }
 
 .aura-footer__content {
@@ -35,7 +36,6 @@
   align-items: center;
 }
 
-/* logo */
 .aura-footer__logo {
   width: 80px;
   height: 80px;
@@ -43,21 +43,36 @@
      object-fit: contain;
 }
 
-/* liens "Mes missions" */
 .aura-footer__block--links {
   gap: 0.25rem;
 }
 
 .aura-footer__link {
+  position: relative;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  font-weight: 600;
   color: #ffb798;
   text-decoration: none;
   line-height: 1.4;
+  transition: color 0.2s ease;
+}
+.aura-footer__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15rem;
+  width: 0;
+  height: 2px;
+  background-color: #b8d3c4;
+  transition: width 0.2s ease;
+}
+.aura-footer__link:hover {
+  color: #b8d3c4;
+}
+.aura-footer__link:hover::after {
+  width: 100%;
 }
 
-/* socials */
 .aura-footer__socials {
   display: flex;
   gap: 0.75rem;
@@ -74,23 +89,24 @@
   justify-content: center;
   text-decoration: none;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
-.aura-footer__social span,
 .aura-footer__social img {
-  font-size: 0.875rem;
-  color: #ffffff;
-  font-weight: 600;
   max-width: 60%;
   max-height: 60%;
 }
+.aura-footer__social:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  background-color: rgba(184, 211, 196, 0.9);
+}
 
-/* bouton CGV / CGU */
 .aura-footer__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1.5rem;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   background-color: #ffb798;
   color: #ffffff;
   font-family: "Poppins", sans-serif;
@@ -98,11 +114,16 @@
   font-weight: 700;
   text-decoration: none;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.aura-footer__cta:hover {
+  background-color: rgb(255, 172.3048543689, 136.7);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 @media (min-width: 768px) {
   .aura-footer {
-    padding: 2rem 2rem;
+    padding: 2rem 2rem 0;
   }
   .aura-footer__content {
     display: grid;
@@ -140,17 +161,6 @@
     padding: 0.75rem 2rem;
   }
   .aura-footer__bottombar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffb798;
-    color: #ffffff;
-    font-family: "Poppins", sans-serif;
-    font-size: 1rem;
-    padding: 1rem 0;
-    text-align: center;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    margin-top: 0.75rem;
   }
 }/*# sourceMappingURL=Footer.css.map */
