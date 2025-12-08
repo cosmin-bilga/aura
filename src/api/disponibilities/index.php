@@ -4,7 +4,7 @@
  * METHODS: GET, OPTIONS
  * 
  * -- GET: RECUPERATION DISPONIBILITES SUR LES OFFRES
- * PARAMS : id_service
+ * PARAMS : id_offer
  * AUTH: none
  * RETURN: array [... {start_date, end_date}]	
  * 

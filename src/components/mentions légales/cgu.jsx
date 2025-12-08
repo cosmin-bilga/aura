@@ -17,8 +17,8 @@ export default function Cgu() {
           <strong>Aura</strong> — SARL au capital de 5 000 €
         </p>
         <p>
-          15 rue de la République, 78000 Versailles
-          <br />
+          123 Avenue de la Beauté  75008 Paris, France
+                                  
           SIRET : 123 456 789 00012
           <br />
           Directeur de la publication : Claude Padia

@@ -3,7 +3,7 @@
 /**
  * METHODS: GET, POST, DELETE, OPTIONS
  *
- * -- GET: RECUPERATION DISPONIBILITES 
+ * -- GET: RECUPERATION DISPONIBILITE
  * PARAMS : id_offer
  * AUTH: none
  * RETURN: array [... {id_disponibility, id_offer, start_date, end_date}]
