@@ -7,7 +7,7 @@ const strictEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer"); 
+  const [role, setRole] = useState("customer");
   const [loading, setLoading] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(null);
@@ -39,7 +39,7 @@ const Login = () => {
     }
 
     try {
-      
+
       const loginUrl =
         role === "customer"
           ? "/api/customer_connect/index.php"
@@ -63,22 +63,22 @@ const Login = () => {
       const token = loginData.token;
       const user = {
         ...loginData.user,
-        role: role, 
+        role: role,
       };
 
       console.log("✅ Login successful:", { token, user });
 
-     
+
       login({
         token: token,
         user: user,
       });
 
-     
+
       if (role === "provider") {
         navigate("/prestataire/dashboard");
       } else {
-        navigate("/client/dashboard"); 
+        navigate("/client/dashboard");
       }
     } catch (error) {
       console.error("Login error:", error);

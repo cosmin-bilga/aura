@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { useAuth } from "../../contexts/useAuth"; 
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/useAuth";
 import "./ServiceCatalog.scss";
 
 const OFFERS_API_URL = "/api/offers/index.php";
 const FAV_OFFERS_API_URL = "/api/fav_offers/index.php";
 const FAV_OFFER_API_URL = "/api/fav_offer/index.php";
+const SERVICE_API_URL = "/api/service/index.php";
 
 const ServiceCatalog = () => {
   const { auth } = useAuth(); // auth = { token, user: { role, id_customer?, id? } }
+  const navigate = useNavigate();
 
   const [offers, setOffers] = useState([]);
   const [loadingOffers, setLoadingOffers] = useState(false);
@@ -340,6 +343,57 @@ const ServiceCatalog = () => {
     }
   };
 
+  const handleBookService = async (offer) => {
+
+    if (!isCustomer) {
+      alert("Connectez-vous en tant que client pour réserver un service.");
+      return;
+    }
+
+    if (!auth.token || !customerId) {
+      alert("Impossible de déterminer votre compte client.");
+      return;
+    }
+
+    const serviceDate = prompt("Entrez la date souhaitée (format: YYYY-MM-DD):");
+    if (!serviceDate) return;
+    try {
+      const formBody = new URLSearchParams();
+      formBody.append("id_customer", String(customerId));
+      formBody.append("id_offer", String(offer.id_offer));
+      formBody.append("service_date", serviceDate);
+      formBody.append("amount", String(offer.price || 0));
+      formBody.append("payment_date", new Date().toISOString().split('T')[0]);
+      formBody.append("payment_method", "En attente");
+      formBody.append("payment_reference", "");
+      const response = await fetch(SERVICE_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          "X-API-KEY": auth.token,
+        },
+        body: formBody.toString(),
+      });
+      const rawText = await response.text();
+      console.log("Réponse service POST:", response.status, rawText);
+      let data = null;
+      try {
+        data = JSON.parse(rawText);
+      } catch (e) {
+        console.warn("Réponse non-JSON service POST:", rawText);
+      }
+      if (!response.ok) {
+        alert(data?.message || "Erreur lors de la réservation du service.");
+        return;
+      }
+      alert("Service réservé avec succès !");
+      closeDetail();
+    } catch (err) {
+      console.error("Erreur réseau service POST:", err);
+      alert("Erreur réseau ou serveur lors de la réservation.");
+    }
+  };
+
   const handleRemoveFavorite = async (idOffer) => {
     if (!isCustomer) {
       alert("Connectez-vous en tant que client pour gérer vos favoris.");
@@ -390,6 +444,16 @@ const ServiceCatalog = () => {
       console.error("Erreur réseau fav_offer DELETE :", err);
       alert("Erreur réseau ou serveur lors de la suppression du favori.");
       setFavLoading(false);
+    }
+  };
+
+  const handleServiceAction = () => {
+    if (!isCustomer) {
+      // Rediriger vers la page de connexion
+      navigate("/connexion");
+    } else {
+      // Lancer la réservation
+      handleBookService(selectedOffer);
     }
   };
 
@@ -522,11 +586,10 @@ const ServiceCatalog = () => {
                     <div className="service-catalog__sort-menu">
                       <button
                         type="button"
-                        className={`service-catalog__sort-option ${
-                          sortBy === "relevance"
-                            ? "service-catalog__sort-option--active"
-                            : ""
-                        }`}
+                        className={`service-catalog__sort-option ${sortBy === "relevance"
+                          ? "service-catalog__sort-option--active"
+                          : ""
+                          }`}
                         onClick={() => {
                           setSortBy("relevance");
                           setShowSortMenu(false);
@@ -536,11 +599,10 @@ const ServiceCatalog = () => {
                       </button>
                       <button
                         type="button"
-                        className={`service-catalog__sort-option ${
-                          sortBy === "price_asc"
-                            ? "service-catalog__sort-option--active"
-                            : ""
-                        }`}
+                        className={`service-catalog__sort-option ${sortBy === "price_asc"
+                          ? "service-catalog__sort-option--active"
+                          : ""
+                          }`}
                         onClick={() => {
                           setSortBy("price_asc");
                           setShowSortMenu(false);
@@ -550,11 +612,10 @@ const ServiceCatalog = () => {
                       </button>
                       <button
                         type="button"
-                        className={`service-catalog__sort-option ${
-                          sortBy === "price_desc"
-                            ? "service-catalog__sort-option--active"
-                            : ""
-                        }`}
+                        className={`service-catalog__sort-option ${sortBy === "price_desc"
+                          ? "service-catalog__sort-option--active"
+                          : ""
+                          }`}
                         onClick={() => {
                           setSortBy("price_desc");
                           setShowSortMenu(false);
@@ -564,11 +625,10 @@ const ServiceCatalog = () => {
                       </button>
                       <button
                         type="button"
-                        className={`service-catalog__sort-option ${
-                          sortBy === "newest"
-                            ? "service-catalog__sort-option--active"
-                            : ""
-                        }`}
+                        className={`service-catalog__sort-option ${sortBy === "newest"
+                          ? "service-catalog__sort-option--active"
+                          : ""
+                          }`}
                         onClick={() => {
                           setSortBy("newest");
                           setShowSortMenu(false);
@@ -720,9 +780,8 @@ const ServiceCatalog = () => {
             <div className="service-catalog__pagination">
               <button
                 type="button"
-                className={`service-catalog__page-btn ${
-                  currentPage === 1 ? "service-catalog__page-btn--disabled" : ""
-                }`}
+                className={`service-catalog__page-btn ${currentPage === 1 ? "service-catalog__page-btn--disabled" : ""
+                  }`}
                 onClick={() =>
                   currentPage > 1 && setCurrentPage(currentPage - 1)
                 }
@@ -736,11 +795,10 @@ const ServiceCatalog = () => {
                   <button
                     key={page}
                     type="button"
-                    className={`service-catalog__page-btn ${
-                      page === currentPage
-                        ? "service-catalog__page-btn--active"
-                        : ""
-                    }`}
+                    className={`service-catalog__page-btn ${page === currentPage
+                      ? "service-catalog__page-btn--active"
+                      : ""
+                      }`}
                     onClick={() => setCurrentPage(page)}
                   >
                     {page}
@@ -750,11 +808,10 @@ const ServiceCatalog = () => {
 
               <button
                 type="button"
-                className={`service-catalog__page-btn ${
-                  currentPage === totalPages
-                    ? "service-catalog__page-btn--disabled"
-                    : ""
-                }`}
+                className={`service-catalog__page-btn ${currentPage === totalPages
+                  ? "service-catalog__page-btn--disabled"
+                  : ""
+                  }`}
                 onClick={() =>
                   currentPage < totalPages && setCurrentPage(currentPage + 1)
                 }
@@ -820,8 +877,12 @@ const ServiceCatalog = () => {
               </div>
             </div>
 
-            <button type="button" className="service-detail__cta">
-              Demander ce service
+            <button
+              type="button"
+              className="service-detail__cta"
+              onClick={handleServiceAction}
+            >
+              {isCustomer ? "Demander ce service" : "Connectez-vous pour réserver"}
             </button>
           </aside>
         )}
