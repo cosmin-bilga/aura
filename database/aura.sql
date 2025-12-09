@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mer. 03 déc. 2025 à 09:37
+-- Généré le : mar. 09 déc. 2025 à 08:35
 -- Version du serveur : 8.4.3
 -- Version de PHP : 8.3.16
 
@@ -97,7 +97,10 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id_customer`, `name`, `firstname`, `email`, `password`, `phone_number`, `address`, `sex`, `additional_information`, `created_at`, `updated_at`) VALUES
 (1, 'Dupont', 'Marie', 'marie.dupont@client.com', '$2y$10$hashclient1', '0145678901', '123 rue Client, 75002 Paris', 'F', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
 (2, 'Bernard', 'Jean', 'jean.bernard@client.com', '$2y$10$hashclient2', '0156789012', '456 av Client, 69002 Lyon', 'M', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
-(3, 'Moreau', 'Claire', 'claire.moreau@client.com', '$2y$10$hashclient3', '0167890123', '789 bd Client, 13001 Marseille', 'F', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50');
+(3, 'Moreau', 'Claire', 'claire.moreau@client.com', '$2y$10$hashclient3', '0167890123', '789 bd Client, 13001 Marseille', 'F', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50'),
+(4, 'Fauconnier', 'Josselin', 'josselin.fauconnier@laplateforme.io', '$2y$10$q0ctNYvwj6hUAt8BCvanJefonVcCUx8H5qMiOh7Nre3H0KiQrGNOO', '0912347983', 'clamart', 'M', 'Rien', '2025-12-04 15:44:03', '2025-12-04 15:44:03'),
+(5, 'Fauconnier', 'Josselin', 'fauconnierjosselin@yahoo.fr', '$2y$10$FgVJxwnhvZH51tG7JrJd5.wJwpl6xzAHGakKNg.JOiolHBSx/SZGi', '0912345612', 'clamart', 'M', 'Salut', '2025-12-05 11:04:21', '2025-12-05 11:04:21'),
+(6, 'Ciui', 'xavier', 'john@example.com', '$2y$10$HzggYyfKlsL6U/uBdDYlXeQ4kZVO7AL2hPtDh4hnYov5iVsWFi0l6', '0210931234', 'sapin', 'M', '', '2025-12-06 15:50:47', '2025-12-06 15:50:47');
 
 -- --------------------------------------------------------
 
@@ -135,19 +138,6 @@ INSERT INTO `fav_offers` (`id_favOffer`, `id_customer`, `id_offer`, `created_at`
 (4, 2, 2, '2025-11-27 14:24:52'),
 (5, 2, 6, '2025-11-27 14:24:52'),
 (6, 1, 3, '2025-11-29 08:29:15');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `fav_providers`
---
-
-CREATE TABLE `fav_providers` (
-  `id_favPro` int UNSIGNED NOT NULL,
-  `id_customer` int UNSIGNED NOT NULL,
-  `id_provider` int UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -248,7 +238,9 @@ CREATE TABLE `service_providers` (
 
 INSERT INTO `service_providers` (`id_provider`, `name`, `firstname`, `email`, `password`, `phone_number`, `address`, `profile_picture`, `education_experience`, `subscriber`, `sex`, `SIREN`, `additional_information`, `created_at`, `updated_at`, `status`) VALUES
 (1, 'Martin', 'Sophie', 'sophie.martin@aura.com', '$2y$10$hashexample1', '0123456789', '15 rue de la Paix, 75001 Paris', 'default.WebP', 'CAP Esthétique, 5 ans d\'expérience', 'basique', 'F', '123456789', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50', 'Micro-entreprise'),
-(2, 'Dubois', 'Pierre', 'pierre.dubois@aura.com', '$2y$10$hashexample2', '0987654321', '42 avenue des Services, 69001 Lyon', 'default.WebP', 'Formation aide à domicile, 3 ans d\'expérience', 'none', 'M', '987654321', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50', 'Micro-entreprise');
+(2, 'Dubois', 'Pierre', 'pierre.dubois@aura.com', '$2y$10$hashexample2', '0987654321', '42 avenue des Services, 69001 Lyon', 'default.WebP', 'Formation aide à domicile, 3 ans d\'expérience', 'none', 'M', '987654321', NULL, '2025-11-25 09:29:50', '2025-11-25 09:29:50', 'Micro-entreprise'),
+(3, 'TestNom', 'TestPrenom', 'testpro1765018208409@test.com', '$2y$10$fpVbznKFrD/vffygPNHThOuwb1FT5lOgE0hpGFnb2oTY0Oo8xp5ha', '0123456789', '123 rue Test', 'default.WebP', 'Test formation', 'none', 'M', '123456789', '', '2025-12-06 10:50:08', '2025-12-06 10:50:08', 'Micro-entreprise'),
+(4, 'de', 'Josselin', 'test@test.com', '$2y$10$oDhL3.jP.pTmj70SC9TG6uSJA2FULlS0tpayf/fYduh557EznHAOu', '0867342183', 'vers', 'default.WebP', 'W', 'none', 'Autre', '903456719', '', '2025-12-06 15:37:38', '2025-12-06 15:37:38', 'Micro-entreprise');
 
 -- --------------------------------------------------------
 
@@ -268,7 +260,10 @@ CREATE TABLE `tokens` (
 --
 
 INSERT INTO `tokens` (`token`, `id_customer`, `created_at`, `role`) VALUES
+('j5FR4rwTXYBRRR9dHHl3TKe37Zo', 4, '2025-12-06 16:38:14', 'provider'),
 ('Ji2ZEicHClBcStbrM2qheq8iV1k', 1, '2025-11-29 09:15:28', 'customer'),
+('N3ihJiBzVCXiPr2Xn0p+HSnvs0M', 4, '2025-12-05 12:11:13', 'customer'),
+('tHFOF+/5fm8tJNXzZ/iTCRK4rmc', 5, '2025-12-08 15:35:48', 'customer'),
 ('token_admin_2025', 1, '2025-11-27 16:08:25', 'customer'),
 ('token_claire_2025', 3, '2025-11-27 16:08:25', 'customer'),
 ('token_jean_2025', 2, '2025-11-27 16:08:25', 'customer'),
@@ -313,14 +308,6 @@ ALTER TABLE `fav_offers`
   ADD PRIMARY KEY (`id_favOffer`),
   ADD UNIQUE KEY `id_customer` (`id_customer`,`id_offer`),
   ADD KEY `id_offer` (`id_offer`);
-
---
--- Index pour la table `fav_providers`
---
-ALTER TABLE `fav_providers`
-  ADD PRIMARY KEY (`id_favPro`),
-  ADD UNIQUE KEY `id_customer` (`id_customer`,`id_provider`),
-  ADD KEY `id_provider` (`id_provider`);
 
 --
 -- Index pour la table `offers`
@@ -370,7 +357,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id_customer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_customer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `disponibilities`
@@ -383,12 +370,6 @@ ALTER TABLE `disponibilities`
 --
 ALTER TABLE `fav_offers`
   MODIFY `id_favOffer` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT pour la table `fav_providers`
---
-ALTER TABLE `fav_providers`
-  MODIFY `id_favPro` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `offers`
@@ -406,7 +387,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT pour la table `service_providers`
 --
 ALTER TABLE `service_providers`
-  MODIFY `id_provider` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_provider` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Contraintes pour les tables déchargées
@@ -430,13 +411,6 @@ ALTER TABLE `disponibilities`
 ALTER TABLE `fav_offers`
   ADD CONSTRAINT `fav_offers_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customers` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fav_offers_ibfk_2` FOREIGN KEY (`id_offer`) REFERENCES `offers` (`id_offer`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `fav_providers`
---
-ALTER TABLE `fav_providers`
-  ADD CONSTRAINT `fav_providers_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `customers` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fav_providers_ibfk_2` FOREIGN KEY (`id_provider`) REFERENCES `service_providers` (`id_provider`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `offers`
