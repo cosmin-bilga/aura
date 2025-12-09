@@ -1,46 +1,41 @@
+// C:\wamp64\www\aura_test\src\pages\CategoryOffers\CategoryOffers.scss
+
+@use "../../styles/variables" as *;
+
 .categoryOffers {
-  padding: 2rem;
-  width: 100%;
+  min-height: 100vh;
+  padding: $spacing-6 $spacing-4 $spacing-10;
+  background-color: $color-bg;
+  font-family: $font-family-primary;
+  color: $color-secondary;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
+}
 
-  &__title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
+/* HEADER */
 
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
+.categoryOffers__header {
+  margin-bottom: $spacing-6;
+}
 
-  &__pagination {
-    display: flex;
-    justify-content: center;
-    gap: 0.7rem;
-    margin-top: 2rem;
+.categoryOffers__title {
+  font-size: $font-size-2xl;
+  font-weight: 600;
+  color: $color-primary;
+  margin-bottom: $spacing-2;
+}
 
-    button {
-      padding: 0.5rem 1rem;
-      border: 1px solid #ccc;
-      background: #fff;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: 0.2s;
+.categoryOffers__subtitle {
+  font-size: $font-size-base;
+  color: rgba($color-secondary, 0.95);
+  max-width: 680px;
+  line-height: 1.6;
+}
 
-      &:hover {
-        background: #f3f3f3;
-      }
+/* BREAKPOINTS */
 
-      &.active {
-        background: #000;
-        color: #fff;
-        border-color: #000;
-      }
-    }
+@media (min-width: 768px) {
+  .categoryOffers__title {
+    font-size: 2.2rem;
   }
 }

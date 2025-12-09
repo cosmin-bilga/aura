@@ -1,7 +1,9 @@
+// C:\wamp64\www\aura_test\src\components\HeaderOverlay\HeaderOverlay.jsx
 import { Link } from "react-router-dom";
-import ServiceDropdown from "../ServiceDropdown/ServiceDropdown";
-import whiteAura from "../../assets/logo_aura_white.png";
+import logoAura from "../../assets/logo_aura_white.png";
 import peopleIcon from "../../assets/icons/people.svg";
+import MockData from "../../mocks/data.json";
+import "../Header/Header.scss"; // pour utiliser les classes déjà définies
 
 export default function HeaderOverlay({
   isOpen,
@@ -11,33 +13,37 @@ export default function HeaderOverlay({
   isLoggedIn,
   logout,
 }) {
-  const renderLink = (link) => (
-    <Link key={link.label} to={link.href} onClick={closeMenu}>
-      {link.label}
-    </Link>
-  );
+  const categories = MockData.categories_list;
+
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+  };
+
+  const overlayClassName = `aura-header__overlay${
+    isOpen ? " aura-header__overlay--open" : ""
+  }`;
 
   return (
-    <div
-      className={`aura-header__overlay ${
-        isOpen ? "aura-header__overlay--open" : ""
-      }`}
-    >
+    <div className={overlayClassName}>
+      {/* En-tête overlay : profil, logo, bouton fermer */}
       <div className="aura-header__overlay-header">
-        <a
-          href={profileLink}
+        <Link
+          to={profileLink}
           className="aura-header__overlay-user"
-          aria-label="Espace utilisateur"
+          onClick={closeMenu}
         >
           <img
             src={peopleIcon}
-            alt="Profil"
+            alt="Espace utilisateur"
             className="aura-header__overlay-user-icon"
           />
-        </a>
+        </Link>
 
         <div className="aura-header__overlay-logo">
-          <img src={whiteAura} alt="Aura" />
+          <Link to="/" onClick={closeMenu}>
+            <img src={logoAura} alt="Aura" />
+          </Link>
         </div>
 
         <button
@@ -46,25 +52,47 @@ export default function HeaderOverlay({
           onClick={closeMenu}
           aria-label="Fermer le menu"
         >
-          ✕
+          ×
         </button>
       </div>
 
+      {/* NAV MOBILE */}
       <nav className="aura-header__overlay-nav">
-        {renderLink(navLinks[0])}
-        <ServiceDropdown className="overlay-item" />
+        {/* Accueil */}
+        <Link to={navLinks[0].href} onClick={closeMenu}>
+          {navLinks[0].label}
+        </Link>
 
+        {/* Connexion / Déconnexion */}
         {isLoggedIn ? (
-          <>
-            <a onClick={logout}>Déconnexion</a>
-            {renderLink(navLinks[3])} {/* Nos Offres */}
-          </>
+          <button
+            type="button"
+            className="aura-header__overlay-link-button"
+            onClick={handleLogout}
+          >
+            Déconnexion
+          </button>
         ) : (
-          <>
-            {renderLink(navLinks[2])} {/* Connexion */}
-            {renderLink(navLinks[3])} {/* Nos Offres */}
-          </>
+          <Link to={navLinks[2].href} onClick={closeMenu}>
+            {navLinks[2].label}
+          </Link>
         )}
+
+        {/* Nos offres */}
+        <Link to={navLinks[3].href} onClick={closeMenu}>
+          {navLinks[3].label}
+        </Link>
+
+        {/* 🟠 ICI : toutes les catégories du dropdown, en clair */}
+        {categories.map((cat) => (
+          <Link
+            key={cat.key}
+            to={`/categorie/${cat.key}`}
+            onClick={closeMenu}
+          >
+            {cat.name}
+          </Link>
+        ))}
       </nav>
     </div>
   );

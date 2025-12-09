@@ -71,8 +71,106 @@
 
 /* ====== LIENS ====== */
 .cgu-page a {
-  color: var(--secondary-color)
+  color: var(--secondary-color);
   text-decoration: none;
+  font-weight: 500;
+}
+
+.cgu-page a:hover {
+  text-decoration: underline;
+}
+
+.cgu-page section p {
+  margin: 6px 0;
+  color:var(--secondary-color);
+}
+
+/* ====== FOOTER ====== */
+.cgu-page footer {
+  text-align: center;
+  padding: 25px;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  margin-top: 50px;
+  color:var(--secondary-color);
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+:root {
+    --primary-color: #ffb798;
+    --secondary-color: #b8d3c4;
+}
+
+
+/* ====== PAGE LÉGALE GÉNÉRALE ====== */
+.cgu-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: "Inter", Arial, sans-serif;
+  color: var(--primary-color);
+  line-height: 1.7;
+}
+
+/* ====== HEADER ====== */
+.cgu-page header {
+  background:  #fffbf6;
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 6px;
+  margin-bottom: 40px;
+  
+}
+
+.cgu-page header h1 {
+  margin: 0;
+  font-size: 2.3rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.cgu-page header p {
+  margin: 6px 0;
+  color: var(--secondary-color);
+}
+
+/* ====== TITRES ====== */
+.cgu-page section {
+  margin-bottom: 45px;
+  background-color: #fffbf6;
+}
+
+.cgu-page h2 {
+  font-size: 1.5rem;
+  border-left: 4px solid var(--secondary-color);
+  padding-left: 10px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color:var(--primary-color)
+}
+
+.cgu-page h3 {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color:var(--primary-color);
+}
+
+/* ====== LISTES ====== */
+.cgu-page ul {
+  padding-left: 20px;
+}
+
+.cgu-page li {
+  margin-bottom: 6px;
+   color: var(--secondary-color)
+}
+
+/* ====== LIENS ====== */
+.cgu-page a {
+  color: var(--secondary-color);
+  text-decoration : none;
   font-weight: 500;
 }
 

@@ -1,37 +1,528 @@
+@charset "UTF-8";
 .category-page {
-  padding: 1.5rem 1rem;
+  min-height: 100vh;
+  background-color: #fffbf6;
+  font-family: "Poppins", sans-serif;
+  color: #b8d3c4;
 }
-.category-page__header {
-  text-align: center;
-  margin-bottom: 1.5rem;
+
+/* HERO – fond clair */
+.category-page__hero {
+  padding: 2.5rem 1rem 1.5rem;
+  background-color: #fffbf6;
+  overflow: hidden;
 }
-.category-page__header__title {
+
+.category-page__hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.category-page__hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-page__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffb798;
+}
+
+.category-page__title {
   font-size: 2.25rem;
+  font-weight: 600;
+  color: #b8d3c4;
+}
+
+.category-page__subtitle {
+  font-size: 1rem;
+  color: rgba(184, 211, 196, 0.95);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.category-page__hero-bullets {
+  margin: 0;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: rgba(184, 211, 196, 0.95);
+}
+.category-page__hero-bullets li::marker {
+  color: #ffb798;
+}
+
+.category-page__hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.category-page__primary-cta,
+.category-page__secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.category-page__primary-cta {
+  background-color: #ffb798;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.category-page__primary-cta:hover {
+  background-color: rgb(255, 168.7398058252, 131.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+.category-page__primary-cta:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 183, 152, 0.25);
+}
+
+.category-page__secondary-cta {
+  background-color: #ffffff;
+  color: #b8d3c4;
+  border: 1px solid rgba(184, 211, 196, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+.category-page__secondary-cta:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+.category-page__secondary-cta:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 183, 152, 0.2);
+}
+
+/* Bloc image du hero : grande image ancrée en bas */
+.category-page__hero-media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 260px;
+}
+
+.category-page__hero-image-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+}
+
+.category-page__hero-image {
+  width: 100%;
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+  transform: translateY(12%);
+}
+
+/* SECTIONS GÉNÉRIQUES */
+.category-page__section {
+  padding: 2rem 1rem;
+}
+
+.category-page__section-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.category-page__section-title {
+  font-size: 1.875rem;
+  font-weight: 600;
   color: #ffb798;
   margin-bottom: 0.5rem;
 }
-.category-page__header__description {
+
+.category-page__section-title--center {
+  text-align: center;
+}
+
+.category-page__section-text {
+  font-size: 1rem;
+  color: rgba(184, 211, 196, 0.95);
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* SECTION INTRO – fond vert, texte blanc */
+.category-page__section--intro {
+  background-color: #b8d3c4;
+  color: #ffffff;
+}
+
+.category-page__section--intro .category-page__section-title,
+.category-page__section--intro .category-page__section-text,
+.category-page__section--intro .category-page__list {
+  color: #ffffff;
+}
+
+.category-page__section-inner--intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.category-page__intro-media {
+  display: none;
+  position: relative;
+}
+
+.category-page__intro-ellipse {
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  background-color: #ffb798;
+}
+
+.category-page__intro-text {
+  max-width: 640px;
+}
+
+.category-page__list {
+  margin-top: 0.75rem;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  color: inherit;
+  line-height: 1.7;
+}
+.category-page__list li::marker {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ÉTAPES – fond clair, grandes cartes pastel */
+.category-page__section--steps {
+  background-color: #fffbf6;
+}
+
+.category-page__steps-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.category-page__step-card {
+  position: relative;
+  padding: 1.5rem 1rem 1rem;
+  background-color: rgba(255, 197.2601941748, 172.4, 0.25);
+}
+
+.category-page__step-icon {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background-color: #b8d3c4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+.category-page__step-icon span {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.category-page__step-body {
+  margin-top: 0.5rem;
+}
+.category-page__step-body h3 {
+  margin: 0 0 0.5rem;
   font-size: 1rem;
   color: #b8d3c4;
 }
-.category-page__offers {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin-bottom: 1.5rem;
+.category-page__step-body p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(184, 211, 196, 0.95);
+  line-height: 1.6;
 }
-.category-page__see-all {
-  text-align: center;
-}
-.category-page__see-all .btn {
-  padding: 0.5rem 1rem;
+
+/* SECTION APPROCHE + MINI CARROUSEL – bandeau pêche */
+.category-page__section--testimonials {
   background-color: #ffb798;
   color: #ffffff;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
 }
-.category-page__see-all .btn:hover {
+
+.category-page__section-inner--testimonials {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.category-page__approach-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.category-page__approach-tagline {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.category-page__approach-text {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+.category-page__testimonials-slider {
+  position: relative;
+  padding: 1rem;
+  background-color: rgba(255, 251, 246, 0.18);
+}
+
+.category-page__testimonial-heading {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+}
+
+.category-page__testimonial-card {
+  margin-bottom: 0.75rem;
+}
+
+.category-page__testimonial-text {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+
+.category-page__testimonial-author {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.category-page__testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.category-page__testimonial-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(255, 251, 246, 0.85);
+  color: #ffb798;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.category-page__testimonial-arrow:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.category-page__testimonial-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-page__testimonial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(255, 251, 246, 0.55);
+  cursor: pointer;
+}
+
+.category-page__testimonial-dot--active {
+  width: 10px;
+  height: 10px;
+  background-color: #fffbf6;
+}
+
+/* CTA CONTACT – fond vert */
+.category-page__section--contact-cta {
   background-color: #b8d3c4;
+  color: #ffffff;
+}
+
+.category-page__section-inner--cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-page__section--contact-cta .category-page__section-title,
+.category-page__section--contact-cta .category-page__section-text {
+  color: #ffffff;
+}
+
+/* SECTION OFFRES – fond clair */
+.category-page__section--offers {
+  background-color: #fffbf6;
+}
+
+.category-page__offers-header {
+  margin-bottom: 1rem;
+}
+
+.category-page__state {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.category-page__state--error {
+  border-left: 4px solid #ffb798;
+}
+
+.category-page__state--loading {
+  border-left: 4px solid #b8d3c4;
+}
+
+.category-page__state--empty {
+  border-left: 4px solid rgba(184, 211, 196, 0.4);
+}
+
+.category-page__see-all {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.category-page__see-all-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  background-color: #ffb798;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.category-page__see-all-btn:hover {
+  background-color: rgb(255, 168.7398058252, 131.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+.category-page__see-all-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 183, 152, 0.25);
+}
+
+/* OVERLAY DÉTAIL CARD OFFERS */
+.category-page .service-detail {
+  position: fixed;
+  inset: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+  border-radius: 0;
+  padding: 1.5rem 1rem;
+  background-color: #ffffff;
+  box-shadow: none;
+  z-index: 40;
+  overflow-y: auto;
+}
+.category-page .service-detail__close {
+  top: 0.75rem;
+  right: 0.75rem;
+  position: absolute;
+}
+
+/* BREAKPOINTS */
+@media (min-width: 768px) {
+  .category-page__hero-inner {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+  .category-page__hero-media {
+    min-height: 320px;
+  }
+  .category-page__hero-image-wrapper {
+    max-width: 460px;
+  }
+  .category-page__title {
+    font-size: 2.4rem;
+  }
+  .category-page__subtitle {
+    font-size: 1.25rem;
+  }
+  .category-page__section-inner--intro {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+  .category-page__intro-media {
+    display: flex;
+    justify-content: center;
+  }
+  .category-page__steps-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .category-page__section-inner--testimonials {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+  .category-page__section-inner--cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 1024px) {
+  .category-page__title {
+    font-size: 2.6rem;
+  }
+  .category-page__hero-media {
+    min-height: 380px;
+  }
+  .category-page__hero-image-wrapper {
+    max-width: 520px;
+  }
+  .category-page__hero-image {
+    transform: translateY(14%);
+  }
 }/*# sourceMappingURL=CategoryPage.css.map */

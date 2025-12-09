@@ -1,3 +1,4 @@
+// C:\wamp64\www\aura_test\src\components\ServiceDropdown\ServiceDropdown.scss
 @use "../../styles/_variables" as *;
 
 .aura-header__nav-dropdown {
@@ -5,34 +6,114 @@
 
   .dropdown-trigger {
     cursor: pointer;
-    font-family: $font-family-primary;
-    font-size: $font-size-base;
-    color: $color-primary;
     user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
   }
 
+  .dropdown-trigger__label {
+    // le style (taille, soulignement) vient du Header.scss / Footer.scss
+  }
+
+  .dropdown-trigger__arrow {
+    font-size: 0.8em;
+  }
+
+  /* ====== COMPORTEMENT PAR DÉFAUT (HEADER) ======
+     -> dropdown centré juste sous "Services"
+  */
   .dropdown-content {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: $color-white;
     box-shadow: $shadow-soft;
     border-radius: $radius-md;
     min-width: 180px;
     padding: $spacing-2 0;
     z-index: 50;
+  }
 
-    .dropdown-link {
+  /* Liens du dropdown (HEADER + FOOTER desktop) */
+  .dropdown-link {
+    display: block;
+    padding: $spacing-2 $spacing-4;
+    position: relative;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    color: $color-primary;
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: $spacing-4;
+      right: $spacing-4;
+      bottom: 0.1rem;
+      height: 2px;
+      width: 0;
+      background-color: $color-secondary;
+      transition: width 0.2s ease;
+    }
+
+    &:hover {
+      color: $color-secondary;
+      background-color: $bg-peach-light;
+    }
+
+    &:hover::after {
+      width: calc(100% - #{$spacing-4 * 2});
+    }
+  }
+}
+
+
+
+.aura-header__nav-dropdown.aura-footer__dropdown {
+
+  .dropdown-trigger__arrow {
+    margin-left: 0.2rem;
+  }
+
+
+  .dropdown-content {
+    position: static;
+    transform: none;
+    background-color: transparent;
+    box-shadow: none;
+    margin-left: 27%;
+    padding: 0;
+    margin-top: $spacing-1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-2;
+  }
+
+  @media (min-width: 768px) {
+
+    position: relative;
+
+    .dropdown-content {
+      position: absolute;
+      top: 0;               
+      left: 100%;             
+      transform: none;
+      margin-left: $spacing-3; 
+      background-color: $color-white;
+      box-shadow: $shadow-soft;
+      border-radius: $radius-md;
+      min-width: 180px;
+      padding: $spacing-2 0;
       display: block;
-      padding: $spacing-2 $spacing-4;
-      color: $color-primary;
-      text-decoration: none;
-      transition: background-color 0.2s ease, color 0.2s ease;
-
-      &:hover {
-        background-color: $bg-peach-light;
-        color: $color-secondary;
-      }
     }
   }
 }

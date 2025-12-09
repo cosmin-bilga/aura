@@ -47,20 +47,30 @@ function validate_password(string $password, string $password_confirm): string
 {
     if ($password !== $password_confirm)
         return "Passwords do not match";
+
+    // min 8 caractères
     if (strlen($password) < 8)
         return "Password must be atleast 8 characters long";
-    if (!preg_match("/^(?=.*?[A-Z]).{8,}$/", $password))
+
+    // au moins 1 majuscule
+    if (!preg_match("/[A-Z]/", $password))
         return "Password must contain atleast one uppercase letter";
-    if (!preg_match("/^(?=.*?[a-z]).{8,}$/", $password))
+
+    // au moins 1 minuscule
+    if (!preg_match("/[a-z]/", $password))
         return "Password must contain atleast one lowercase letter";
-    if (!preg_match("/^(?=.*?[0-9]).{8,}$/", $password))
+
+    // au moins 1 chiffre
+    if (!preg_match("/[0-9]/", $password))
         return "Password must contain one number";
-    if (!preg_match("/^(?=.*?[#?!@$%^&*-+=()[\]{}]).{8,}$/", $password))
-        return "Password must contain a special character";
-    if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-+=()[\]{}]).{8,}$/", $password))
-        return "Invalid Password";
+
+    // au moins 1 caractère spécial parmi ceux acceptés en FRONT
+    if (!preg_match("/[@$!%*?&.,;:+_#\-]/", $password))
+        return "Password must contain a special character (allowed: @$!%*?&.,;:+_#-)";
+
     return "";
 }
+
 
 function validate_input_register(array $requestData): array
 {

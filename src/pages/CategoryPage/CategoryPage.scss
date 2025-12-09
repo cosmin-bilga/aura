@@ -1,46 +1,568 @@
-@use "../../styles/_variables" as *;
+@use "../../styles/variables" as *;
 
 .category-page {
-  padding: $spacing-6 $spacing-4;
+  min-height: 100vh;
+  background-color: $color-bg;
+  font-family: $font-family-primary;
+  color: $color-secondary;
+}
 
-  &__header {
-    text-align: center;
-    margin-bottom: $spacing-6;
+/* HERO – fond clair */
 
-    &__title {
-      font-size: $font-size-2xl;
-      color: $color-primary;
-      margin-bottom: $spacing-2;
-    }
+.category-page__hero {
+  padding: $spacing-10 $spacing-4 $spacing-6;
+  background-color: $color-bg;
+  overflow: hidden; // pour couper le bas éventuel de l'image
+}
 
-    &__description {
-      font-size: $font-size-base;
-      color: $color-secondary;
-    }
+.category-page__hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $spacing-8;
+  align-items: center;
+}
+
+.category-page__hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.category-page__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $radius-lg;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $color-primary;
+}
+
+.category-page__title {
+  font-size: $font-size-2xl;
+  font-weight: 600;
+  color: $color-secondary;
+}
+
+.category-page__subtitle {
+  font-size: $font-size-base;
+  color: rgba($color-secondary, 0.95);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.category-page__hero-bullets {
+  margin: 0;
+  padding-left: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  font-size: $font-size-sm;
+  color: rgba($color-secondary, 0.95);
+
+  li::marker {
+    color: $color-primary;
+  }
+}
+
+.category-page__hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+  margin-top: $spacing-2;
+}
+
+.category-page__primary-cta,
+.category-page__secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-8;
+  border-radius: $radius-lg; // plus rectangulaire, pas pill
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.category-page__primary-cta {
+  background-color: $color-primary;
+  color: $color-white;
+  box-shadow: $shadow-soft;
+
+  &:hover {
+    background-color: darken($color-primary, 4%);
+    box-shadow: $shadow-medium;
+    transform: translateY(-1px);
   }
 
-  &__offers {
-    display: grid;
-    gap: $spacing-4;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    margin-bottom: $spacing-6;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.25);
+  }
+}
+
+.category-page__secondary-cta {
+  background-color: $color-white;
+  color: $color-secondary;
+  border: 1px solid rgba($color-secondary, 0.2);
+  box-shadow: $shadow-soft;
+
+  &:hover {
+    background-color: rgba($color-white, 0.9);
+    transform: translateY(-1px);
   }
 
-  &__see-all {
-    text-align: center;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
+  }
+}
 
-    .btn {
-      padding: $spacing-2 $spacing-4;
-      background-color: $color-primary;
-      color: $color-white;
-      border-radius: $radius-md;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
+/* Bloc image du hero : grande image ancrée en bas */
 
-      &:hover {
-        background-color: $color-secondary;
-      }
-    }
+.category-page__hero-media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; // l’image colle le bas du bloc
+  min-height: 260px;
+}
+
+.category-page__hero-image-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+}
+
+.category-page__hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transform: translateY(12%); // fait « descendre » l’image vers le bas du hero
+}
+
+/* SECTIONS GÉNÉRIQUES */
+
+.category-page__section {
+  padding: $spacing-8 $spacing-4;
+}
+
+.category-page__section-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.category-page__section-title {
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $color-primary;
+  margin-bottom: $spacing-2;
+}
+
+.category-page__section-title--center {
+  text-align: center;
+}
+
+.category-page__section-text {
+  font-size: $font-size-base;
+  color: rgba($color-secondary, 0.95);
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* SECTION INTRO – fond vert, texte blanc */
+
+.category-page__section--intro {
+  background-color: $color-secondary;
+  color: $color-white;
+}
+
+.category-page__section--intro .category-page__section-title,
+.category-page__section--intro .category-page__section-text,
+.category-page__section--intro .category-page__list {
+  color: $color-white;
+}
+
+.category-page__section-inner--intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $spacing-6;
+  align-items: center;
+}
+
+.category-page__intro-media {
+  display: none;
+  position: relative;
+}
+
+.category-page__intro-ellipse {
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  background-color: $color-primary;
+}
+
+.category-page__intro-text {
+  max-width: 640px;
+}
+
+.category-page__list {
+  margin-top: $spacing-3;
+  padding-left: $spacing-4;
+  font-size: $font-size-sm;
+  color: inherit;
+  line-height: 1.7;
+
+  li::marker {
+    color: rgba($color-white, 0.8);
+  }
+}
+
+/* ÉTAPES – fond clair, grandes cartes pastel */
+
+.category-page__section--steps {
+  background-color: $color-bg;
+}
+
+.category-page__steps-grid {
+  margin-top: $spacing-6;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+}
+
+.category-page__step-card {
+  position: relative;
+  padding: $spacing-6 $spacing-4 $spacing-4;
+  background-color: lighten($bg-peach-light, 4%);
+}
+
+.category-page__step-icon {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background-color: $color-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $shadow-medium;
+
+  span {
+    color: $color-white;
+    font-weight: 700;
+    font-size: $font-size-lg;
+  }
+}
+
+.category-page__step-body {
+  margin-top: $spacing-2;
+
+  h3 {
+    margin: 0 0 $spacing-2;
+    font-size: $font-size-base;
+    color: $color-secondary;
+  }
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: rgba($color-secondary, 0.95);
+    line-height: 1.6;
+  }
+}
+
+/* SECTION APPROCHE + MINI CARROUSEL – bandeau pêche */
+
+.category-page__section--testimonials {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.category-page__section-inner--testimonials {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $spacing-6;
+  align-items: center;
+}
+
+.category-page__approach-title {
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $color-white;
+  margin-bottom: $spacing-2;
+  text-align: left;
+}
+
+.category-page__approach-tagline {
+  font-family: $font-family-secondary;
+  font-size: $font-size-lg;
+  font-style: italic;
+  margin-bottom: $spacing-3;
+}
+
+.category-page__approach-text {
+  font-size: $font-size-sm;
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+.category-page__testimonials-slider {
+  position: relative;
+  padding: $spacing-4;
+  background-color: rgba($color-bg, 0.18);
+}
+
+.category-page__testimonial-heading {
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: $spacing-2;
+}
+
+.category-page__testimonial-card {
+  margin-bottom: $spacing-3;
+}
+
+.category-page__testimonial-text {
+  margin: 0 0 $spacing-2;
+  font-size: $font-size-sm;
+  line-height: 1.8;
+}
+
+.category-page__testimonial-author {
+  margin: 0;
+  font-size: $font-size-xs;
+  font-weight: 600;
+}
+
+.category-page__testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-3;
+}
+
+.category-page__testimonial-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background-color: rgba($color-bg, 0.85);
+  color: $color-primary;
+  font-size: $font-size-base;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+.category-page__testimonial-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.category-page__testimonial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background-color: rgba($color-bg, 0.55);
+  cursor: pointer;
+}
+
+.category-page__testimonial-dot--active {
+  width: 10px;
+  height: 10px;
+  background-color: $color-bg;
+}
+
+/* CTA CONTACT – fond vert */
+
+.category-page__section--contact-cta {
+  background-color: $color-secondary;
+  color: $color-white;
+}
+
+.category-page__section-inner--cta {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.category-page__section--contact-cta .category-page__section-title,
+.category-page__section--contact-cta .category-page__section-text {
+  color: $color-white;
+}
+
+/* SECTION OFFRES – fond clair */
+
+.category-page__section--offers {
+  background-color: $color-bg;
+}
+
+.category-page__offers-header {
+  margin-bottom: $spacing-4;
+}
+
+.category-page__state {
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  padding: $spacing-4;
+  box-shadow: $shadow-soft;
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-4;
+}
+
+.category-page__state--error {
+  border-left: 4px solid $color-primary;
+}
+
+.category-page__state--loading {
+  border-left: 4px solid $color-secondary;
+}
+
+.category-page__state--empty {
+  border-left: 4px solid rgba($color-secondary, 0.4);
+}
+
+.category-page__see-all {
+  text-align: center;
+  margin-top: $spacing-4;
+}
+
+.category-page__see-all-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3 $spacing-8;
+  border-radius: $radius-lg;
+  background-color: $color-primary;
+  color: $color-white;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: $shadow-soft;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background-color: darken($color-primary, 4%);
+    box-shadow: $shadow-medium;
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.25);
+  }
+}
+
+/* OVERLAY DÉTAIL CARD OFFERS */
+
+.category-page {
+  .service-detail {
+    position: fixed;
+    inset: 0;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+    padding: $spacing-6 $spacing-4;
+    background-color: $color-white;
+    box-shadow: none;
+    z-index: 40;
+    overflow-y: auto;
+  }
+
+  .service-detail__close {
+    top: $spacing-3;
+    right: $spacing-3;
+    position: absolute;
+  }
+}
+
+/* BREAKPOINTS */
+
+@media (min-width: 768px) {
+  .category-page__hero-inner {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+
+  .category-page__hero-media {
+    min-height: 320px; // plus haut sur desktop
+  }
+
+  .category-page__hero-image-wrapper {
+    max-width: 460px;
+  }
+
+  .category-page__title {
+    font-size: 2.4rem;
+  }
+
+  .category-page__subtitle {
+    font-size: $font-size-lg;
+  }
+
+  .category-page__section-inner--intro {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .category-page__intro-media {
+    display: flex;
+    justify-content: center;
+  }
+
+  .category-page__steps-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .category-page__section-inner--testimonials {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+
+  .category-page__section-inner--cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .category-page__title {
+    font-size: 2.6rem;
+  }
+
+  .category-page__hero-media {
+    min-height: 380px;
+  }
+
+  .category-page__hero-image-wrapper {
+    max-width: 520px;
+  }
+
+  .category-page__hero-image {
+    transform: translateY(14%); // descend encore un peu sur grand écran
   }
 }

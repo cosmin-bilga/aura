@@ -1,19 +1,33 @@
+@charset "UTF-8";
 .aura-header__nav-dropdown {
   position: relative;
+  /* ====== COMPORTEMENT PAR DÉFAUT (HEADER) ======
+     -> dropdown centré juste sous "Services"
+  */
+  /* Liens du dropdown (HEADER + FOOTER desktop) */
 }
 .aura-header__nav-dropdown .dropdown-trigger {
   cursor: pointer;
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-  color: #ffb798;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+.aura-header__nav-dropdown .dropdown-trigger__arrow {
+  font-size: 0.8em;
 }
 .aura-header__nav-dropdown .dropdown-content {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #ffffff;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   border-radius: 0.5rem;
@@ -21,14 +35,66 @@
   padding: 0.5rem 0;
   z-index: 50;
 }
-.aura-header__nav-dropdown .dropdown-content .dropdown-link {
+.aura-header__nav-dropdown .dropdown-link {
   display: block;
   padding: 0.5rem 1rem;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
   color: #ffb798;
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
-.aura-header__nav-dropdown .dropdown-content .dropdown-link:hover {
-  background-color: rgba(255, 183, 152, 0.25);
+.aura-header__nav-dropdown .dropdown-link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.1rem;
+  height: 2px;
+  width: 0;
+  background-color: #b8d3c4;
+  transition: width 0.2s ease;
+}
+.aura-header__nav-dropdown .dropdown-link:hover {
   color: #b8d3c4;
+  background-color: rgba(255, 183, 152, 0.25);
+}
+.aura-header__nav-dropdown .dropdown-link:hover::after {
+  width: calc(100% - 2rem);
+}
+
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger__arrow {
+  margin-left: 0.2rem;
+}
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-content {
+  position: static;
+  transform: none;
+  background-color: transparent;
+  box-shadow: none;
+  margin-left: 27%;
+  padding: 0;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .aura-header__nav-dropdown.aura-footer__dropdown {
+    position: relative;
+  }
+  .aura-header__nav-dropdown.aura-footer__dropdown .dropdown-content {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: none;
+    margin-left: 0.75rem;
+    background-color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    min-width: 180px;
+    padding: 0.5rem 0;
+    display: block;
+  }
 }/*# sourceMappingURL=ServiceDropdown.css.map */

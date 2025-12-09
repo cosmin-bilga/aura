@@ -4,7 +4,7 @@
  * METHODS: GET, OPTIONS
  * 
  * -- GET: RECUPERATION D'UNE LISTE DES OFFRES CORRESPONDANT AUX FILTRES
- * PARAMS : ?category, ?disponibility, ?perimeter_of_displacement, ?id_provider
+ * PARAMS : ?category, ?disponibility, ?perimeter_of_displacement, ?id_provider, ?id_customer
  * AUTH: none
  * RETURN: array [... {id_offer, description, duration, category, disponibility, perimeter_of_displacement, price, id_provider, created_at, updated_at}]	
  * 
@@ -15,6 +15,15 @@ declare(strict_types=1);
 require_once "../connection.php";
 require_once "../offer_validation.php";
 
+require __DIR__ . '/../../../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '\..\..\..');
+$dotenv->load();
+
+if (isset($_ENV["MAPS_API_KEY"]))
+    $API_KEY = $_ENV["MAPS_API_KEY"];
+else
+    $API_KEY = "FAIL";
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
@@ -84,7 +93,51 @@ function offers_get($requestData)
         return;
     }
 
-    foreach ($res as &$r) {;
+    foreach ($res as &$r) {
+        if (isset($requestData["id_customer"])) {
+            try {
+                $sql = "SELECT address FROM service_providers WHERE id_provider=:id";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([
+                    ":id" => $r["id_provider"]
+                ]);
+                $resp = $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo json_encode(["message" => $e->getMessage()]);
+                http_response_code(500);
+            }
+
+            if ($resp === false) {
+                echo json_encode(["message" => "Provider not found"]);
+                http_response_code(500);
+                return;
+            }
+
+            try {
+                $sql = "SELECT address FROM customers WHERE id_customer=:id";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([
+                    ":id" => $requestData["id_customer"]
+                ]);
+                $resc = $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo json_encode(["message" => $e->getMessage()]);
+                http_response_code(500);
+            }
+
+            if ($resc === false) {
+                echo json_encode(["message" => "Customer not found"]);
+                http_response_code(500);
+                return;
+            }
+
+            $coords_provider = get_coordinates($resp["address"]);
+            $coords_customer = get_coordinates($resc["address"]);
+            if (isset($coords_provider["lat"]) && isset($coords_customer["lat"]))
+                $r["distance"] = calculate_distance(floatval($coords_provider["lat"]), floatval($coords_provider["lon"]), floatval($coords_customer["lat"]), floatval($coords_customer["lon"]));
+            //$r["customer_coords"] = $coords_customer;
+            //$r["provider_coords"] = $coords_provider;
+        }
         $r["disponibility"] = disponibilities_return($r["id_offer"]);
     }
 
@@ -285,4 +338,46 @@ function merge_disponibilities(array $disponibilities): array
         $disponibilities = $new_dispos;
     }
     return $plages;
+}
+
+function get_coordinates(string $address): array
+{
+    global $API_KEY;
+    $coords = array();
+
+    $url = "https://geocode.maps.co/search?q=" . urlencode($address) . "&api_key=" . $API_KEY;
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Temporary solution to bypass certificate verification
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json"
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($ch);
+
+    if (curl_error($ch)) {
+        // echo curl_error($ch);
+        return [];
+    }
+
+    $response = json_decode($response, true);
+    if (!isset($response))
+        return [];
+    $coords["lat"] = $response[0]["lat"];
+    $coords["lon"] = $response[0]["lon"];
+    return $coords;
+}
+
+function calculate_distance(float $lat1, float $lon1, float $lat2, float $lon2): float
+{
+    $r = 6371;
+    $dLat = deg2rad($lat2 - $lat1);
+    $dLon = deg2rad($lon2 - $lon1);
+    $a = sin($dLat / 2) * sin($dLat / 2) +
+        cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+        sin($dLon / 2) * sin($dLon / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    $d = $r * $c;
+    return $d;
 }

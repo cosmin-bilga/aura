@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .aura-header {
-  background-color: #fffbf6;
+  background-color: "Poppins", sans-serif;
   padding: 0 0 1rem;
 }
 
@@ -46,12 +46,15 @@
   margin-left: 35px;
 }
 
-/* nav (desktop) */
+/* nav (desktop hidden par défaut / mobile first) */
 .aura-header__nav {
   display: none;
   gap: 1rem;
 }
-.aura-header__nav a {
+
+/* Style commun pour les liens de nav + le trigger du dropdown */
+.aura-header__nav a,
+.aura-header__nav-dropdown .dropdown-trigger {
   position: relative;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -59,7 +62,10 @@
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.aura-header__nav a::after {
+
+/* Soulignement animé */
+.aura-header__nav a::after,
+.aura-header__nav-dropdown .dropdown-trigger::after {
   content: "";
   position: absolute;
   left: 0;
@@ -69,10 +75,15 @@
   background-color: #b8d3c4;
   transition: width 0.2s ease;
 }
-.aura-header__nav a:hover {
+
+/* Hover */
+.aura-header__nav a:hover,
+.aura-header__nav-dropdown .dropdown-trigger:hover {
   color: #b8d3c4;
 }
-.aura-header__nav a:hover::after {
+
+.aura-header__nav a:hover::after,
+.aura-header__nav-dropdown .dropdown-trigger:hover::after {
   width: 100%;
 }
 
@@ -126,6 +137,48 @@
   margin-bottom: 1.5rem;
 }
 
+/* =======================================================
+   OVERLAY MOBILE – VERSION CORRIGÉE AVEC BARRES VISIBLES
+   ======================================================= */
+.aura-header__overlay-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Tous les liens du menu overlay mobile */
+.aura-header__overlay-nav a,
+.aura-header__overlay-nav .aura-header__overlay-link-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  position: relative;
+}
+
+/* BARRE sous chaque lien */
+.aura-header__overlay-nav a::after,
+.aura-header__overlay-nav .aura-header__overlay-link-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Optionnel : retirer la barre sous le dernier item */
+.aura-header__overlay-nav a:last-child::after,
+.aura-header__overlay-nav .aura-header__overlay-link-button:last-child::after {
+  display: none;
+}
+
 /* Icône profil dans l’overlay (à gauche) */
 .aura-header__overlay-user {
   display: flex;
@@ -152,21 +205,6 @@
   color: #ffffff;
   font-size: 1.6rem;
   cursor: pointer;
-}
-
-.aura-header__overlay-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.aura-header__overlay-nav a {
-  position: relative;
-  padding: 0.75rem 0.5rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-  font-family: "Poppins", sans-serif;
-  font-size: 1.25rem;
-  color: #ffffff;
-  text-decoration: none;
 }
 
 /* DESKTOP */
@@ -237,11 +275,13 @@
   .aura-header__side {
     flex: 0 0 auto;
   }
+  /* Affiche la nav en desktop + même taille pour tous les liens, y compris Services */
   .aura-header__nav {
     display: flex;
   }
-  .aura-header__nav a {
-    font-size: 1.3rem;
+  .aura-header__nav a,
+  .aura-header__nav .aura-header__nav-dropdown .dropdown-trigger {
+    font-size: 1.25rem;
     font-weight: 500;
   }
   .aura-header__nav--left,

@@ -22,7 +22,7 @@ const RegisterForm = () => {
     sex: "Autre",
     additionalInformation: "",
     siren: "",
-    status: "Micro-entreprise",
+    statut: "Micro-entreprise",
     education: "",
   });
 
@@ -74,7 +74,7 @@ const RegisterForm = () => {
         else if (!/^\d{9}$/.test(data.siren.trim()))
           newErrors.siren = "Le numéro SIREN doit contenir 9 chiffres.";
 
-        if (!data.status) newErrors.status = "Le statut est obligatoire.";
+        if (!data.statut) newErrors.statut = "Le statut est obligatoire.";
         if (!data.education.trim())
           newErrors.education =
             "Merci de préciser votre expérience / formation.";
@@ -116,71 +116,82 @@ const RegisterForm = () => {
     setErrors({});
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateStep()) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validateStep()) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    const registrationData =
-      formData.role === "client"
-        ? {
+  // 1) Choix de l’endpoint en fonction du rôle
+  const endpoint =
+    formData.role === "client"
+      ? "/api/customer/index.php"
+      : "/api/provider/index.php";
+
+  // 2) Mapping des données avec les bons NOMS DE CHAMPS
+  const registrationData =
+    formData.role === "client"
+      ? {
           name: formData.name,
           firstname: formData.firstname,
           email: formData.email,
           password: formData.password,
-          password_confirm: formData.confirmPassword, 
+          password_confirm: formData.confirmPassword,
           phone_number: formData.phoneNumber,
           address: formData.address,
           sex: formData.sex,
           additional_information: formData.additionalInformation || "",
         }
-        : {
+      : {
           name: formData.name,
           firstname: formData.firstname,
           email: formData.email,
           password: formData.password,
-          password_confirm: formData.confirmPassword, 
+          password_confirm: formData.confirmPassword,
           phone_number: formData.phoneNumber,
           address: formData.address,
           sex: formData.sex,
           SIREN: formData.siren,
-          status: formData.status,
+          status: formData.statut, // IMPORTANT : status et pas statut côté API
+          profile_picture: "default.WebP", // obligatoire dans validate_input_register
           education_experience: formData.education,
-          profile_picture: "default.WebP",
           additional_information: formData.additionalInformation || "",
         };
 
-    try {
-      const endpoint = formData.role === "client"
-        ? "/api/customer/index.php"
-        : "/api/provider/index.php";
-
-      const formBody = new URLSearchParams();
-      Object.keys(registrationData).forEach(key => {
-        formBody.append(key, registrationData[key]);
-      });
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formBody.toString(),
-      });
-      const data = await response.json();
-      console.log(data);
-
-      if (response.ok) {
-        alert("Inscription réussie !");
-        navigate("/connexion");
-      } else {
-        alert("Erreur : " + data.message);
-      }
-    } catch (error) {
-      alert("Erreur réseau : " + error.message);
-    } finally {
-      setLoading(false);
+  // 3) Construction d’un body en x-www-form-urlencoded pour que PHP remplisse $_POST
+  const body = new URLSearchParams();
+  Object.entries(registrationData).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      body.append(key, value);
     }
-  };
+  });
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body, // PAS de JSON.stringify ici
+    });
+
+    const data = await response.json();
+    console.log("Réponse API:", data);
+
+    if (response.ok) {
+      alert("Inscription réussie !");
+      navigate("/connexion");
+    } else {
+      alert("Erreur : " + (data.message || "Une erreur est survenue."));
+    }
+  } catch (error) {
+    alert("Erreur réseau : " + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
     <>
@@ -194,8 +205,8 @@ const RegisterForm = () => {
               (step === i
                 ? "register-step--active"
                 : step > i
-                  ? "register-step--done"
-                  : "")
+                ? "register-step--done"
+                : "")
             }
           >
             <span className="register-step__index">{i}</span>
@@ -372,7 +383,7 @@ const RegisterForm = () => {
                   <label className="register-field">
                     <span className="register-field__label">Statut</span>
                     <select
-                      name="status"
+                      name="statut"
                       value={formData.status}
                       onChange={handleChange}
                       disabled={loading}
@@ -454,8 +465,8 @@ const RegisterForm = () => {
             {loading
               ? "Inscription en cours..."
               : step < 3
-                ? "Étape suivante"
-                : "Finaliser mon inscription"}
+              ? "Étape suivante"
+              : "Finaliser mon inscription"}
           </button>
         </div>
       </form>
