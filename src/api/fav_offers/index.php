@@ -20,11 +20,11 @@ header("Content-Type: application/json; charset=UTF-8");
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         $requestData = $_GET;
-
+        
         if (isset($_SERVER["HTTP_X_API_KEY"])) {
             $requestData["token"] = $_SERVER["HTTP_X_API_KEY"];
         }
-
+        
         favOffers_get($requestData);
         break;
 
@@ -34,11 +34,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 }
 
-function favOffers_get(array $requestData): void
-{
+function favOffers_get(array $requestData): void {
     $conn = Connection::getConnection();
 
-
+   
     if (!isset($requestData["id_customer"])) {
         echo json_encode(["message" => "Missing id_customer parameter"]);
         http_response_code(400);
@@ -51,7 +50,7 @@ function favOffers_get(array $requestData): void
         return;
     }
 
-
+    
     $id_customer = (int)$requestData["id_customer"];
     if ($id_customer <= 0) {
         echo json_encode(["message" => "Invalid customer ID"]);
@@ -66,8 +65,8 @@ function favOffers_get(array $requestData): void
         return;
     }
 
-
-    $isAuthorized = check_token($token, $id_customer, "customer");
+    
+    $isAuthorized = check_token($token, $id_customer,"customer");
     if (!$isAuthorized) {
         echo json_encode(["message" => "Unauthorized"]);
         http_response_code(403);
@@ -75,7 +74,7 @@ function favOffers_get(array $requestData): void
     }
 
     try {
-
+        
         $sql = "SELECT id_customer FROM customers WHERE id_customer = :id_customer";
         $stmt = $conn->prepare($sql);
         $stmt->execute([":id_customer" => $id_customer]);
@@ -87,14 +86,18 @@ function favOffers_get(array $requestData): void
             return;
         }
 
-
+        
         $sql = "SELECT * FROM fav_offers WHERE id_customer = :id_customer ORDER BY created_at DESC";
         $stmt = $conn->prepare($sql);
         $stmt->execute([":id_customer" => $id_customer]);
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+      
+        add_token($token, $id_customer, "customer");
+
         echo json_encode($res);
         http_response_code(200);
+
     } catch (PDOException $e) {
         echo json_encode(["message" => "Database error"]);
         http_response_code(500);

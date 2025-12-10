@@ -90,7 +90,7 @@ function validate_input_register(array $requestData): array
 {
     $errors = array();
     if (!isset($requestData["password"]))
-        array_push($errors, "Password is not set????");
+        array_push($errors, "Password is not set");
     elseif (!isset($requestData["password_confirm"]))
         array_push($errors, "Password confirm is not set");
     elseif (($err = validate_password($requestData["password"], $requestData["password_confirm"])) != "")
