@@ -60,10 +60,14 @@ const Login = () => {
         throw new Error(loginData.message || "Échec de la connexion");
       }
 
+      const backendRole =
+        (loginData.user && loginData.user.role) || loginData.role;
+      const finalRole = backendRole || role || "customer";
+
       const token = loginData.token;
       const user = {
         ...loginData.user,
-        role: role, 
+        role: finalRole, 
       };
 
       console.log("✅ Login successful:", { token, user });
@@ -75,11 +79,7 @@ const Login = () => {
       });
 
      
-      if (role === "provider") {
-        navigate("/prestataire/dashboard");
-      } else {
-        navigate("/client/dashboard"); 
-      }
+      navigate(`/dashboard/${finalRole}`);
     } catch (error) {
       console.error("Login error:", error);
       setErrorMessage(error.message || "Une erreur est survenue.");

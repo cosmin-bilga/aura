@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 
-// Le Fournisseur (Provider) qui gère l'état
+const STORAGE_KEY = "aura_auth";
+
 export const AuthProvider = ({ children }) => {
   // Initialiser l'état depuis localStorage si disponible
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -15,22 +16,38 @@ export const AuthProvider = ({ children }) => {
     return localStorage.getItem('authToken');
   });
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.token && parsed.user) {
+        setToken(parsed.token);
+        setUser(parsed.user);
+        setIsLoggedIn(true);
+      }
+    } catch (err) {
+      console.warn("Auth rehydrate failed:", err);
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, []);
+
   const login = (userData) => {
     // Stocker dans l'état
     setToken(userData.token);
     setUser(userData.user);
     setIsLoggedIn(true);
 
-    // Stocker dans localStorage
-    localStorage.setItem('authToken', userData.token);
-    localStorage.setItem('user', JSON.stringify(userData.user));
-    localStorage.setItem('userRole', userData.user.role);
-
-    // Stocker l'ID selon le rôle
-    if (userData.user.role === 'provider') {
-      localStorage.setItem('userId', userData.user.id_provider);
-    } else if (userData.user.role === 'customer') {
-      localStorage.setItem('userId', userData.user.id_customer);
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ token: userData.token, user: userData.user })
+      );
+    } catch (err) {
+      console.warn("Auth persist failed:", err);
     }
   };
 
@@ -40,11 +57,11 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsLoggedIn(false);
 
-    // Nettoyer localStorage
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userId');
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (err) {
+      console.warn("Auth clear failed:", err);
+    }
   };
 
   const value = {
