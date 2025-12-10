@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, X-API-KEY");
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 /**
  * METHODS: GET, POST, DELETE, OPTIONS
  * 
@@ -24,8 +37,6 @@
  * RETURN: message
  */
 
-
-declare(strict_types=1);
 
 require_once "../connection.php";
 require_once "../tokens.php";
@@ -212,7 +223,7 @@ function provider_register(array $requestData): void
             ":additional_info" => $requestData["additional_information"] ?? "",
             ":status" => $requestData["status"]
         ]);
-        
+
         if (!$res) {
             echo json_encode(["message" => "Failed to insert provider"]);
             http_response_code(500);
@@ -223,7 +234,7 @@ function provider_register(array $requestData): void
         http_response_code(500);
         return;
     }
-    
+
     echo json_encode(["message" => "Service provider succesfully created"]);
     http_response_code(201);
     return;
