@@ -22,12 +22,12 @@ function validate_payement_date(string $payement_date): string
         return "Payement date is invalid.";
 }
 
-function validate_statut(string $statut): string
+function validate_status(string $status): string
 {
 
-    if (in_array($statut, ["en_attente", "validé", "effectué", "payé", "annulé"]))
+    if (in_array($status, ["en_attente", "validé", "effectué", "payé", "annulé"]))
         return "";
-    return "Statut must be en_attente, validé, effectué, payé or annulé";
+    return "status must be en_attente, validé, effectué, payé or annulé";
 }
 
 function validate_amount(int $amount): string
@@ -65,8 +65,8 @@ function validate_input_register(array $requestData): array
         array_push($errors, "service_date is not set");
     elseif (($err = validate_service_date($requestData["service_date"])) != "")
         array_push($errors, $err);
-    if (isset($requestData["statut"]))
-        if (($err = validate_statut($requestData["statut"])) != "")
+    if (isset($requestData["status"]))
+        if (($err = validate_status($requestData["status"])) != "")
             array_push($errors, $err);
     if (!isset($requestData["amount"]))
         array_push($errors, "amount is not set");
@@ -103,8 +103,8 @@ function validate_input_update(array $requestData): array
     if (isset($requestData["service_date"]))
         if (($err = validate_service_date($requestData["service_date"])) != "")
             array_push($errors, $err);
-    if (isset($requestData["statut"]))
-        if (($err = validate_statut($requestData["statut"])) != "")
+    if (isset($requestData["status"]))
+        if (($err = validate_status($requestData["status"])) != "")
             array_push($errors, $err);
     if (isset($requestData["amount"]))
         if (($err = validate_amount($requestData["amount"])) != "")

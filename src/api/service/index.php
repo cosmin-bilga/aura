@@ -6,15 +6,15 @@
  * -- GET: RECUPERATION DETAILS SERVICE
  * PARAMS : id_service
  * AUTH: token matching id_customer OR admin token
- * RETURN: id_service, id_customer, id_offer, service_date, statut, amount, payment_date, payment_method, payment_reference, created_at, updated_at	
+ * RETURN: id_service, id_customer, id_offer, service_date, status, amount, payment_date, payment_method, payment_reference, created_at, updated_at	
  * 
  * -- POST: CREATION SERVICE
- * PARAMS: id_customer, id_offer, service_date, ?statut, amount, payment_date, payment_method, payment_reference
+ * PARAMS: id_customer, id_offer, service_date, ?status, amount, payment_date, payment_method, payment_reference
  * AUTH: admin token
  * RETURN: message
  * 
  * -- POST: MODIFICATION SERVICE
- * PARAMS: id_service, ?id_customer, ?id_offer, ?service_date, ?statut, ?amount, ?payment_date, ?payment_method, ?payment_reference
+ * PARAMS: id_service, ?id_customer, ?id_offer, ?service_date, ?status, ?amount, ?payment_date, ?payment_method, ?payment_reference
  * AUTH: admin token
  * RETURN: message
  * 
@@ -109,7 +109,7 @@ function build_update_query(array $requestData): array
     $fields = "";
     $execute = array();
     foreach ($requestData as $key => $value) {
-        if (in_array($key, ["id_customer", "id_offer", "service_date", "statut", "amount", "payment_date", "payment_method", "payment_reference"])) {
+        if (in_array($key, ["id_customer", "id_offer", "service_date", "status", "amount", "payment_date", "payment_method", "payment_reference"])) {
             $fields .= $key . " = :" . $key . ", ";
             $execute[":" . $key] = $value;
         }
@@ -217,14 +217,14 @@ function service_register(array $requestData): void
     }
 
     try {
-        $sql = "INSERT INTO services (id_customer, id_offer, service_date, statut, amount, payment_date, payment_method, payment_reference) VALUES (:id_customer, :id_offer, :service_date, :statut, :amount, :payment_date, :payment_method, :payment_reference);";
+        $sql = "INSERT INTO services (id_customer, id_offer, service_date, status, amount, payment_date, payment_method, payment_reference) VALUES (:id_customer, :id_offer, :service_date, :status, :amount, :payment_date, :payment_method, :payment_reference);";
         $stmt = $conn->prepare($sql);
 
         $res = $stmt->execute([
             ":id_customer" => $requestData["id_customer"],
             ":id_offer" => $requestData["id_offer"],
             ":service_date" => $requestData["service_date"],
-            ":statut" => $requestData["statut"] ?? "en attente",
+            ":status" => $requestData["status"] ?? "en attente",
             ":amount" => $requestData["amount"],
             ":payment_date" => $requestData["payment_date"],
             ":payment_method" => $requestData["payment_method"],
