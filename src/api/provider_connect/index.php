@@ -64,7 +64,8 @@ function provider_connect(array $requestData): void
         $token = generate_token();
         add_token($token, $res["id_provider"], "provider");
         http_response_code(202); // ACCEPTED
-        echo json_encode(["token" => $token, "message" => "User logged in"]);
+        unset($res["password"]);
+        echo json_encode(["token" => $token, "user" => $res, "message" => "User logged in"]);
         return;
     }
     http_response_code(403); // FORBIDDEN

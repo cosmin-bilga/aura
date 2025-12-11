@@ -18,7 +18,7 @@ function validate_description(string $description): string
     return "";
 }
 
-function validate_duration(int $duration): string // On suppose que c'est en minutes
+function validate_duration(int $duration): string 
 {
     if (!isset($duration))
         return "Duration is missing.";
@@ -36,7 +36,7 @@ function validate_category(string $category): string
 
 function validate_disponibility(string $disponibility): string
 {
-    ## TODO
+    
     return "";
 }
 
@@ -52,7 +52,7 @@ function validate_input_register(array $requestData): array
 {
     $errors = array();
     if (!isset($requestData["description"]))
-        array_push($errors, "Description is not set");
+        array_push($errors, "Description is not set. Received: " . json_encode($requestData));
     elseif (($err = validate_description($requestData["description"])) != "")
         array_push($errors, $err);
     if (!isset($requestData["duration"]))
@@ -81,9 +81,22 @@ function validate_input_register(array $requestData): array
 
 function sanitize_input(array $requestData): array
 {
+   
+    $enumFields = ['category', 'perimeter_of_displacement', 'disponibility'];
+
     foreach ($requestData as $key => $value) {
-        if (gettype($value) === "string")
+        if (gettype($value) === "string") {
+            
+            $value = trim($value);
+            $requestData[$key] = $value;
+
+            
+            if (in_array($key, $enumFields)) {
+                continue;
+            }
+
             $requestData[$key] = htmlentities($value);
+        }
     }
     return $requestData;
 }
