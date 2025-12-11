@@ -15,7 +15,7 @@ class Connection
     {
         if (self::$conn === null) {
             try {
-                self::$conn = new PDO("mysql:host=localhost;dbname=auradev;port=3306;charset=utf8mb4", "root", "", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+                self::$conn = new PDO("mysql:host=localhost;dbname=aura;port=3306;charset=utf8mb4", "root", "", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
                 return self::$conn;
             } catch (PDOException $e) {
                 echo $e->getMessage();
