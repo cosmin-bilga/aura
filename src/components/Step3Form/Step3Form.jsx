@@ -36,10 +36,10 @@ const Step3Form = ({ formData, handleChange, errors, loading }) => (
           </label>
 
           <label className="register-field">
-            <span className="register-field__label">Statut</span>
+            <span className="register-field__label">Status</span>
             <select
-              name="statut"
-              value={formData.statut}
+              name="status"
+              value={formData.status}
               onChange={handleChange}
               disabled={loading}
             >
@@ -50,7 +50,7 @@ const Step3Form = ({ formData, handleChange, errors, loading }) => (
               <option value="SARL">SARL</option>
               <option value="SAS">SAS</option>
             </select>
-            {errors.statut && <span className="error">{errors.statut}</span>}
+            {errors.status && <span className="error">{errors.status}</span>}
           </label>
         </div>
 

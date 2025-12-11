@@ -54,27 +54,37 @@ function validate_statut(string $statut): string
 {
     if (in_array($statut, ["EI", "Micro-entreprise", "EURL", "SASU", "SARL", "SAS"]))
         return "";
-    return "Statut not valid; EI, Micro-entreprise, EURL ,SASU ,SARL ,SAS are the allowed options";
+    return "Status not valid; EI, Micro-entreprise, EURL ,SASU ,SARL ,SAS are the allowed options";
 }
 
 function validate_password(string $password, string $password_confirm): string
 {
     if ($password !== $password_confirm)
         return "Passwords do not match";
+
+    // min 8 caractères
     if (strlen($password) < 8)
         return "Password must be atleast 8 characters long";
-    if (!preg_match("/^(?=.*?[A-Z]).{8,}$/", $password))
+
+    // au moins 1 majuscule
+    if (!preg_match("/[A-Z]/", $password))
         return "Password must contain atleast one uppercase letter";
-    if (!preg_match("/^(?=.*?[a-z]).{8,}$/", $password))
+
+    // au moins 1 minuscule
+    if (!preg_match("/[a-z]/", $password))
         return "Password must contain atleast one lowercase letter";
-    if (!preg_match("/^(?=.*?[0-9]).{8,}$/", $password))
+
+    // au moins 1 chiffre
+    if (!preg_match("/[0-9]/", $password))
         return "Password must contain one number";
-    if (!preg_match("/^(?=.*?[#?!@$%^&*-+=()[\]{}]).{8,}$/", $password))
-        return "Password must contain a special character";
-    if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-+=()[\]{}]).{8,}$/", $password))
-        return "Invalid Password";
+
+    // au moins 1 caractère spécial parmi ceux acceptés en FRONT
+    if (!preg_match("/[@$!%*?&.,;:+_#\-]/", $password))
+        return "Password must contain a special character (allowed: @$!%*?&.,;:+_#-)";
+
     return "";
 }
+
 
 function validate_input_register(array $requestData): array
 {
@@ -111,9 +121,9 @@ function validate_input_register(array $requestData): array
         array_push($errors, "SIREN is not set.");
     elseif (($err = validate_siren($requestData["SIREN"])) != "")
         array_push($errors, $err);
-    if (!isset($requestData["statut"]))
-        array_push($errors, "Statut is not set");
-    elseif (($err = validate_statut($requestData["statut"])) != "")
+    if (!isset($requestData["status"]))
+        array_push($errors, "Status is not set");
+    elseif (($err = validate_statut($requestData["status"])) != "")
         array_push($errors, $err);
     $requestData["errors"] = $errors;
     return $requestData;
@@ -156,8 +166,8 @@ function validate_input_update(array $requestData): array
     if (isset($requestData["SIREN"]))
         if (($err = validate_siren($requestData["SIREN"])) != "")
             array_push($errors, $err);
-    if (isset($requestData["statut"]))
-        if (($err = validate_statut($requestData["statut"])) != "")
+    if (isset($requestData["status"]))
+        if (($err = validate_statut($requestData["status"])) != "")
             array_push($errors, $err);
     $requestData["errors"] = $errors;
     return $requestData;

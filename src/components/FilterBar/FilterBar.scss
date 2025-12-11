@@ -1,0 +1,325 @@
+@use "../../styles/variables" as *;
+
+/* BARRE DE RECHERCHE + FILTRES + TRI */
+
+.service-catalog__search {
+  margin: $spacing-6 auto 0;
+  background-color: $color-white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-soft;
+  padding: $spacing-4 $spacing-3;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  max-width: 960px;
+}
+
+@media (min-width: 960px) {
+  .service-catalog__search {
+    max-width: 1120px; // largeur plus grande seulement en desktop
+  }
+}
+
+.service-catalog__search-row {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.service-catalog__field-label {
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba($color-secondary, 0.9);
+  margin-bottom: $spacing-1;
+}
+
+/* Champ de recherche principal */
+
+.service-catalog__search-field {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-catalog__search-input {
+  width: 100%;
+  height: 44px;
+  border-radius: $radius-lg;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0 $spacing-4;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  background-color: $color-bg;
+  color: $color-secondary;
+  outline: none;
+  transition: 0.2s ease;
+  box-shadow: $shadow-soft;
+
+  &::placeholder {
+    color: rgba($color-secondary, 0.7);
+  }
+
+  &:hover {
+    background-color: $color-white;
+    box-shadow: $shadow-medium;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.25), $shadow-medium;
+    background-color: $color-white;
+  }
+}
+
+/* Autocomplétion */
+
+.service-catalog__suggestions {
+  position: absolute;
+  top: calc(100% + $spacing-1);
+  left: 0;
+  right: 0;
+  background-color: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-soft;
+  padding: $spacing-2 0;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.service-catalog__suggestion {
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-size-sm;
+  font-family: $font-family-primary;
+  color: $color-secondary;
+  cursor: pointer;
+  transition: 0.15s ease;
+
+  &:hover,
+  &--active {
+    background-color: $bg-peach-light;
+  }
+}
+
+/* Contrôles à droite dans la barre */
+
+.service-catalog__search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: $spacing-3;
+}
+
+/* "Chips" Catégorie / Périmètre / Dispo / Prix */
+
+.service-catalog__chip {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  min-width: 140px;
+}
+
+.service-catalog__chip-label {
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba($color-secondary, 0.9);
+}
+
+.service-catalog__chip-select {
+  border-radius: $radius-pill;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0 $spacing-3;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  background-color: $color-bg;
+  color: $color-secondary;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+  height: 44px;
+
+  &:hover {
+    background-color: $color-white;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
+    background-color: $color-white;
+  }
+}
+
+.service-catalog__chip-input {
+  border-radius: $radius-pill;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0 $spacing-3;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  background-color: $color-bg;
+  color: $color-secondary;
+  outline: none;
+  transition: 0.2s ease;
+  height: 44px;
+  box-shadow: $shadow-soft;
+
+  &::placeholder {
+    color: rgba($color-secondary, 0.65);
+  }
+
+  &:hover {
+    background-color: $color-white;
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
+    background-color: $color-white;
+  }
+}
+
+/* TRI */
+
+.service-catalog__sort {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+  flex: 0 0 auto;
+}
+
+.service-catalog__sort-toggle {
+  height: 44px;
+  min-width: 160px;
+  padding: 0 $spacing-4;
+  border-radius: $radius-lg;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: $color-bg;
+  color: $color-secondary;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: $shadow-soft;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease, transform 0.15s ease;
+
+  &:hover {
+    background-color: $color-white;
+    box-shadow: $shadow-medium;
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2), $shadow-medium;
+  }
+}
+
+.service-catalog__sort-label {
+  flex: 1;
+  text-align: left;
+}
+
+.service-catalog__sort-icon {
+  margin-left: $spacing-2;
+  font-size: 0.8rem;
+}
+
+/* Menu de tri */
+
+.service-catalog__sort-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + $spacing-1);
+  background-color: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-soft;
+  padding: $spacing-2 0;
+  min-width: 220px;
+  z-index: 30;
+}
+
+.service-catalog__sort-option {
+  width: 100%;
+  text-align: left;
+  padding: $spacing-2 $spacing-3;
+  border: none;
+  background-color: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: $color-secondary;
+  cursor: pointer;
+  transition: 0.15s ease;
+
+  &:hover {
+    background-color: $bg-peach-light;
+  }
+
+  &--active {
+    background-color: $bg-peach-light;
+    font-weight: 600;
+  }
+}
+
+/* Bouton reset */
+
+.service-catalog__reset-icon {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-pill;
+  border: none;
+  background-color: $bg-peach-light;
+  color: $color-secondary;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $shadow-soft;
+  transition: 0.2s ease;
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: $shadow-medium;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.25);
+  }
+}
+
+/* BREAKPOINTS SPÉCIFIQUES À LA BARRE */
+
+@media (min-width: 768px) {
+  .service-catalog__search {
+    padding: $spacing-6 $spacing-4;
+  }
+
+  .service-catalog__search-controls {
+    align-items: flex-end;
+  }
+}
+
+@media (min-width: 960px) {
+  .service-catalog__search-row {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .service-catalog__search-field {
+    max-width: 380px;
+  }
+}

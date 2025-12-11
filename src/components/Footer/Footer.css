@@ -1,8 +1,10 @@
+@charset "UTF-8";
 .aura-footer {
   background-color: #fffbf6;
   padding: 1.5rem 1rem 0;
 }
 
+/* Barre du bas */
 .aura-footer__bottombar {
   display: flex;
   align-items: center;
@@ -19,6 +21,7 @@
   margin-top: 0.75rem;
 }
 
+/* Contenu principal */
 .aura-footer__content {
   max-width: 960px;
   margin: 0 auto;
@@ -29,13 +32,14 @@
   text-align: center;
 }
 
-/* blocs */
+/* Blocs */
 .aura-footer__block {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Logo */
 .aura-footer__logo {
   width: 80px;
   height: 80px;
@@ -43,11 +47,17 @@
      object-fit: contain;
 }
 
+/* Colonne des liens (Accueil / Services / Connexion / Nos offres) */
 .aura-footer__block--links {
-  gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.aura-footer__link {
+/* Style commun : liens footer + "Services" (trigger du dropdown) */
+.aura-footer__link,
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger {
   position: relative;
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
@@ -55,8 +65,13 @@
   text-decoration: none;
   line-height: 1.4;
   transition: color 0.2s ease;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
-.aura-footer__link::after {
+.aura-footer__link::after,
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger::after {
   content: "";
   position: absolute;
   left: 0;
@@ -66,13 +81,16 @@
   background-color: #b8d3c4;
   transition: width 0.2s ease;
 }
-.aura-footer__link:hover {
+.aura-footer__link:hover,
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger:hover {
   color: #b8d3c4;
 }
-.aura-footer__link:hover::after {
+.aura-footer__link:hover::after,
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger:hover::after {
   width: 100%;
 }
 
+/* Réseaux sociaux */
 .aura-footer__socials {
   display: flex;
   gap: 0.75rem;
@@ -101,6 +119,7 @@
   background-color: rgba(184, 211, 196, 0.9);
 }
 
+/* Bouton CGV/CGU */
 .aura-footer__cta {
   display: inline-flex;
   align-items: center;
@@ -121,6 +140,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* ================== DESKTOP ================== */
 @media (min-width: 768px) {
   .aura-footer {
     padding: 2rem 2rem 0;
@@ -140,12 +160,14 @@
   }
   .aura-footer__block--links {
     align-items: flex-end;
+    gap: 0.5rem;
   }
   .aura-footer__logo {
     width: 96px;
     height: 96px;
   }
-  .aura-footer__link {
+  .aura-footer__link,
+  .aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger {
     font-size: 1.25rem;
   }
   .aura-footer__socials {

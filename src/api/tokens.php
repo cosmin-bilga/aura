@@ -50,7 +50,6 @@ function add_token(string $token, int $id, string $role = "customer"): void
 // On verifie le token d'acces: s'il existe, si l'utilisateur a acces à la donné ou si token admin
 function check_token(string $token, int $id = -1, string $role = "customer"): bool
 {
-    echo "??";
     try {
         $conn = Connection::getConnection();
 

@@ -1,0 +1,50 @@
+.dash-content {
+  flex: 1;
+  padding: $spacing-8;
+  overflow-y: auto;
+  background-color: $color-white;
+
+  h1 {
+    font-family: $font-family-primary;
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-4;
+  }
+
+  h2 {
+    font-family: $font-family-primary;
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-6;
+  }
+
+  .offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: $spacing-4;
+
+    > div {
+      border: 1px solid #ddd;
+      border-radius: $radius-md;
+      padding: $spacing-4;
+      background-color: $bg-peach-light;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-medium;
+      }
+
+      h3 {
+        font-family: $font-family-primary;
+        font-size: $font-size-lg;
+        margin-bottom: $spacing-2;
+        color: $color-primary;
+      }
+
+      p {
+        font-family: $font-family-secondary;
+        font-size: $font-size-base;
+        margin-bottom: $spacing-1;
+      }
+    }
+  }
+}

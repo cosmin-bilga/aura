@@ -7,7 +7,9 @@ const Filters = ({ filters, setFilters }) => {
       {/* Prestataire */}
       <select
         value={filters.provider}
-        onChange={(e) => setFilters({ ...filters, provider: e.target.value })}
+        onChange={(e) =>
+          setFilters({ ...filters, provider: e.target.value })
+        }
       >
         <option value="">Tous les prestataires</option>
         {data.service_providers.map((prov) => (
@@ -20,7 +22,9 @@ const Filters = ({ filters, setFilters }) => {
       {/* Durée */}
       <select
         value={filters.duration}
-        onChange={(e) => setFilters({ ...filters, duration: e.target.value })}
+        onChange={(e) =>
+          setFilters({ ...filters, duration: e.target.value })
+        }
       >
         <option value="">Toutes durées</option>
         {[...new Set(data.offers.map((o) => o.duration))].map((d) => (
@@ -48,7 +52,9 @@ const Filters = ({ filters, setFilters }) => {
       {/* Périmètre */}
       <select
         value={filters.perimeter}
-        onChange={(e) => setFilters({ ...filters, perimeter: e.target.value })}
+        onChange={(e) =>
+          setFilters({ ...filters, perimeter: e.target.value })
+        }
       >
         <option value="">Tous périmètres</option>
         {[...new Set(data.offers.map((o) => o.perimeter_of_displacement))].map(
@@ -65,7 +71,9 @@ const Filters = ({ filters, setFilters }) => {
         type="number"
         placeholder="Prix max"
         value={filters.maxPrice}
-        onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
+        onChange={(e) =>
+          setFilters({ ...filters, maxPrice: e.target.value })
+        }
       />
     </div>
   );

@@ -1,6 +1,13 @@
+import Cgu from "../../components/mentions légales/cgu";
+import Cgv from "../../components/mentions légales/cgv";
+
+
 const Legal = () => {
   return (
-    <h1>Legal Page</h1> 
+    <div>
+    <Cgu/>
+    <Cgv/>
+    </div>
   );
 };
 

@@ -1,0 +1,25 @@
+.bottom-bar {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    justify-content: space-around;
+    align-items: center;
+
+    a {
+      font-size: 1.6rem;
+      color: #333;
+
+      &.active {
+        color: #007bff;
+        transform: scale(1.2);
+      }
+    }
+  }
+}

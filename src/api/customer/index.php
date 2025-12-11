@@ -76,7 +76,12 @@ function customer_get(array $requestData): void
 {
 
     if (!(isset($requestData["id_customer"]) || isset($requestData["email"]))) {
-        echo json_encode(["message" => "ID or email not provided"]);
+        echo json_encode([
+            "message" => "ID or email not provided",
+            "debug_request" => $requestData,
+            "debug_get" => $_GET,
+            "debug_server_query" => $_SERVER['QUERY_STRING'] ?? 'unset'
+        ]);
         http_response_code(400);
         return;
     }

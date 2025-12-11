@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
-import MockData from "../../mocks/data.json";
-// import "./Login/Login.css";
 
 const strictEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("customer"); 
   const [loading, setLoading] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [emailError, setEmailError] = useState(null);
-  const [mockRole, setMockRole] = useState("customer");
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -29,10 +27,9 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    alert("Connexion en cours...");
     setErrorMessage(null);
 
     if (emailError) {
@@ -41,31 +38,54 @@ const Login = () => {
       return;
     }
 
-    const targetAuthData =
-      mockRole === "customer"
-        ? MockData.auth.client_success
-        : MockData.auth.provider_success;
+    try {
+      
+      const loginUrl =
+        role === "customer"
+          ? "/api/customer_connect/index.php"
+          : "/api/provider_connect/index.php";
 
-    const targetEmail = targetAuthData.user.email;
-    const testPassword = "1234";
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
 
-    setTimeout(() => {
-      if (email === targetEmail && password === testPassword) {
-        login(targetAuthData);
+      const loginResponse = await fetch(loginUrl, {
+        method: "POST",
+        body: formData,
+      });
 
-        if (mockRole === "provider") {
-          navigate("/prestataire/dashboard");
-        } else {
-          navigate("/profil");
-        }
-      } else {
-        setErrorMessage(
-          `Login échoué. Utilisez l'email affiché / ${testPassword}.`
-        );
+      const loginData = await loginResponse.json();
+
+      if (!loginResponse.ok || !loginData.token) {
+        throw new Error(loginData.message || "Échec de la connexion");
       }
 
+      const backendRole =
+        (loginData.user && loginData.user.role) || loginData.role;
+      const finalRole = backendRole || role || "customer";
+
+      const token = loginData.token;
+      const user = {
+        ...(loginData.user || {}),
+        role: finalRole, 
+      };
+
+      console.log("✅ Login successful:", { token, user });
+
+     
+      login({
+        token: token,
+        user: user,
+      });
+
+     
+      navigate(`/dashboard/${finalRole}`);
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrorMessage(error.message || "Une erreur est survenue.");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const globalErrors = [];
@@ -89,25 +109,14 @@ const Login = () => {
 
           <div className="register-card__grid">
             <label className="register-field">
-              <span className="register-field__label">
-                Simuler la connexion en tant que :
-              </span>
+              <span className="register-field__label">Je suis :</span>
               <select
-                value={mockRole}
-                onChange={(e) =>
-                  setMockRole(
-                    e.target.value === "customer" ? "customer" : "provider"
-                  )
-                }
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
                 disabled={loading}
               >
-                <option value="customer">
-                  Client ({MockData.auth.client_success.user.email} / 1234)
-                </option>
-                <option value="provider">
-                  Prestataire ({MockData.auth.provider_success.user.email} /
-                  1234)
-                </option>
+                <option value="customer">Client</option>
+                <option value="provider">Prestataire</option>
               </select>
             </label>
           </div>
@@ -124,6 +133,7 @@ const Login = () => {
                 onChange={handleEmailChange}
                 required
                 disabled={loading}
+                placeholder="votre@email.com"
               />
             </label>
 
@@ -137,6 +147,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
+                placeholder="Votre mot de passe"
               />
             </label>
 

@@ -1,3 +1,5 @@
+// C:\wamp64\www\aura_test\src\components\Footer\Footer.jsx
+
 import "./Footer.scss";
 import logoAura from "../../assets/logo_aura.png";
 
@@ -5,9 +7,11 @@ import instagramIcon from "../../assets/icons/instagram.svg";
 import facebookIcon from "../../assets/icons/facebook.svg";
 import mailIcon from "../../assets/icons/mail.svg";
 
+import ServiceDropdown from "../ServiceDropdown/ServiceDropdown";
+
 const footerLinks = [
   { label: "Accueil", href: "/" },
-  { label: "Services", href: "/services" },
+  // On enlève "Services" d’ici, on l’affiche via ServiceDropdown
   { label: "Connexion", href: "/connexion" },
   { label: "Nos offres", href: "/offre" },
 ];
@@ -16,14 +20,14 @@ export default function Footer() {
   return (
     <footer className="aura-footer">
       <div className="aura-footer__content">
-
+        {/* Bloc logo */}
         <div className="aura-footer__block aura-footer__block--logo">
-
           <a href="/" aria-label="Revenir à l’accueil">
             <img src={logoAura} alt="Aura logo" className="aura-footer__logo" />
           </a>
         </div>
 
+        {/* Bloc réseaux + CGV/CGU */}
         <div className="aura-footer__block aura-footer__block--center">
           <div className="aura-footer__socials">
             <a
@@ -40,7 +44,11 @@ export default function Footer() {
             >
               <img src={facebookIcon} alt="Facebook" />
             </a>
-            <a href="https://outlook.live.com/mail/0/" aria-label="Mail" className="aura-footer__social">
+            <a
+              href="https://outlook.live.com/mail/0/"
+              aria-label="Mail"
+              className="aura-footer__social"
+            >
               <img src={mailIcon} alt="Mail" />
             </a>
           </div>
@@ -50,18 +58,28 @@ export default function Footer() {
           </a>
         </div>
 
+        {/* Bloc liens + dropdown services */}
         <div className="aura-footer__block aura-footer__block--links">
-          {footerLinks.map((link, index) => (
-            <a
-              key={`${link.label}-${index}`}
-              href={link.href}
-              className="aura-footer__link"
-            >
-              {link.label}
-            </a>
-          ))}
+          {/* Accueil */}
+          <a href={footerLinks[0].href} className="aura-footer__link">
+            {footerLinks[0].label}
+          </a>
+
+          {/* Dropdown Services, réutilisation du composant header */}
+          <ServiceDropdown className="aura-footer__dropdown" />
+
+          {/* Connexion */}
+          <a href={footerLinks[1].href} className="aura-footer__link">
+            {footerLinks[1].label}
+          </a>
+
+          {/* Nos offres */}
+          <a href={footerLinks[2].href} className="aura-footer__link">
+            {footerLinks[2].label}
+          </a>
         </div>
       </div>
+
       <div className="aura-footer__bottombar">
         © 2025 Aura Tous droits réservés
       </div>

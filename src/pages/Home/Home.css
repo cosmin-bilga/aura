@@ -141,7 +141,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 1.5rem 1rem 2rem;
 }
 
 .aura-services-card__title {
@@ -149,6 +149,8 @@
   font-size: 1.875rem;
   color: #ffffff;
   margin: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .aura-services-card__btn {
@@ -162,6 +164,9 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.25s ease;
+  min-width: 170px;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .aura-services-card__btn:hover {
@@ -172,12 +177,13 @@
 
 .aura-how {
   background-color: #ffb798;
-  padding: 3rem 1rem 4rem;
+  padding: 3rem 0 0;
 }
 
 .aura-how__inner {
-  max-width: 1120px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   text-align: center;
 }
 
@@ -365,11 +371,14 @@
     width: auto;
   }
   .aura-services__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
   .aura-services-card img {
     aspect-ratio: 3/4;
+  }
+  .aura-services-card__overlay {
+    padding: 2rem 1rem 2.5rem;
   }
   .aura-how__grid {
     grid-template-columns: repeat(3, 1fr);

@@ -1,3 +1,4 @@
+// C:\wamp64\www\aura_test\src\components\Footer\Footer.scss
 @use "../../styles/_variables" as *;
 
 .aura-footer {
@@ -5,6 +6,7 @@
   padding: $spacing-6 $spacing-4 0;
 }
 
+/* Barre du bas */
 .aura-footer__bottombar {
   display: flex;
   align-items: center;
@@ -21,6 +23,7 @@
   margin-top: $spacing-3;
 }
 
+/* Contenu principal */
 .aura-footer__content {
   max-width: 960px;
   margin: 0 auto;
@@ -31,24 +34,31 @@
   text-align: center;
 }
 
-/* blocs */
+/* Blocs */
 .aura-footer__block {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Logo */
 .aura-footer__logo {
   width: 80px;
   height: 80px;
   object-fit: contain;
 }
 
+/* Colonne des liens (Accueil / Services / Connexion / Nos offres) */
 .aura-footer__block--links {
-  gap: $spacing-1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-2; // même espace vertical entre tous les liens
 }
 
-.aura-footer__link {
+/* Style commun : liens footer + "Services" (trigger du dropdown) */
+.aura-footer__link,
+.aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger {
   position: relative;
   font-family: $font-family-primary;
   font-size: $font-size-base;
@@ -56,6 +66,10 @@
   text-decoration: none;
   line-height: 1.4;
   transition: color 0.2s ease;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
 
   &::after {
     content: "";
@@ -77,6 +91,7 @@
   }
 }
 
+/* Réseaux sociaux */
 .aura-footer__socials {
   display: flex;
   gap: $spacing-3;
@@ -94,7 +109,8 @@
   text-decoration: none;
   box-shadow: $shadow-soft;
   transition: transform 0.15s ease, box-shadow 0.15s ease,
-  background-color 0.15s ease;
+    background-color 0.15s ease;
+
   img {
     max-width: 60%;
     max-height: 60%;
@@ -107,12 +123,13 @@
   }
 }
 
+/* Bouton CGV/CGU */
 .aura-footer__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: $spacing-2 $spacing-6;
-  border-radius: $radius-lg; 
+  border-radius: $radius-lg;
   background-color: $color-primary;
   color: $color-white;
   font-family: $font-family-primary;
@@ -127,6 +144,8 @@
     box-shadow: $shadow-medium;
   }
 }
+
+/* ================== DESKTOP ================== */
 
 @media (min-width: 768px) {
   .aura-footer {
@@ -151,6 +170,7 @@
 
   .aura-footer__block--links {
     align-items: flex-end;
+    gap: $spacing-2;
   }
 
   .aura-footer__logo {
@@ -158,7 +178,8 @@
     height: 96px;
   }
 
-  .aura-footer__link {
+  .aura-footer__link,
+  .aura-header__nav-dropdown.aura-footer__dropdown .dropdown-trigger {
     font-size: $font-size-lg;
   }
 

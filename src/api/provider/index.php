@@ -111,7 +111,7 @@ function build_update_query(array $requestData): array
     $fields = "";
     $execute = array();
     foreach ($requestData as $key => $value) {
-        if (in_array($key, ["name", "firstname", "email", "password", "phone_number", "address", "profile_picture", "education_experience", "subscriber", "sex", "SIREN", "additional_information", "statut"])) {
+        if (in_array($key, ["name", "firstname", "email", "password", "phone_number", "address", "profile_picture", "education_experience", "subscriber", "sex", "SIREN", "additional_information", "status"])) {
             $fields .= $key . " = :" . $key . ", ";
             $execute[":" . $key] = $value;
         }
@@ -195,7 +195,7 @@ function provider_register(array $requestData): void
     $conn = Connection::getConnection();
 
     try {
-        $sql = "INSERT INTO service_providers (name, firstname, email, password, phone_number, address, profile_picture, education_experience, subscriber, sex, SIREN, additional_information, statut) VALUES (:name, :firstname, :email, :password, :phone_number, :address, :profile_picture, :education_experience, :subscriber, :sex, :SIREN, :additional_info, :statut);";
+        $sql = "INSERT INTO service_providers (name, firstname, email, password, phone_number, address, profile_picture, education_experience, subscriber, sex, SIREN, additional_information, status) VALUES (:name, :firstname, :email, :password, :phone_number, :address, :profile_picture, :education_experience, :subscriber, :sex, :SIREN, :additional_info, :status);";
         $stmt = $conn->prepare($sql);
         $res = $stmt->execute([
             ":name" => $requestData["name"],
@@ -210,14 +210,23 @@ function provider_register(array $requestData): void
             ":sex" => $requestData["sex"] ?? "Autre",
             ":SIREN" => $requestData["SIREN"],
             ":additional_info" => $requestData["additional_information"] ?? "",
-            ":statut" => $requestData["statut"]
+            ":status" => $requestData["status"]
         ]);
+        
+        if (!$res) {
+            echo json_encode(["message" => "Failed to insert provider"]);
+            http_response_code(500);
+            return;
+        }
     } catch (PDOException $e) {
         echo json_encode(["message" => $e->getMessage()]);
         http_response_code(500);
         return;
     }
+    
     echo json_encode(["message" => "Service provider succesfully created"]);
+    http_response_code(201);
+    return;
 }
 
 function provider_delete(array $requestData): void

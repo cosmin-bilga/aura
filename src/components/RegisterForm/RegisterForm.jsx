@@ -116,61 +116,82 @@ const RegisterForm = () => {
     setErrors({});
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateStep()) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validateStep()) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    const registrationData =
-      formData.role === "client"
-        ? {
-            name: formData.name,
-            firstname: formData.firstname,
-            email: formData.email,
-            password: formData.password,
-            password_confirm: formData.confirmPassword, // à ajouter
-            phone_number: formData.phoneNumber,
-            address: formData.address,
-            sex: formData.sex,
-            additional_information: formData.additionalInformation || "",
-          }
-        : {
-            name: formData.name,
-            firstname: formData.firstname,
-            email: formData.email,
-            password: formData.password,
-            password_confirm: formData.confirmPassword, // à ajouter
-            phone_number: formData.phoneNumber,
-            address: formData.address,
-            sex: formData.sex,
-            SIREN: formData.siren,
-            statut: formData.statut,
-            education_experience: formData.education,
-            additional_information: formData.additionalInformation || "",
-          };
+  // 1) Choix de l’endpoint en fonction du rôle
+  const endpoint =
+    formData.role === "client"
+      ? "/api/customer/index.php"
+      : "/api/provider/index.php";
 
-    try {
-      const response = await fetch("/api/customer/index.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(registrationData),
-      });
-      const data = await response.json();
-      console.log(data);
+  // 2) Mapping des données avec les bons NOMS DE CHAMPS
+  const registrationData =
+    formData.role === "client"
+      ? {
+          name: formData.name,
+          firstname: formData.firstname,
+          email: formData.email,
+          password: formData.password,
+          password_confirm: formData.confirmPassword,
+          phone_number: formData.phoneNumber,
+          address: formData.address,
+          sex: formData.sex,
+          additional_information: formData.additionalInformation || "",
+        }
+      : {
+          name: formData.name,
+          firstname: formData.firstname,
+          email: formData.email,
+          password: formData.password,
+          password_confirm: formData.confirmPassword,
+          phone_number: formData.phoneNumber,
+          address: formData.address,
+          sex: formData.sex,
+          SIREN: formData.siren,
+          status: formData.statut, // IMPORTANT : status et pas statut côté API
+          profile_picture: "default.WebP", // obligatoire dans validate_input_register
+          education_experience: formData.education,
+          additional_information: formData.additionalInformation || "",
+        };
 
-      if (response.ok) {
-        alert("Inscription réussie !");
-        navigate("/connexion");
-      } else {
-        alert("Erreur : " + data.message);
-      }
-    } catch (error) {
-      alert("Erreur réseau : " + error.message);
-    } finally {
-      setLoading(false);
+  // 3) Construction d’un body en x-www-form-urlencoded pour que PHP remplisse $_POST
+  const body = new URLSearchParams();
+  Object.entries(registrationData).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      body.append(key, value);
     }
-  };
+  });
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body, // PAS de JSON.stringify ici
+    });
+
+    const data = await response.json();
+    console.log("Réponse API:", data);
+
+    if (response.ok) {
+      alert("Inscription réussie !");
+      navigate("/connexion");
+    } else {
+      alert("Erreur : " + (data.message || "Une erreur est survenue."));
+    }
+  } catch (error) {
+    alert("Erreur réseau : " + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
     <>
@@ -363,7 +384,7 @@ const RegisterForm = () => {
                     <span className="register-field__label">Statut</span>
                     <select
                       name="statut"
-                      value={formData.statut}
+                      value={formData.status}
                       onChange={handleChange}
                       disabled={loading}
                     >
