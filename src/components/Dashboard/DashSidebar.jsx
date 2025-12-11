@@ -2,23 +2,28 @@ import logoAura from "../../assets/logo_aura.png";
 import "./DashboardSidebar.css";
 
 export default function DashSidebar({ user, role }) {
+  // Définition des liens selon le rôle
   const navLinks =
     role === "provider"
       ? [
-          { label: "Mes offres", page: "offers" },
-          { label: "Mes rendez-vous", page: "appointments" },
+          { label: "Mes offres", page: "mes-offres" },
+          { label: "Mes rendez-vous", page: "mes-rdv" },
         ]
       : [
-          { label: "Toutes les offres", page: "offers" },
-          { label: "Mes réservations", page: "appointments" },
+          { label: "Profil", page: "profil" },
+          { label: "Historique", page: "historique" },
+          { label: "Commentaires", page: "commentaires" },
+          { label: "Offres favoris", page: "offres-favoris" },
         ];
 
   return (
     <aside className="dash-sidebar">
+      {/* Logo */}
       <a href="/" className="dash-sidebar__logo">
         <img src={logoAura} alt="Aura logo" />
       </a>
 
+      {/* Infos utilisateur */}
       <div className="dash-sidebar__user-info">
         {user.profile_picture && (
           <img
@@ -32,11 +37,12 @@ export default function DashSidebar({ user, role }) {
         </p>
       </div>
 
+      {/* Navigation */}
       <nav className="dash-sidebar__nav">
         {navLinks.map((link) => (
           <a
             key={link.page}
-            href={`#${link.page}`}
+            href={`#${link.page}`} // Pour le moment simple navigation
             className="dash-sidebar__link"
           >
             {link.label}
