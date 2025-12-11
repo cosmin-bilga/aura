@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../../contexts/UseAuth";
 
 const boxStyle = {
@@ -62,19 +62,49 @@ const editButtonStyle = {
   marginBottom: "1rem",
 };
 
-const Profile = ({ user, onUserUpdate }) => {
+const ProviderProfile = ({ user, onUserUpdate }) => {
   const { token } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [profileData, setProfileData] = useState(user);
+  const [profileData, setProfileData] = useState(null);
   const [formData, setFormData] = useState({
-    firstname: user.firstname || "",
-    name: user.name || "",
-    email: user.email || "",
-    phone_number: user.phone_number || "",
-    address: user.address || "",
+    firstname: "",
+    name: "",
+    email: "",
+    phone_number: "",
+    address: "",
+    SIREN: "",
+    additional_information: "",
   });
+
+  // Charger les données du provider connecté au montage
+  React.useEffect(() => {
+    if (!user?.id_provider) return;
+    setIsLoading(true);
+    fetch(`/api/provider/index.php?id_provider=${user.id_provider}`, {
+      method: "GET",
+      headers: { "X-API-KEY": token },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProfileData(data);
+        setFormData({
+          firstname: data.firstname || "",
+          name: data.name || "",
+          email: data.email || "",
+          phone_number: data.phone_number || "",
+          address: data.address || "",
+          SIREN: data.SIREN || "",
+          additional_information: data.additional_information || "",
+        });
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setError("Impossible de charger le profil prestataire");
+        setIsLoading(false);
+      });
+  }, [user, token]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -91,14 +121,19 @@ const Profile = ({ user, onUserUpdate }) => {
 
     try {
       const formDataObj = new FormData();
-      formDataObj.append("id_customer", user.id_customer);
+      formDataObj.append("id_provider", user.id_provider);
       formDataObj.append("firstname", formData.firstname);
       formDataObj.append("name", formData.name);
       formDataObj.append("email", formData.email);
       formDataObj.append("phone_number", formData.phone_number);
       formDataObj.append("address", formData.address);
+      formDataObj.append("SIREN", formData.SIREN);
+      formDataObj.append(
+        "additional_information",
+        formData.additional_information
+      );
 
-      const response = await fetch("/api/customer/index.php", {
+      const response = await fetch("/api/provider/index.php", {
         method: "POST",
         headers: {
           "X-API-KEY": token,
@@ -109,12 +144,12 @@ const Profile = ({ user, onUserUpdate }) => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to update customer");
+        throw new Error(data.message || "Failed to update provider");
       }
 
-      // Refetch the updated customer data
+      // Refetch the updated provider data
       const getResponse = await fetch(
-        `/api/customer/index.php?id_customer=${user.id_customer}`,
+        `/api/provider/index.php?id_provider=${user.id_provider}`,
         {
           method: "GET",
           headers: {
@@ -137,6 +172,8 @@ const Profile = ({ user, onUserUpdate }) => {
         email: updatedUser.email || "",
         phone_number: updatedUser.phone_number || "",
         address: updatedUser.address || "",
+        SIREN: updatedUser.SIREN || "",
+        additional_information: updatedUser.additional_information || "",
       });
 
       // Call the callback to update parent component if provided
@@ -144,11 +181,12 @@ const Profile = ({ user, onUserUpdate }) => {
         onUserUpdate(updatedUser);
       }
 
-      console.log("Customer updated successfully:", updatedUser);
       setIsEditing(false);
     } catch (err) {
-      console.error("Error updating customer:", err);
-      setError(err.message || "An error occurred while updating your profile");
+      setError(
+        err.message ||
+          "Une erreur est survenue lors de la modification du profil"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -161,13 +199,15 @@ const Profile = ({ user, onUserUpdate }) => {
       email: user.email || "",
       phone_number: user.phone_number || "",
       address: user.address || "",
+      SIREN: user.SIREN || "",
+      additional_information: user.additional_information || "",
     });
     setIsEditing(false);
   };
 
   return (
     <>
-      <h2>Mon profil</h2>
+      <h2>Mon profil prestataire</h2>
 
       {error && (
         <div
@@ -191,19 +231,26 @@ const Profile = ({ user, onUserUpdate }) => {
           </button>
           <div className="profil-box" style={boxStyle}>
             <p>
-              <b>Prénom :</b> {profileData.firstname}
+              <b>Prénom :</b> {profileData?.firstname}
             </p>
             <p>
-              <b>Nom :</b> {profileData.name}
+              <b>Nom :</b> {profileData?.name}
             </p>
             <p>
-              <b>Email :</b> {profileData.email}
+              <b>Email :</b> {profileData?.email}
             </p>
             <p>
-              <b>Téléphone :</b> {profileData.phone_number || "Non renseigné"}
+              <b>Téléphone :</b> {profileData?.phone_number || "Non renseigné"}
             </p>
             <p>
-              <b>Adresse :</b> {profileData.address || "Non renseigné"}
+              <b>Adresse :</b> {profileData?.address || "Non renseigné"}
+            </p>
+            <p>
+              <b>SIREN :</b> {profileData?.SIREN || "Non renseigné"}
+            </p>
+            <p>
+              <b>Informations complémentaires :</b>{" "}
+              {profileData?.additional_information || "Non renseigné"}
             </p>
           </div>
         </>
@@ -289,6 +336,35 @@ const Profile = ({ user, onUserUpdate }) => {
             />
           </div>
 
+          <div>
+            <label htmlFor="SIREN">
+              <b>SIREN :</b>
+            </label>
+            <input
+              style={inputStyle}
+              type="text"
+              id="SIREN"
+              name="SIREN"
+              value={formData.SIREN}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="additional_information">
+              <b>Informations complémentaires :</b>
+            </label>
+            <textarea
+              style={inputStyle}
+              id="additional_information"
+              name="additional_information"
+              value={formData.additional_information}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+          </div>
+
           <div style={buttonContainerStyle}>
             <button
               style={secondaryButtonStyle}
@@ -312,4 +388,4 @@ const Profile = ({ user, onUserUpdate }) => {
   );
 };
 
-export default Profile;
+export default ProviderProfile;

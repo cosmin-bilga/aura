@@ -3,18 +3,26 @@ import "./DashboardSidebar.css";
 
 export default function DashSidebar({ user, role }) {
   // Définition des liens selon le rôle
-  const navLinks =
-    role === "provider"
-      ? [
-          { label: "Mes offres", page: "mes-offres" },
-          { label: "Mes rendez-vous", page: "mes-rdv" },
-        ]
-      : [
-          { label: "Profil", page: "profil" },
-          { label: "Historique", page: "historique" },
-          { label: "Commentaires", page: "commentaires" },
-          { label: "Offres favoris", page: "offres-favoris" },
-        ];
+  let navLinks = [];
+  if (role === "admin") {
+    navLinks = [
+      { label: "Toutes les offres", page: "toutes-les-offres" },
+      { label: "Tous les prestataires", page: "tous-les-prestataires" },
+      { label: "Tous les clients", page: "tous-les-clients" },
+    ];
+  } else if (role === "provider") {
+    navLinks = [
+      { label: "Profil", page: "profil" },
+      { label: "Mes offres", page: "mes-offres" },
+    ];
+  } else {
+    navLinks = [
+      { label: "Profil", page: "profil" },
+      { label: "Historique", page: "historique" },
+      { label: "Commentaires", page: "commentaires" },
+      { label: "Offres favoris", page: "offres-favoris" },
+    ];
+  }
 
   return (
     <aside className="dash-sidebar">
