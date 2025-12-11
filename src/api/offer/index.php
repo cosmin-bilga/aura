@@ -1,29 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * METHODS: GET, POST, DELETE, OPTIONS
- * 
+ *
  * -- GET: RECUPERATION DETAILS OFFRE
  * PARAMS : id_offer
  * AUTH: none
- * RETURN: id_offer, description, duration, category, disponibility, perimeter_of_displacement, price, id_provider, created_at, updated_at 	
- * 
+ * RETURN: id_offer, description, duration, category, disponibility, perimeter_of_displacement, price, id_provider, created_at, updated_at
+ *
  * -- POST: AJOUT/MODIFICATION OFFRE
- *  - SANS id_offer  => création
- *  - AVEC id_offer  => modification
- * 
+ * - SANS id_offer => création
+ * - AVEC id_offer => modification
+ *
  * PARAMS (création): description, duration, category, perimeter_of_displacement, price, id_provider
  * AUTH: token matching id_provider OR admin token
- * 
+ *
  * PARAMS (update): id_offer, ?description, ?duration, ?category, ?disponibility, ?perimeter_of_displacement, ?price
  * AUTH: token matching id_provider OR admin token
- * 
+ *
  * -- DELETE: SUPPRIMER OFFRE
  * PARAMS: id_offer
  * AUTH: token matching id_provider OR admin token
  */
 
-declare(strict_types=1);
+
 
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -33,14 +36,23 @@ require_once "../offer_validation.php";
 
 function getJsonBody(): array
 {
+    // Try reading from php://input
     $raw = file_get_contents("php://input");
+
     if ($raw === false || $raw === "") {
         return [];
     }
+
     $data = json_decode($raw, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return [];
+    }
+
     if (!is_array($data)) {
         return [];
     }
+
     return $data;
 }
 
@@ -51,6 +63,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         $requestData = $_POST;
+        $jsonBody = getJsonBody();
+        if (!empty($jsonBody)) {
+            $requestData = array_merge($requestData, $jsonBody);
+        }
         if (isset($_SERVER["HTTP_X_API_KEY"])) {
             $requestData["token"] = $_SERVER["HTTP_X_API_KEY"];
         }
@@ -160,7 +176,7 @@ function build_update_query(array $requestData): array
 
 function offer_update(array $requestData): void
 {
-    
+
     if (!isset($requestData["id_offer"])) {
         offer_register($requestData);
         return;
@@ -229,17 +245,34 @@ function offer_register(array $requestData): void
         return;
     }
 
+
+    $conn = Connection::getConnection();
+
     if (!isset($requestData["id_provider"])) {
         echo json_encode(["message" => "No id_provider in query"]);
         http_response_code(400);
         return;
     }
 
-    $conn = Connection::getConnection();
+    // Security Check: Verify token matches id_provider
+    if (!isset($requestData["token"])) {
+        echo json_encode(["message" => "Token missing"]);
+        http_response_code(401);
+        return;
+    }
+
+    $access = check_token($requestData["token"], (int) $requestData["id_provider"], "provider");
+    if (!$access) {
+        echo json_encode(["message" => "Unauthorized"]);
+        http_response_code(403);
+        return;
+    }
+
+
 
     try {
-        $sql = "INSERT INTO offers (description, duration, category, perimeter_of_displacement, price, id_provider) 
-                VALUES (:description, :duration, :category, :perimeter_of_displacement, :price, :id_provider);";
+        $sql = "INSERT INTO offers (description, duration, category, perimeter_of_displacement, price, id_provider)
+VALUES (:description, :duration, :category, :perimeter_of_displacement, :price, :id_provider);";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
             ":description" => $requestData["description"],

@@ -4,9 +4,17 @@ import { AuthContext } from "./AuthContext";
 const STORAGE_KEY = "aura_auth";
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  // Initialiser l'état depuis localStorage si disponible
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('authToken') !== null;
+  });
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem('authToken');
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -28,6 +36,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
+    // Stocker dans l'état
     setToken(userData.token);
     setUser(userData.user);
     setIsLoggedIn(true);
@@ -43,6 +52,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // Nettoyer l'état
     setToken(null);
     setUser(null);
     setIsLoggedIn(false);
