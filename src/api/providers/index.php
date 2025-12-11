@@ -6,8 +6,8 @@ declare(strict_types=1);
  * METHODS: GET, POST, DELETE, OPTIONS
  * 
  * -- GET: RECUPERATION DONNEES PRESTATAIRE
- * PARAMS : id_provider
- * AUTH: token matching id_provider OR admin token
+ * PARAMS : ?name, ?firstname, ?email, ?phone_number, ?address, ?education_experience, ?SIREN, ?additional_information, ?status
+ * AUTH:  admin token
  * RETURN: id_provider, name, firstname, email, phone_number, address, profile_picture, education_experience, subscriber, sexe, SIREN, additional_information, created_at, updated_at, statut
  * 
  */
@@ -35,10 +35,19 @@ function providers_get(array $requestData): void
 
     $conn = Connection::getConnection();
 
+    $build = build_where_clause($requestData);
+
     try {
         $sql = "SELECT * FROM service_providers";
+        if (strlen($build['fields']) > 0)
+            $sql .= " WHERE " . $build['fields'];
+        if (isset($requestData["limit"]))
+            $sql .= " LIMIT " . $requestData["limit"];
+        if (isset($requestData["offset"]))
+            $sql .= " OFFSET " . $requestData["offset"];
+
         $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
+        $stmt->execute($build["execute"]);
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         // echo $e->getMessage();
@@ -56,20 +65,30 @@ function providers_get(array $requestData): void
     http_response_code(200);
 }
 
-function build_update_query(array $requestData): array
+function build_where_clause(array $requestData): array
 {
+    //?name, ?firstname, ?email, ?phone_number, ?address, ?education_experience, ?SIREN, ?additional_information, ?status
     $res = array();
-    $fields = "";
+    $fields = array();
     $execute = array();
     foreach ($requestData as $key => $value) {
-        if (in_array($key, ["name", "firstname", "email", "password", "phone_number", "address", "profile_picture", "education_experience", "subscriber", "sex", "SIREN", "additional_information", "status"])) {
-            $fields .= $key . " = :" . $key . ", ";
-            $execute[":" . $key] = $value;
+        if (in_array($key, [
+            "email",
+            "firstname",
+            "name",
+            "address",
+            "additional_information",
+            "payment_date",
+            "phone_number",
+            "education_experience",
+            "SIREN",
+            "status"
+        ])) {
+            array_push($fields, $key . " LIKE :" . $key);
+            $execute[":" . $key] = "%" . $value . "%";
         }
     }
-    if (strlen($fields) > 0)
-        $fields = substr($fields, 0, strlen($fields) - 2);
-    $execute[":id"] = intval($requestData["id_provider"]);
+    $fields = implode(" AND ", $fields);
     $res["fields"] = $fields;
     $res["execute"] = $execute;
     return $res;

@@ -4,7 +4,7 @@
  * METHODS: GET, POST, DELETE, OPTIONS
  * 
  * -- GET: RECUPERATION DONNEES CLIENT
- * PARAMS : ?id_customer, ?email, ?firstname, ?name, ?address, ?phone_number, ?sex, ?additional_information, ?created_at, ?updated_at
+ * PARAMS : ?email, ?firstname, ?name, ?address, ?phone_number, ?sex, ?additional_information, ?limit, ?offset
  * AUTH: admin token
  * RETURN: array [...{id_customer, email, firstname, name, address, phone_number, sex, additional_information, crated_at, updated_at}]
  * 
@@ -37,12 +37,20 @@ function customers_get(array $requestData): void
 
     $conn = Connection::getConnection();
 
-    #TODO FILTRES
+    $build = build_where_clause($requestData);
+
 
     try {
         $sql = "SELECT * FROM customers";
+        if (strlen($build['fields']) > 0)
+            $sql .= " WHERE " . $build['fields'];
+        if (isset($requestData["limit"]))
+            $sql .= " LIMIT " . $requestData["limit"];
+        if (isset($requestData["offset"]))
+            $sql .= " OFFSET " . $requestData["offset"];
+
         $stmt = $conn->prepare($sql);
-        $stmt->execute([]);
+        $stmt->execute($build["execute"]);
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         // echo $e->getMessage();
@@ -60,20 +68,27 @@ function customers_get(array $requestData): void
     http_response_code(200);
 }
 
-function build_update_query(array $requestData): array
+function build_where_clause(array $requestData): array
 {
+    //?email, ?firstname, ?name, ?address, ?phone_number, ?additional_information
     $res = array();
-    $fields = "";
+    $fields = array();
     $execute = array();
     foreach ($requestData as $key => $value) {
-        if (in_array($key, ["name", "firstname", "email", "phone_number", "address", "sex", "password", "additional_information"])) {
-            $fields .= $key . " = :" . $key . ", ";
-            $execute[":" . $key] = $value;
+        if (in_array($key, [
+            "email",
+            "firstname",
+            "name",
+            "address",
+            "additional_information",
+            "payment_date",
+            "phone_number"
+        ])) {
+            array_push($fields, $key . " LIKE :" . $key);
+            $execute[":" . $key] = "%" . $value . "%";
         }
     }
-    if (strlen($fields) > 0)
-        $fields = substr($fields, 0, strlen($fields) - 2);
-    $execute[":id"] = intval($requestData["id_customer"]);
+    $fields = implode(" AND ", $fields);
     $res["fields"] = $fields;
     $res["execute"] = $execute;
     return $res;
