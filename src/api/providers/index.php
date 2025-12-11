@@ -1,30 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * METHODS: GET, POST, DELETE, OPTIONS
  * 
- * -- GET: RECUPERATION DONNEES CLIENT
- * PARAMS : ?id_customer, ?email, ?firstname, ?name, ?address, ?phone_number, ?sex, ?additional_information, ?created_at, ?updated_at
- * AUTH: admin token
- * RETURN: array [...{id_customer, email, firstname, name, address, phone_number, sex, additional_information, crated_at, updated_at}]
+ * -- GET: RECUPERATION DONNEES PRESTATAIRE
+ * PARAMS : id_provider
+ * AUTH: token matching id_provider OR admin token
+ * RETURN: id_provider, name, firstname, email, phone_number, address, profile_picture, education_experience, subscriber, sexe, SIREN, additional_information, created_at, updated_at, statut
  * 
  */
 
 
-declare(strict_types=1);
-
 require_once "../connection.php";
 require_once "../tokens.php";
-//require_once "../customer_validation.php";
+
+header("Content-Type: application/json; charset=UTF-8");
 
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         $requestData = $_GET;
-        if (isset($_SERVER["HTTP_X_API_KEY"])) {
-            $requestData["token"] = $_SERVER["HTTP_X_API_KEY"];
-        }
-        customers_get($requestData);
+        providers_get($requestData);
         break;
     default:
         echo json_encode(["message" => "Invalid request"]);
@@ -32,15 +30,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 }
 
-function customers_get(array $requestData): void
+function providers_get(array $requestData): void
 {
 
     $conn = Connection::getConnection();
 
-    #TODO FILTRES
-
     try {
-        $sql = "SELECT * FROM customers";
+        $sql = "SELECT * FROM service_providers";
         $stmt = $conn->prepare($sql);
         $stmt->execute([]);
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,7 +47,7 @@ function customers_get(array $requestData): void
     }
 
     if ($res === false) {
-        echo json_encode(["message" => "Users not found"]);
+        echo json_encode(["message" => "Providers not found"]);
         http_response_code(500);
         return;
     }
@@ -66,14 +62,14 @@ function build_update_query(array $requestData): array
     $fields = "";
     $execute = array();
     foreach ($requestData as $key => $value) {
-        if (in_array($key, ["name", "firstname", "email", "phone_number", "address", "sex", "password", "additional_information"])) {
+        if (in_array($key, ["name", "firstname", "email", "password", "phone_number", "address", "profile_picture", "education_experience", "subscriber", "sex", "SIREN", "additional_information", "status"])) {
             $fields .= $key . " = :" . $key . ", ";
             $execute[":" . $key] = $value;
         }
     }
     if (strlen($fields) > 0)
         $fields = substr($fields, 0, strlen($fields) - 2);
-    $execute[":id"] = intval($requestData["id_customer"]);
+    $execute[":id"] = intval($requestData["id_provider"]);
     $res["fields"] = $fields;
     $res["execute"] = $execute;
     return $res;

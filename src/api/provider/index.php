@@ -1,18 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, X-API-KEY");
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
 /**
  * METHODS: GET, POST, DELETE, OPTIONS
  * 
@@ -37,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
  * RETURN: message
  */
 
+
+declare(strict_types=1);
 
 require_once "../connection.php";
 require_once "../tokens.php";
@@ -147,13 +136,13 @@ function provider_update(array $requestData): void
 
     if (!isset($requestData["id_provider"])) {
         echo json_encode(["message" => "No id_provider in query"]);
-        http_response_code(400); 
+        http_response_code(400); // BAD REQUEST?
         return;
     }
 
     if (count($requestData["errors"]) > 0) {
         echo json_encode(["message" => $requestData["errors"][0]]);
-        http_response_code(400); 
+        http_response_code(400); // BAD REQUEST?
         return;
     }
 
@@ -170,7 +159,7 @@ function provider_update(array $requestData): void
     $conn = Connection::getConnection();
 
     try {
-        
+        /*  print_r($requestData); */
         $build = build_update_query($requestData);
         if (strlen($build["fields"]) === 0) {
             echo json_encode(["message" => "No updates made"]);
@@ -179,7 +168,8 @@ function provider_update(array $requestData): void
         }
 
         $sql = "UPDATE service_providers SET " . $build["fields"] . " WHERE id_provider=:id;";
-        
+        /* echo ($sql);
+        print_r($build["execute"]); */
         $stmt = $conn->prepare($sql);
         $res = $stmt->execute($build["execute"]);
     } catch (PDOException $e) {
@@ -196,7 +186,7 @@ function provider_register(array $requestData): void
 
     if (count($requestData["errors"]) > 0) {
         echo json_encode(["message" => $requestData["errors"][0]]);
-        http_response_code(400); 
+        http_response_code(400); // BAD REQUEST?
         return;
     }
 
@@ -261,7 +251,7 @@ function provider_delete(array $requestData): void
 
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            
+            // echo $e->getMessage();
             echo json_encode(["message" => $e->getMessage()]);
             http_response_code(500);
             return;
@@ -282,7 +272,7 @@ function provider_delete(array $requestData): void
 
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-           
+            // echo $e->getMessage();
             echo json_encode(["message" => $e->getMessage()]);
             http_response_code(500);
         }
