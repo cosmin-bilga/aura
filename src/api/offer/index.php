@@ -144,9 +144,13 @@ function build_update_query(array $requestData): array
     $fields = "";
     $execute = [];
     foreach ($requestData as $key => $value) {
-        if (in_array($key, ["description", "duration", "category", "perimeter_of_displacement", "price", "id_provider"], true)) {
+        if (in_array($key, ["description", "duration", "perimeter_of_displacement", "price", "id_provider"], true)) {
             $fields .= $key . " = :" . $key . ", ";
             $execute[":" . $key] = $value;
+        }
+        if (in_array($key, ["category"], true)) {
+            $fields .= $key . " = :" . $key . ", ";
+            $execute[":" . $key] = html_entity_decode($value);
         }
     }
     if (strlen($fields) > 0) {
@@ -160,7 +164,7 @@ function build_update_query(array $requestData): array
 
 function offer_update(array $requestData): void
 {
-    
+
     if (!isset($requestData["id_offer"])) {
         offer_register($requestData);
         return;
@@ -244,7 +248,7 @@ function offer_register(array $requestData): void
         $stmt->execute([
             ":description" => $requestData["description"],
             ":duration" => $requestData["duration"],
-            ":category" => $requestData["category"],
+            ":category" => html_entity_decode($requestData["category"]),
             ":perimeter_of_displacement" => $requestData["perimeter_of_displacement"],
             ":price" => $requestData["price"],
             ":id_provider" => $requestData["id_provider"]

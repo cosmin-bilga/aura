@@ -16,7 +16,6 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once "../connection.php";
 require_once "../offer_validation.php";
 
-<<<<<<< HEAD
 require __DIR__ . '/../../../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '\..\..\..');
@@ -28,8 +27,6 @@ if (isset($_ENV["MAPS_API_KEY"]))
 else
     $API_KEY = "FAIL";
 
-=======
->>>>>>> origin/dev
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         $requestData = $_GET;

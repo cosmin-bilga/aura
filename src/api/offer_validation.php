@@ -63,10 +63,10 @@ function validate_input_register(array $requestData): array
         array_push($errors, "Category is not set");
     elseif (($err = validate_category($requestData["category"])) != "")
         array_push($errors, $err);
-    if (!isset($requestData["disponibility"]))
+    /* if (!isset($requestData["disponibility"]))
         array_push($errors, "Disponibility not set");
     elseif (($err = validate_disponibility($requestData["disponibility"])) != "")
-        array_push($errors, $err);
+        array_push($errors, $err); */
     if (!isset($requestData["perimeter_of_displacement"]))
         array_push($errors, "perimeter_of_displacement is not set");
     elseif (($err = validate_perimeter($requestData["perimeter_of_displacement"])) != "")
@@ -100,9 +100,9 @@ function validate_input_update(array $requestData): array
     if (isset($requestData["category"]))
         if (($err = validate_category($requestData["category"])) != "")
             array_push($errors, $err);
-    if (isset($requestData["disponibility"]))
+    /* if (isset($requestData["disponibility"]))
         if (($err = validate_disponibility($requestData["disponibility"])) != "")
-            array_push($errors, $err);
+            array_push($errors, $err); */
     if (isset($requestData["perimeter_of_displacement"]))
         if (($err = validate_perimeter($requestData["perimeter_of_displacement"])) != "")
             array_push($errors, $err);
