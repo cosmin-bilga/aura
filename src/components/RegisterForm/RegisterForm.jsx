@@ -122,13 +122,13 @@ const handleSubmit = async (e) => {
 
   setLoading(true);
 
-  // 1) Choix de l’endpoint en fonction du rôle
+
   const endpoint =
     formData.role === "client"
       ? "/api/customer/index.php"
       : "/api/provider/index.php";
 
-  // 2) Mapping des données avec les bons NOMS DE CHAMPS
+ 
   const registrationData =
     formData.role === "client"
       ? {
@@ -152,13 +152,13 @@ const handleSubmit = async (e) => {
           address: formData.address,
           sex: formData.sex,
           SIREN: formData.siren,
-          status: formData.statut, // IMPORTANT : status et pas statut côté API
-          profile_picture: "default.WebP", // obligatoire dans validate_input_register
+          status: formData.statut, 
+          profile_picture: "default.WebP", 
           education_experience: formData.education,
           additional_information: formData.additionalInformation || "",
         };
 
-  // 3) Construction d’un body en x-www-form-urlencoded pour que PHP remplisse $_POST
+  
   const body = new URLSearchParams();
   Object.entries(registrationData).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
@@ -172,7 +172,7 @@ const handleSubmit = async (e) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body, // PAS de JSON.stringify ici
+      body, 
     });
 
     const data = await response.json();

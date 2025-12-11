@@ -77,6 +77,13 @@ const getAvailabilityLabel = (offer) => {
   return "";
 };
 
+const decodeHTMLEntities = (text) => {
+  if (!text) return "";
+  const textArea = document.createElement("textarea");
+  textArea.innerHTML = text;
+  return textArea.value;
+};
+
 const CardOffers = ({
   paginatedOffers,
   filteredOffersCount,
@@ -96,9 +103,8 @@ const CardOffers = ({
   onPageChange,
   isSelectable = true,
 }) => {
-  const contentClassName = `service-catalog__content${
-    selectedOffer ? " service-catalog__content--with-detail" : ""
-  }`;
+  const contentClassName = `service-catalog__content${selectedOffer ? " service-catalog__content--with-detail" : ""
+    }`;
 
   return (
     <section className={contentClassName}>
@@ -128,24 +134,24 @@ const CardOffers = ({
               ? "service-card"
               : "service-card service-card--static";
             return (
-            <article
-              key={offer.id_offer}
-              className={cardClass}
-              onClick={
-                isCardClickable ? () => onSelectOffer(offer) : undefined
-              }
-            >
+              <article
+                key={offer.id_offer}
+                className={cardClass}
+                onClick={
+                  isCardClickable ? () => onSelectOffer(offer) : undefined
+                }
+              >
                 <div className="service-card__top">
                   <div className="service-card__avatar">
                     <div className="service-card__avatar-circle">
-                      {(offer.category || "S")[0].toUpperCase()}
+                      {(decodeHTMLEntities(offer.category) || "S")[0].toUpperCase()}
                     </div>
                   </div>
 
                   <div className="service-card__header">
                     <div className="service-card__title-row">
                       <h2 className="service-card__title">
-                        {offer.category || "Service"}
+                        {decodeHTMLEntities(offer.category) || "Service"}
                       </h2>
                       <span className="service-card__price">
                         {offer.price ? `${offer.price} €` : "Sur devis"}
@@ -176,11 +182,11 @@ const CardOffers = ({
                   </div>
                 </div>
 
-                <p className="service-card__description">{offer.description}</p>
+                <p className="service-card__description">{decodeHTMLEntities(offer.description)}</p>
 
                 <div className="service-card__tags">
                   {offer.category && (
-                    <span className="service-card__tag">{offer.category}</span>
+                    <span className="service-card__tag">{decodeHTMLEntities(offer.category)}</span>
                   )}
                   {offer.perimeter_of_displacement && (
                     <span className="service-card__tag">
@@ -230,9 +236,8 @@ const CardOffers = ({
           <div className="service-catalog__pagination">
             <button
               type="button"
-              className={`service-catalog__page-btn ${
-                currentPage === 1 ? "service-catalog__page-btn--disabled" : ""
-              }`}
+              className={`service-catalog__page-btn ${currentPage === 1 ? "service-catalog__page-btn--disabled" : ""
+                }`}
               onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -243,11 +248,10 @@ const CardOffers = ({
               <button
                 key={page}
                 type="button"
-                className={`service-catalog__page-btn ${
-                  page === currentPage
+                className={`service-catalog__page-btn ${page === currentPage
                     ? "service-catalog__page-btn--active"
                     : ""
-                }`}
+                  }`}
                 onClick={() => onPageChange(page)}
               >
                 {page}
@@ -256,11 +260,10 @@ const CardOffers = ({
 
             <button
               type="button"
-              className={`service-catalog__page-btn ${
-                currentPage === totalPages
+              className={`service-catalog__page-btn ${currentPage === totalPages
                   ? "service-catalog__page-btn--disabled"
                   : ""
-              }`}
+                }`}
               onClick={() =>
                 currentPage < totalPages && onPageChange(currentPage + 1)
               }
@@ -284,21 +287,21 @@ const CardOffers = ({
 
           <div className="service-detail__header">
             <div className="service-detail__avatar">
-              {(selectedOffer.category || "S")[0].toUpperCase()}
+              {(decodeHTMLEntities(selectedOffer.category) || "S")[0].toUpperCase()}
             </div>
             <div className="service-detail__titles">
               <span className="service-detail__provider-name">
                 {getProviderLabel(selectedOffer)}
               </span>
               <span className="service-detail__offer-title">
-                {selectedOffer.category || "Service"}
+                {decodeHTMLEntities(selectedOffer.category) || "Service"}
               </span>
             </div>
           </div>
 
           <div className="service-detail__section">
             <h3>A propos du service</h3>
-            <p>{selectedOffer.description}</p>
+            <p>{decodeHTMLEntities(selectedOffer.description)}</p>
           </div>
 
           <div className="service-detail__section service-detail__grid">

@@ -147,13 +147,13 @@ function provider_update(array $requestData): void
 
     if (!isset($requestData["id_provider"])) {
         echo json_encode(["message" => "No id_provider in query"]);
-        http_response_code(400); // BAD REQUEST?
+        http_response_code(400); 
         return;
     }
 
     if (count($requestData["errors"]) > 0) {
         echo json_encode(["message" => $requestData["errors"][0]]);
-        http_response_code(400); // BAD REQUEST?
+        http_response_code(400); 
         return;
     }
 
@@ -170,7 +170,7 @@ function provider_update(array $requestData): void
     $conn = Connection::getConnection();
 
     try {
-        /*  print_r($requestData); */
+        
         $build = build_update_query($requestData);
         if (strlen($build["fields"]) === 0) {
             echo json_encode(["message" => "No updates made"]);
@@ -179,8 +179,7 @@ function provider_update(array $requestData): void
         }
 
         $sql = "UPDATE service_providers SET " . $build["fields"] . " WHERE id_provider=:id;";
-        /* echo ($sql);
-        print_r($build["execute"]); */
+        
         $stmt = $conn->prepare($sql);
         $res = $stmt->execute($build["execute"]);
     } catch (PDOException $e) {
@@ -197,7 +196,7 @@ function provider_register(array $requestData): void
 
     if (count($requestData["errors"]) > 0) {
         echo json_encode(["message" => $requestData["errors"][0]]);
-        http_response_code(400); // BAD REQUEST?
+        http_response_code(400); 
         return;
     }
 
@@ -262,7 +261,7 @@ function provider_delete(array $requestData): void
 
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // echo $e->getMessage();
+            
             echo json_encode(["message" => $e->getMessage()]);
             http_response_code(500);
             return;
@@ -283,7 +282,7 @@ function provider_delete(array $requestData): void
 
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // echo $e->getMessage();
+           
             echo json_encode(["message" => $e->getMessage()]);
             http_response_code(500);
         }
