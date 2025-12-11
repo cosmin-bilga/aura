@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../../contexts/useAuth";
+import { useAuth } from "../../contexts/UseAuth";
 
 const strictEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer"); 
+  const [role, setRole] = useState("customer");
   const [loading, setLoading] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(null);
@@ -39,7 +39,6 @@ const Login = () => {
     }
 
     try {
-      
       const loginUrl =
         role === "customer"
           ? "/api/customer_connect/index.php"
@@ -67,18 +66,16 @@ const Login = () => {
       const token = loginData.token;
       const user = {
         ...loginData.user,
-        role: finalRole, 
+        role: finalRole,
       };
 
       console.log("✅ Login successful:", { token, user });
 
-     
       login({
         token: token,
         user: user,
       });
 
-     
       navigate(`/dashboard/${finalRole}`);
     } catch (error) {
       console.error("Login error:", error);
