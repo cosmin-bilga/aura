@@ -40,9 +40,11 @@ const App = () => {
 
             <Route path="/Legal" element={<Legal />} />
             <Route path="/contact" element={<Contact />} />
+            
+
             <Route path="*" element={<Error />} />
           </Route>
-          <Route path="/dashboard/:role" element={<Dashboard />} />
+          <Route path="/dashboard/:role/" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

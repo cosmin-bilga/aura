@@ -9,6 +9,75 @@ const FAV_OFFERS_API_URL = "/api/fav_offers/index.php";
 const FAV_OFFER_API_URL = "/api/fav_offer/index.php";
 const PROVIDERS_API_URL = "/api/providers/index.php";
 
+export const formatAvailabilitySlot = (slot) => {
+  if (!slot || !slot.start_date || !slot.end_date) return null;
+
+  const startRaw = String(slot.start_date).replace(" ", "T");
+  const endRaw = String(slot.end_date).replace(" ", "T");
+
+  const startDate = new Date(startRaw);
+  const endDate = new Date(endRaw);
+
+  const hasValidDates =
+    !Number.isNaN(startDate.getTime()) && !Number.isNaN(endDate.getTime());
+
+  const startTime = slot.start_date.slice(11, 16);
+  const endTime = slot.end_date.slice(11, 16);
+
+  if (hasValidDates) {
+    const dayLabel = new Intl.DateTimeFormat("fr-FR", {
+      weekday: "short",
+      day: "2-digit",
+      month: "2-digit",
+    }).format(startDate);
+
+    if (startTime && endTime) {
+      return `${dayLabel} ${startTime}-${endTime}`;
+    }
+    return dayLabel;
+  }
+
+  if (startTime && endTime) {
+    const date = slot.start_date.slice(8, 10);
+    const month = slot.start_date.slice(5, 7);
+    return `${date}/${month} ${startTime}-${endTime}`;
+  }
+
+  return `${slot.start_date} - ${slot.end_date}`;
+};
+
+export const normalizeOffersAvailability = (offersList = []) =>
+  offersList.map((offer) => {
+    const raw = offer?.disponibility;
+    const availabilitySlots = Array.isArray(raw)
+      ? raw.filter((d) => d && d.start_date && d.end_date)
+      : [];
+
+    const slotLabels = availabilitySlots
+      .map((slot) => formatAvailabilitySlot(slot))
+      .filter(Boolean);
+
+    let availabilityLabel = "";
+
+    if (typeof raw === "string" && raw.trim() !== "") {
+      const trimmed = raw.trim();
+      availabilityLabel =
+        trimmed.length > 40 ? `${trimmed.slice(0, 37)}...` : trimmed;
+    } else if (slotLabels.length > 0) {
+      const first = slotLabels[0];
+      availabilityLabel =
+        slotLabels.length > 1
+          ? `${first} (+${slotLabels.length - 1})`
+          : first;
+    }
+
+    return {
+      ...offer,
+      availabilitySlots,
+      availabilityLabel,
+    };
+  });
+
 /**
  * Fonction commune de filtrage + tri des offres.
  */
@@ -55,7 +124,24 @@ export function filterAndSortOffers(offers, filters) {
   }
 
   if (disponibility) {
-    list = list.filter((o) => o.disponibility === disponibility);
+    list = list.filter((o) => {
+      if (Array.isArray(o.availabilitySlots) && o.availabilitySlots.length) {
+        return o.availabilitySlots.some((slot) => {
+          const formatted = formatAvailabilitySlot(slot);
+          return (
+            slot.start_date === disponibility ||
+            slot.end_date === disponibility ||
+            formatted === disponibility
+          );
+        });
+      }
+
+      const label =
+        (typeof o.availabilityLabel === "string" && o.availabilityLabel) ||
+        (typeof o.disponibility === "string" && o.disponibility) ||
+        "";
+      return label === disponibility;
+    });
   }
 
   if (perimeter) {
@@ -165,7 +251,12 @@ const ServiceCatalog = () => {
       try {
         data = JSON.parse(rawText);
       } catch (e) {
-        console.warn("Réponse non-JSON (offers) :", rawText);
+        console.warn("Réponse NON JSON (offers) :", rawText);
+        setErrorOffers(
+          "La réponse du serveur n'est pas au format JSON. Vérifiez l'API."
+        );
+        setLoadingOffers(false);
+        return;
       }
 
       if (!response.ok) {
@@ -178,12 +269,13 @@ const ServiceCatalog = () => {
       }
 
       if (!Array.isArray(data)) {
+        console.error("Données inattendues pour les offres :", data);
         setErrorOffers("Format de données inattendu pour les offres.");
         setLoadingOffers(false);
         return;
       }
 
-      setOffers(data);
+      setOffers(normalizeOffersAvailability(data));
       setLoadingOffers(false);
     } catch (err) {
       console.error("Erreur réseau (offers) :", err);
@@ -205,7 +297,8 @@ const ServiceCatalog = () => {
       try {
         data = JSON.parse(rawText);
       } catch (e) {
-        console.warn("Réponse non-JSON (providers) :", rawText);
+        console.warn("Réponse NON JSON (providers) :", rawText);
+        return;
       }
 
       if (!response.ok || !Array.isArray(data)) {
@@ -247,7 +340,8 @@ const ServiceCatalog = () => {
       try {
         data = JSON.parse(rawText);
       } catch (e) {
-        console.warn("Réponse non-JSON (fav_offers) :", rawText);
+        console.warn("Réponse NON JSON (fav_offers) :", rawText);
+        return;
       }
 
       if (!response.ok || !Array.isArray(data)) {
@@ -303,7 +397,10 @@ const ServiceCatalog = () => {
   const disponibilities = useMemo(() => {
     const set = new Set();
     offers.forEach((o) => {
-      if (o.disponibility) set.add(o.disponibility);
+      const label =
+        (typeof o.availabilityLabel === "string" && o.availabilityLabel) ||
+        (typeof o.disponibility === "string" && o.disponibility);
+      if (label) set.add(label);
     });
     return Array.from(set);
   }, [offers]);
@@ -378,7 +475,7 @@ const ServiceCatalog = () => {
       try {
         data = JSON.parse(rawText);
       } catch (e) {
-        console.warn("Réponse non-JSON fav_offer POST :", rawText);
+        console.warn("Réponse NON JSON fav_offer POST :", rawText);
       }
 
       if (!response.ok) {
@@ -435,7 +532,7 @@ const ServiceCatalog = () => {
       try {
         data = JSON.parse(rawText);
       } catch (e) {
-        console.warn("Réponse non-JSON fav_offer DELETE :", rawText);
+        console.warn("Réponse NON JSON fav_offer DELETE :", rawText);
       }
 
       if (!response.ok) {
@@ -447,7 +544,9 @@ const ServiceCatalog = () => {
         return;
       }
 
-      setFavorites((prev) => prev.filter((id) => id !== Number(idOffer)));
+      setFavorites((prev) =>
+        prev.filter((id) => id !== Number(idOffer))
+      );
       setFavLoading(false);
     } catch (err) {
       console.error("Erreur réseau fav_offer DELETE :", err);

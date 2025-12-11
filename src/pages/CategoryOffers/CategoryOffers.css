@@ -1,11 +1,12 @@
 .categoryOffers {
   min-height: 100vh;
-  padding: 1.5rem 1rem 2.5rem;
+  padding: 1.5rem 1rem 3rem;
   background-color: #fffbf6;
   font-family: "Poppins", sans-serif;
   color: #b8d3c4;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* HEADER */

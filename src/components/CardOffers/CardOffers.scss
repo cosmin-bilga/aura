@@ -3,7 +3,7 @@
 /* CONTENU (GRILLE D’OFFRES + PANNEAU DÉTAIL) */
 
 .service-catalog__content {
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto $spacing-16;
   padding: $spacing-6 $spacing-4 $spacing-10;
@@ -96,6 +96,17 @@
   }
 }
 
+.service-card--static {
+  cursor: default;
+  pointer-events: none;
+
+  &:hover {
+    transform: none;
+    box-shadow: $shadow-soft;
+    border-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
 /* Header de la carte */
 
 .service-card__top {
@@ -148,6 +159,7 @@
   font-size: $font-size-base;
   font-weight: 600;
   color: $color-primary;
+  text-align: center;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -231,7 +243,8 @@
   align-items: center;
   justify-content: space-between;
   gap: $spacing-2;
-  margin-top: $spacing-2;
+  margin-top: auto; // push actions to bottom for aligned buttons
+  padding-top: $spacing-2;
 }
 
 .service-card__hint {
@@ -477,18 +490,51 @@
 /* BREAKPOINTS (MOBILE FIRST) */
 
 @media (min-width: 768px) {
+  .service-detail {
+    position: relative;
+    inset: auto;
+    max-width: none;
+    max-height: calc(100vh - 6rem);
+    align-self: start;
+    border-radius: $radius-lg;
+    padding: $spacing-6 $spacing-4;
+    box-shadow: $shadow-soft;
+    z-index: auto;
+  }
+
+  .service-detail__close {
+    top: $spacing-2;
+    right: $spacing-2;
+  }
+
+  .service-catalog__content--with-detail {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+
   .service-catalog__list {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
 
 @media (min-width: 960px) {
+  .service-catalog__left {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .service-detail {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    position: sticky;
+    top: $spacing-6;
+  }
+
   .service-catalog__content {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .service-catalog__content--with-detail {
-    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
   }
 
   /* Desktop : panneau latéral, plus petit, avec ombre */
@@ -496,7 +542,8 @@
     position: relative;
     inset: auto;
     max-width: none;
-    max-height: calc(100vh - 8rem);
+    max-height: calc(100vh - 6rem);
+    align-self: start;
     border-radius: $radius-lg;
     padding: $spacing-6 $spacing-4;
     box-shadow: $shadow-soft;

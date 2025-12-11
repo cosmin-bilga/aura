@@ -213,6 +213,15 @@
   background-color: $color-primary;
 }
 
+.category-page__intro-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+}
+
 .category-page__intro-text {
   max-width: 640px;
 }
@@ -532,6 +541,7 @@
   .category-page__intro-media {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .category-page__steps-grid {

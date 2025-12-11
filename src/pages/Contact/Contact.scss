@@ -1,6 +1,8 @@
+@use "../../styles/variables" as *;
+
 .aura-contact {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: $color-bg;
 }
 
 // ==========================================
@@ -9,16 +11,16 @@
 .contact-hero {
   position: relative;
   padding: 100px 20px 80px;
-  background: #f8f9fa;
+  background: $color-bg;
 .contact-hero__subtitle {
-  color: #ffb798; 
+  color: $color-primary; 
 }
 .contact-hero__title {
-    color: #ffb798 !important;
+    color: $color-primary !important;
 }
 
   
-  color: white;
+  color: $color-white;
   overflow: hidden;
 
   &__overlay {
@@ -51,7 +53,7 @@
     }
 
     &-gradient {
-      background: #ffb798;
+      background: $color-primary;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -89,7 +91,7 @@
 }
 
 .info-card {
-  background: white;
+  background: $color-white;
   padding: 40px 30px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -115,7 +117,7 @@
   }
 
   &__text {
-    color:#ffb798;;
+    color:$color-primary;
     line-height: 1.8;
   }
 }
@@ -125,14 +127,14 @@
 // ==========================================
 .contact-form-section {
   padding: 80px 20px 100px;
-  background:c#ffb798;
+  background:c$color-primary;
 
 }
 
 .contact-form-container {
   max-width: 900px;
   margin: 0 auto;
-  background: white;
+  background: $color-white;
   padding: 50px;
   border-radius: 20px;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
@@ -145,7 +147,7 @@
 .contact-form__title {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffb798;
+  color: $color-primary;
   margin-bottom: 10px;
   text-align: center;
   position: relative;
@@ -155,7 +157,7 @@
     display: block;
     width: 100px;
     height: 4px;
-    background: #ffb798;
+    background: $color-primary;
     margin: 15px auto 0;
     border-radius: 2px;
   }
@@ -163,7 +165,7 @@
 
 .contact-form__subtitle {
   text-align: center;
-  color: #ffb798;
+  color: $color-primary;
   margin-bottom: 40px;
   font-size: 1rem;
 }
@@ -178,13 +180,13 @@
   animation: slideIn 0.5s ease;
 
   &--success {
-    background: #ffb798;
-    color: white;
+    background: $color-primary;
+    color: $color-white;
   }
 
   &--error {
-    background: #ffb798;
-    color: white;
+    background: $color-primary;
+    color: $color-white;
   }
 }
 
@@ -235,21 +237,21 @@
 
       &:focus {
         outline: none;
-        border-color: #ffb798;;
+        border-color: $color-primary;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
       }
 
       &.error {
-        border-color:#ffb798;;
+        border-color:$color-primary;
         background: rgba(239, 68, 68, 0.05);
       }
 
       &::placeholder {
-        color: #ffb798;;
+        color: $color-primary;
       }
 
       &:disabled {
-        background: #ffb798;;
+        background: $color-primary;
         cursor: not-allowed;
       }
     }
@@ -270,10 +272,10 @@
   .submit-btn {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #ffb798 0%, #b8d3c4 100%);
+    background: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
 ;
 ;
-    color: white;
+    color: $color-white;
     border: none;
     border-radius: 10px;
     font-size: 1.1rem;
@@ -284,7 +286,7 @@
 
     &:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow:#ffb798;
+      box-shadow:$color-primary;
     }
 
     &:active:not(:disabled) {
@@ -309,8 +311,8 @@
         left: 50%;
         margin-left: -8px;
         margin-top: -8px;
-        border: 2px solid #ffb798;
-        border-top-color: white;
+        border: 2px solid $color-primary;
+        border-top-color: $color-white;
         border-radius: 50%;
         animation: spin 0.6s linear infinite;
       }

@@ -1,11 +1,22 @@
-import mockData from "../../mocks/data.json";
-// import "./DashboardContent.css";
-export default function DashContent({ user, role }) {
-  // Filtrer les offres selon le rôle
-  const offers =
-    role === "provider"
-      ? mockData.offers.filter((o) => o.id_provider === user.id_provider)
-      : mockData.offers;
+import { useEffect, useState } from "react";
+import Profile from "./components/Profile";
+import History from "./components/History";
+import Comments from "./components/Comments";
+import FavoriteOffers from "./components/FavoriteOffers";
+
+export default function DashContent({ user }) {
+  const [activePage, setActivePage] = useState("profil");
+
+  useEffect(() => {
+    const updatePage = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) setActivePage(hash);
+    };
+    updatePage();
+    window.addEventListener("hashchange", updatePage);
+
+    return () => window.removeEventListener("hashchange", updatePage);
+  }, []);
 
   return (
     <main
@@ -19,31 +30,10 @@ export default function DashContent({ user, role }) {
     >
       <h1>Bienvenue, {user.firstname} !</h1>
 
-      <h2>Offres disponibles :</h2>
-      <div
-        className="offers-grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "1rem",
-        }}
-      >
-        {offers.map((offer) => (
-          <div
-            key={offer.id_offer}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              padding: "1rem",
-            }}
-          >
-            <h3>{offer.category}</h3>
-            <p>{offer.description}</p>
-            <p>Durée: {offer.duration}</p>
-            <p>Prix: {offer.price}€</p>
-          </div>
-        ))}
-      </div>
+      {activePage === "profil" && <Profile user={user} />}
+      {activePage === "historique" && <History user={user} />}
+      {activePage === "commentaires" && <Comments user={user} />}
+      {activePage === "offres-favoris" && <FavoriteOffers user={user} />}
     </main>
   );
 }
