@@ -32,7 +32,7 @@ const History = ({ user }) => {
   useEffect(() => {
     if (!user || !user.id_customer) return;
     fetch(
-      `/api/services/index.php?statut=effectue&id_customer=${user.id_customer}`
+      `https://bilga.alwaysdata.net/src/api/services/index.php?statut=effectue&id_customer=${user.id_customer}`
     )
       .then((res) => {
         if (!res.ok)

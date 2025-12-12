@@ -15,7 +15,7 @@ import ManucureIcon from "../../assets/manucure.svg";
 
 import "./CategoryPage.scss";
 
-const OFFERS_API_URL = "/api/offers/index.php";
+const OFFERS_API_URL = "https://bilga.alwaysdata.net/src/api/offers/index.php";
 
 /**
  * Associe une image à un libellé de catégorie.

@@ -24,7 +24,7 @@ const FavoriteOffers = ({ user }) => {
       setError(null);
       try {
         const favRes = await fetch(
-          `/api/fav_offers/index.php?id_customer=${encodeURIComponent(
+          `https://bilga.alwaysdata.net/src/api/fav_offers/index.php?id_customer=${encodeURIComponent(
             customerId
           )}`,
           {
@@ -46,7 +46,7 @@ const FavoriteOffers = ({ user }) => {
 
         const detailPromises = favLinks.map((fav) =>
           fetch(
-            `/api/offer/index.php?id_offer=${encodeURIComponent(fav.id_offer)}`,
+            `https://bilga.alwaysdata.net/src/api/offer/index.php?id_offer=${encodeURIComponent(fav.id_offer)}`,
             { headers: { "X-API-KEY": token } }
           )
             .then((res) => (res.ok ? res.json() : null))

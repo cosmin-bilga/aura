@@ -5,7 +5,7 @@ export default function AllCustomers() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/customers/index.php")
+    fetch("https://bilga.alwaysdata.net/src/api/customers/index.php")
       .then((res) => res.json())
       .then((data) => {
         setCustomers(data);

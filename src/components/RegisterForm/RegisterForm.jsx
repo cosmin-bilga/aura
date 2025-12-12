@@ -125,8 +125,8 @@ const handleSubmit = async (e) => {
   // 1) Choix de l’endpoint en fonction du rôle
   const endpoint =
     formData.role === "client"
-      ? "/api/customer/index.php"
-      : "/api/provider/index.php";
+      ? "https://bilga.alwaysdata.net/src/api/customer/index.php"
+      : "https://bilga.alwaysdata.net/src/api/provider/index.php";
 
   // 2) Mapping des données avec les bons NOMS DE CHAMPS
   const registrationData =

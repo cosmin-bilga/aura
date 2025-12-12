@@ -5,7 +5,7 @@ export default function AllProviders() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/providers/index.php")
+    fetch("https://bilga.alwaysdata.net/src/api/providers/index.php")
       .then((res) => res.json())
       .then((data) => {
         setProviders(data);

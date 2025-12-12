@@ -37,7 +37,7 @@ const Profile = ({ user, onUserUpdate }) => {
       formDataObj.append("phone_number", formData.phone_number);
       formDataObj.append("address", formData.address);
 
-      const response = await fetch("/api/customer/index.php", {
+      const response = await fetch("https://bilga.alwaysdata.net/src/api/customer/index.php", {
         method: "POST",
         headers: {
           "X-API-KEY": token,
@@ -52,7 +52,7 @@ const Profile = ({ user, onUserUpdate }) => {
       }
 
       const getResponse = await fetch(
-        `/api/customer/index.php?id_customer=${user.id_customer}`,
+        `https://bilga.alwaysdata.net/src/api/customer/index.php?id_customer=${user.id_customer}`,
         {
           method: "GET",
           headers: {

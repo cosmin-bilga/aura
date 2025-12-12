@@ -34,16 +34,16 @@ const Login = () => {
       let loginUrl = "";
       switch (role) {
         case "customer":
-          loginUrl = "/api/customer_connect/index.php";
+          loginUrl = "https://bilga.alwaysdata.net/src/api/customer_connect/index.php";
           break;
         case "provider":
-          loginUrl = "/api/provider_connect/index.php";
+          loginUrl = "https://bilga.alwaysdata.net/src/api/provider_connect/index.php";
           break;
         case "admin":
-          loginUrl = "/api/admin_connect/index.php";
+          loginUrl = "https://bilga.alwaysdata.net/src/api/admin_connect/index.php";
           break;
         default:
-          loginUrl = "/api/customer_connect/index.php";
+          loginUrl = "https://bilga.alwaysdata.net/src/api/customer_connect/index.php";
       }
 
       const formData = new FormData();
@@ -81,7 +81,7 @@ const Login = () => {
         ) {
           try {
             const providerRes = await fetch(
-              `/api/provider/index.php?id_provider=${loginData.user.id_provider}`,
+              `https://bilga.alwaysdata.net/src/api/provider/index.php?id_provider=${loginData.user.id_provider}`,
               {
                 method: "GET",
                 headers: { "X-API-KEY": loginData.token },

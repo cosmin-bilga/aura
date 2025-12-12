@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import CardOffers from "../CardOffers/CardOffers";
 import { useAuth } from "../../contexts/UseAuth";
 
-const FAV_OFFER_API_URL = "/api/fav_offer/index.php";
-const FAV_OFFERS_API_URL = "/api/fav_offers/index.php";
+const FAV_OFFER_API_URL = "https://bilga.alwaysdata.net/src/api/fav_offer/index.php";
+const FAV_OFFERS_API_URL = "https://bilga.alwaysdata.net/src/api/fav_offers/index.php";
 
 export default function AllOffers() {
   const { user, token } = useAuth();

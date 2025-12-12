@@ -20,7 +20,7 @@ const ProviderProfile = ({ user, onUserUpdate }) => {
   useEffect(() => {
     if (!user?.id_provider) return;
     setIsLoading(true);
-    fetch(`/api/provider/index.php?id_provider=${user.id_provider}`, {
+    fetch(`https://bilga.alwaysdata.net/src/api/provider/index.php?id_provider=${user.id_provider}`, {
       method: "GET",
       headers: { "X-API-KEY": token },
     })
@@ -70,7 +70,7 @@ const ProviderProfile = ({ user, onUserUpdate }) => {
         formData.additional_information
       );
 
-      const response = await fetch("/api/provider/index.php", {
+      const response = await fetch("https://bilga.alwaysdata.net/src/api/provider/index.php", {
         method: "POST",
         headers: {
           "X-API-KEY": token,
@@ -85,7 +85,7 @@ const ProviderProfile = ({ user, onUserUpdate }) => {
       }
 
       const getResponse = await fetch(
-        `/api/provider/index.php?id_provider=${user.id_provider}`,
+        `https://bilga.alwaysdata.net/src/api/provider/index.php?id_provider=${user.id_provider}`,
         {
           method: "GET",
           headers: { "X-API-KEY": token },

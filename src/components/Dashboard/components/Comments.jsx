@@ -40,7 +40,7 @@ const Comments = ({ user }) => {
     setError(null);
     // Step 1: Fetch all services for the user
     fetch(
-      `/api/services/index.php?id_customer=${encodeURIComponent(
+      `https://bilga.alwaysdata.net/src/api/services/index.php?id_customer=${encodeURIComponent(
         user.id_customer
       )}`
     )
@@ -58,7 +58,7 @@ const Comments = ({ user }) => {
         const allComments = await Promise.all(
           services.map((service) =>
             fetch(
-              `/api/comments/index.php?id_service=${encodeURIComponent(
+              `https://bilga.alwaysdata.net/src/api/comments/index.php?id_service=${encodeURIComponent(
                 service.id_service
               )}`
             )

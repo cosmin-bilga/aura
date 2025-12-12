@@ -7,7 +7,7 @@ export default function ProviderOffers({ user }) {
 
   useEffect(() => {
     if (!user?.id_provider) return;
-    fetch(`/api/offers/index.php?id_provider=${user.id_provider}`)
+    fetch(`https://bilga.alwaysdata.net/src/api/offers/index.php?id_provider=${user.id_provider}`)
       .then((res) => res.json())
       .then((data) => {
         setOffers(data);

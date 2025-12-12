@@ -11,10 +11,10 @@ import {
 } from "../ServiceCatalog/ServiceCatalog";
 
 
-const OFFERS_API_URL = "/api/offers/index.php";
-const FAV_OFFERS_API_URL = "/api/fav_offers/index.php";
-const FAV_OFFER_API_URL = "/api/fav_offer/index.php";
-const PROVIDERS_API_URL = "/api/providers/index.php";
+const OFFERS_API_URL = "https://bilga.alwaysdata.net/src/api/offers/index.php";
+const FAV_OFFERS_API_URL = "https://bilga.alwaysdata.net/src/api/fav_offers/index.php";
+const FAV_OFFER_API_URL = "https://bilga.alwaysdata.net/src/api/fav_offer/index.php";
+const PROVIDERS_API_URL = "https://bilga.alwaysdata.net/src/api/providers/index.php";
 
 const CategoryOffers = () => {
   const { categoryKey } = useParams();
