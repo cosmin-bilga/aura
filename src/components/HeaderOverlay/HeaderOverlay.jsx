@@ -1,9 +1,8 @@
-// C:\wamp64\www\aura_test\src\components\HeaderOverlay\HeaderOverlay.jsx
 import { Link } from "react-router-dom";
 import logoAura from "../../assets/logo_aura_white.png";
 import peopleIcon from "../../assets/icons/people.svg";
 import MockData from "../../mocks/data.json";
-import "../Header/Header.scss"; // pour utiliser les classes déjà définies
+import "../Header/Header.scss";
 
 export default function HeaderOverlay({
   isOpen,
@@ -85,11 +84,7 @@ export default function HeaderOverlay({
 
         {/* 🟠 ICI : toutes les catégories du dropdown, en clair */}
         {categories.map((cat) => (
-          <Link
-            key={cat.key}
-            to={`/categorie/${cat.key}`}
-            onClick={closeMenu}
-          >
+          <Link key={cat.key} to={`/categorie/${cat.key}`} onClick={closeMenu}>
             {cat.name}
           </Link>
         ))}

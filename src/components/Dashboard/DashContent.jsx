@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import CustomerProfile from "./components/CustomerProfile";
-import CustomerHistory from "./components/CustomerHistory";
-import CustomerComments from "./components/CustomerComments";
-import CustomerFavoriteOffers from "./components/CustomerFavoriteOffers";
-import AdminAllOffers from "./components/AdminAllOffers";
-import AdminAllProviders from "./components/AdminAllProviders";
-import AdminAllCustomers from "./components/AdminAllCustomers";
+﻿import { useEffect, useState } from "react";
+import Profile from "./components/Profile";
+import History from "./components/History";
+import Comments from "./components/Comments";
+import FavoriteOffers from "./components/FavoriteOffers";
+import AllOffers from "./AllOffers";
+import AllProviders from "./AllProviders";
+import AllCustomers from "./AllCustomers";
 import ProviderProfile from "./components/ProviderProfile";
 import ProviderOffers from "./components/ProviderOffers";
 
@@ -24,48 +24,82 @@ export default function DashContent({ user }) {
   }, []);
 
   return (
-    <main
-      className="dash-content"
-      style={{
-        flex: 1,
-        padding: "2rem",
-        overflowY: "auto",
-        backgroundColor: "#fff",
-      }}
-    >
-      <h1>Bienvenue, {user.firstname} !</h1>
+    <main className="dash-content">
+      <header className="dash-section__header dash-section__header--split">
+        <div>
+          <p className="dash-section__hint">Tableau de bord</p>
+          <h1>Bienvenue, {user.firstname} !</h1>
+        </div>
+        <div className="dash-chip">
+          <div className="dash-avatar">
+            {(user.firstname?.[0] || "U").toUpperCase()}
+            {(user.name?.[0] || "N").toUpperCase()}
+          </div>
+          <div>
+            <p className="dash-chip__name">
+              {user.firstname} {user.name}
+            </p>
+            <p className="dash-chip__role">{user.role}</p>
+          </div>
+        </div>
+      </header>
 
-      {/* Provider pages */}
-      {user.role === "provider" && activePage === "profil" && (
-        <ProviderProfile user={user} />
-      )}
-      {user.role === "provider" && activePage === "mes-offres" && (
-        <ProviderOffers user={user} />
-      )}
-
-      {/* Customer pages */}
+      {/* Customer */}
       {user.role === "customer" && activePage === "profil" && (
-        <CustomerProfile user={user} />
+        <section className="dash-section">
+          <Profile user={user} />
+        </section>
       )}
       {user.role === "customer" && activePage === "historique" && (
-        <CustomerHistory user={user} />
+        <section className="dash-section">
+          <History user={user} />
+        </section>
       )}
       {user.role === "customer" && activePage === "commentaires" && (
-        <CustomerComments user={user} />
+        <section className="dash-section">
+          <Comments user={user} />
+        </section>
       )}
       {user.role === "customer" && activePage === "offres-favoris" && (
-        <CustomerFavoriteOffers user={user} />
+        <section className="dash-section">
+          <FavoriteOffers user={user} />
+        </section>
       )}
 
-      {/* Admin pages */}
+      {/* Provider */}
+      {user.role === "provider" && activePage === "profil" && (
+        <section className="dash-section">
+          <ProviderProfile user={user} />
+        </section>
+      )}
+      {user.role === "provider" && activePage === "mes-offres" && (
+        <section className="dash-section">
+          <ProviderOffers user={user} />
+        </section>
+      )}
+      {user.role === "provider" && activePage === "mes-rdv" && (
+        <section className="dash-section">
+          <p className="dash-section__hint">
+            Vos rendez-vous seront bientôt disponibles ici.
+          </p>
+        </section>
+      )}
+
+      {/* Admin */}
       {user.role === "admin" && activePage === "toutes-les-offres" && (
-        <AdminAllOffers />
+        <section className="dash-section">
+          <AllOffers />
+        </section>
       )}
       {user.role === "admin" && activePage === "tous-les-prestataires" && (
-        <AdminAllProviders />
+        <section className="dash-section">
+          <AllProviders />
+        </section>
       )}
       {user.role === "admin" && activePage === "tous-les-clients" && (
-        <AdminAllCustomers />
+        <section className="dash-section">
+          <AllCustomers />
+        </section>
       )}
     </main>
   );

@@ -37,7 +37,7 @@ function build_where_clause(array $requestData): array
             "id_customer",
             "id_offer",
             "service_date",
-            "statut",
+            "status",
             "amount",
             "payment_date"
         ])) {

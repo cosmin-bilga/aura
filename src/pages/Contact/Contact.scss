@@ -120,6 +120,18 @@
     color:$color-primary;
     line-height: 1.8;
   }
+
+  a {
+    color:#ffb798;;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ffb798;
+    }
+  }
+  
 }
 
 // ==========================================

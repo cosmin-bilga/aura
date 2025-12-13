@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { useAuth } from "../../contexts/useAuth";
+import { useAuth } from "../../contexts/AuthContext";
 import FilterBar from "../../components/FilterBar/FilterBar";
 import CardOffers from "../../components/CardOffers/CardOffers";
+import { Helmet } from "react-helmet-async";
 import "./ServiceCatalog.scss";
 
 const OFFERS_API_URL = "/api/offers/index.php";
@@ -66,9 +67,7 @@ export const normalizeOffersAvailability = (offersList = []) =>
     } else if (slotLabels.length > 0) {
       const first = slotLabels[0];
       availabilityLabel =
-        slotLabels.length > 1
-          ? `${first} (+${slotLabels.length - 1})`
-          : first;
+        slotLabels.length > 1 ? `${first} (+${slotLabels.length - 1})` : first;
     }
 
     return {
@@ -110,9 +109,7 @@ export function filterAndSortOffers(offers, filters) {
   }
 
   if (selectedDistance) {
-    list = list.filter(
-      (o) => o.perimeter_of_displacement === selectedDistance
-    );
+    list = list.filter((o) => o.perimeter_of_displacement === selectedDistance);
   }
 
   if (provider) {
@@ -145,9 +142,7 @@ export function filterAndSortOffers(offers, filters) {
   }
 
   if (perimeter) {
-    list = list.filter(
-      (o) => o.perimeter_of_displacement === perimeter
-    );
+    list = list.filter((o) => o.perimeter_of_displacement === perimeter);
   }
 
   if (maxPrice) {
@@ -261,8 +256,7 @@ const ServiceCatalog = () => {
 
       if (!response.ok) {
         setErrorOffers(
-          (data && data.message) ||
-            "Erreur lors du chargement des services."
+          (data && data.message) || "Erreur lors du chargement des services."
         );
         setLoadingOffers(false);
         return;
@@ -388,8 +382,7 @@ const ServiceCatalog = () => {
   const distances = useMemo(() => {
     const set = new Set();
     offers.forEach((o) => {
-      if (o.perimeter_of_displacement)
-        set.add(o.perimeter_of_displacement);
+      if (o.perimeter_of_displacement) set.add(o.perimeter_of_displacement);
     });
     return Array.from(set);
   }, [offers]);
@@ -461,8 +454,7 @@ const ServiceCatalog = () => {
       const response = await fetch(FAV_OFFER_API_URL, {
         method: "POST",
         headers: {
-          "Content-Type":
-            "application/x-www-form-urlencoded;charset=UTF-8",
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
           "X-API-KEY": auth.token,
         },
         body: formBody.toString(),
@@ -479,10 +471,7 @@ const ServiceCatalog = () => {
       }
 
       if (!response.ok) {
-        alert(
-          (data && data.message) ||
-            "Erreur lors de l’ajout aux favoris."
-        );
+        alert((data && data.message) || "Erreur lors de l’ajout aux favoris.");
         setFavLoading(false);
         return;
       }
@@ -498,9 +487,7 @@ const ServiceCatalog = () => {
 
   const handleRemoveFavorite = async (idOffer) => {
     if (!isCustomer) {
-      alert(
-        "Connectez-vous en tant que client pour gérer vos favoris."
-      );
+      alert("Connectez-vous en tant que client pour gérer vos favoris.");
       return;
     }
     if (!auth.token || !customerId) {
@@ -518,8 +505,7 @@ const ServiceCatalog = () => {
       const response = await fetch(FAV_OFFER_API_URL, {
         method: "DELETE",
         headers: {
-          "Content-Type":
-            "application/x-www-form-urlencoded;charset=UTF-8",
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
           "X-API-KEY": auth.token,
         },
         body: formBody.toString(),
@@ -537,22 +523,17 @@ const ServiceCatalog = () => {
 
       if (!response.ok) {
         alert(
-          (data && data.message) ||
-            "Erreur lors de la suppression du favori."
+          (data && data.message) || "Erreur lors de la suppression du favori."
         );
         setFavLoading(false);
         return;
       }
 
-      setFavorites((prev) =>
-        prev.filter((id) => id !== Number(idOffer))
-      );
+      setFavorites((prev) => prev.filter((id) => id !== Number(idOffer)));
       setFavLoading(false);
     } catch (err) {
       console.error("Erreur réseau fav_offer DELETE :", err);
-      alert(
-        "Erreur réseau ou serveur lors de la suppression du favori."
-      );
+      alert("Erreur réseau ou serveur lors de la suppression du favori.");
       setFavLoading(false);
     }
   };
@@ -572,16 +553,28 @@ const ServiceCatalog = () => {
 
   return (
     <main className="service-catalog">
-      {/* HERO */}
+      <>
+  <Helmet>
+    <title>Catalogue des services à domicile | Aura</title>
+    <meta
+      name="description"
+      content="Découvrez le catalogue des services Aura : ménage, garde d’enfants, massage, beauté et autres prestations à domicile, filtrables par prix, distance et disponibilité."
+    />
+    
+   
+  </Helmet>
+
+  
+</>
+
+     {/* HERO */}
       <section className="service-catalog__hero">
         <div className="service-catalog__hero-inner">
-          <h1 className="service-catalog__title">
-            Besoin d’un coup de main ?
-          </h1>
+          <h1 className="service-catalog__title">Besoin d’un coup de main ?</h1>
           <p className="service-catalog__subtitle">
-            Parcourez les services disponibles autour de vous et
-            trouvez le prestataire idéal pour vos tâches du
-            quotidien&nbsp;: ménage, garde d’enfants, massage, beauté...
+            Parcourez les services disponibles autour de vous et trouvez le
+            prestataire idéal pour vos tâches du quotidien&nbsp;: ménage, garde
+            d’enfants, massage, beauté...
           </p>
 
           {/* BARRE DE RECHERCHE + FILTRES + TRI */}

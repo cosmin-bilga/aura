@@ -1,5 +1,3 @@
-// C:\wamp64\www\aura_test\src\components\ServiceDropdown\ServiceDropdown.jsx
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MockData from "../../mocks/data.json";

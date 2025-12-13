@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async"; 
 import CardOffers from "../../components/CardOffers/CardOffers";
 
 import Baby from "../../assets/Garde_denfant.png";
@@ -277,13 +278,11 @@ const CategoryPage = () => {
   const [errorOffers, setErrorOffers] = useState(null);
 
   const [selectedOffer, setSelectedOffer] = useState(null);
-  const [currentTestimonialIndex, setCurrentTestimonialIndex] =
-    useState(0);
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
 
   const isCustomer = false;
 
-  const getProviderLabel = (offer) =>
-    offer.provider_name || "Prestataire Aura";
+  const getProviderLabel = (offer) => offer.provider_name || "Prestataire Aura";
 
   const fetchOffers = async () => {
     setLoadingOffers(true);
@@ -292,6 +291,7 @@ const CategoryPage = () => {
     try {
       const params = new URLSearchParams();
       params.append("limit", "200");
+
 
       const response = await fetch(`${OFFERS_API_URL}?${params.toString()}`, {
         method: "GET",
@@ -307,7 +307,7 @@ const CategoryPage = () => {
       let data = null;
       try {
         data = JSON.parse(rawText);
-      } catch (e) {
+      } catch {
         console.warn("Réponse non-JSON CategoryPage offers :", rawText);
         setErrorOffers(
           "La réponse du serveur n'est pas au format JSON. Vérifiez l'API."
@@ -403,6 +403,10 @@ const CategoryPage = () => {
 
   return (
     <main className="category-page">
+      <Helmet>
+              <title>Services de {serviceName}</title>
+            </Helmet>
+
       {/* HERO */}
       <section className="category-page__hero">
         <div className="category-page__hero-inner">

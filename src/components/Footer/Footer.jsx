@@ -1,5 +1,3 @@
-// C:\wamp64\www\aura_test\src\components\Footer\Footer.jsx
-
 import "./Footer.scss";
 import logoAura from "../../assets/logo_aura.png";
 

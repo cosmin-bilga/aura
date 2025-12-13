@@ -154,6 +154,9 @@
 }
 
 .aura-services-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.5rem 1.5rem;
   border-radius: 0.75rem;
   border: 2px solid #ffffff;
@@ -167,6 +170,7 @@
   min-width: 170px;
   text-align: center;
   margin-top: 1rem;
+  text-decoration: none;
 }
 
 .aura-services-card__btn:hover {

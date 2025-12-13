@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-export default function AllProviders() {
-  const [providers, setProviders] = useState([]);
+export default function AllCustomers() {
+  const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/provider/index.php")
+    fetch("/api/customers/index.php")
       .then((res) => res.json())
       .then((data) => {
-        setProviders(data);
+        setCustomers(data);
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <div>Chargement des prestataires...</div>;
+  if (loading) return <div>Chargement des clients...</div>;
 
   return (
     <div>
-      <h2>Tous les prestataires</h2>
+      <h2>Tous les clients</h2>
       <table>
         <thead>
           <tr>
@@ -28,12 +28,12 @@ export default function AllProviders() {
           </tr>
         </thead>
         <tbody>
-          {providers.map((provider) => (
-            <tr key={provider.id_provider}>
-              <td>{provider.id_provider}</td>
-              <td>{provider.name}</td>
-              <td>{provider.email}</td>
-              <td>{provider.phone_number}</td>
+          {customers.map((customer) => (
+            <tr key={customer.id_customer}>
+              <td>{customer.id_customer}</td>
+              <td>{customer.name}</td>
+              <td>{customer.email}</td>
+              <td>{customer.phone_number}</td>
             </tr>
           ))}
         </tbody>

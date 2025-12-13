@@ -5,11 +5,16 @@ import heroWoman from "../../assets/hero-woman.png";
 import nailService from "../../assets/Rhapsody-Road-Photography-Sherille-Riley-Beauty-Edit-Launch-Nails-Brows-Mayfair-©-Emma-Lambe-0005-DSC_5730-scaled.jpg";
 import massageService from "../../assets/R.jpeg";
 import menageService from "../../assets/femme de ménage.png";
+import { Helmet } from "react-helmet-async";
 import babyCard from "../../assets/Garde-denfant.png";
 
 export default function Home() {
   return (
     <main className="aura-home">
+       <Helmet>
+              <title>home</title>
+            </Helmet>
+      
       {/* HERO */}
       <section className="aura-hero">
         <div className="aura-hero__content">

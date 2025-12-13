@@ -98,6 +98,15 @@
   color: #ffb798;
   line-height: 1.8;
 }
+.info-card a {
+  color: #ffb798;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.info-card a:hover {
+  color: #ffb798;
+}
 
 .contact-form-section {
   padding: 80px 20px 100px;

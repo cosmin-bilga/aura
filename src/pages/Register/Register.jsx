@@ -1,8 +1,16 @@
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
+import { Helmet } from 'react-helmet-async';
 import "./Register.scss";
 
 const Register = () => (
   <main className="register-page">
+      <Helmet>
+      <title>Créer un compte | Aura Services</title>
+      <meta
+        name="description"
+        content="Inscrivez-vous sur Aura pour réserver des services à domicile ou proposer vos prestations : ménage, garde d’enfants, massage, beauté et plus."
+      />
+    </Helmet>
     <section className="register-hero">
       <div className="register-hero__content">
         <h1 className="register-hero__title">Créer mon compte Aura</h1>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import './Contact.css';
 
@@ -114,6 +115,9 @@ const Contact = () => {
     <>
 
       <main className="aura-contact">
+      <Helmet>
+        <title>Hello World</title>
+      </Helmet>
         {/* Section Hero */}
         <section className="contact-hero">
           <div className="contact-hero__overlay"></div>
@@ -132,40 +136,62 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Section Informations */}
-        <section className="contact-info">
-          <div className="contact-info__container">
-            <div className="contact-info__grid">
-              <div className="info-card">
-                <div className="info-card__icon">📍</div>
-                <h3 className="info-card__title">Notre Adresse</h3>
-                <p className="info-card__text" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                  123 Avenue de la Beauté<br />
-                  75008 Paris, France
-                </p>
-              </div>
+       {/* Section Informations */}
+<section
+  className="contact-info"
+  itemScope
+  itemType="https://schema.org/LocalBusiness"
+>
+  <div className="contact-info__container">
+    <div className="contact-info__grid">
+      {/* Nom de l'entreprise (donné en meta) */}
+      <meta itemProp="name" content="Aura - Services à domicile" />
+      <meta itemProp="url" content="https://www.aura-services.fr" />
 
-              <div className="info-card">
-                <div className="info-card__icon">📞</div>
-                <h3 className="info-card__title">Téléphone</h3>
-                <p className="info-card__text" itemprop="telephone">
-                  +33 1 47 25 30 16<br />
-                 lundi - vendredi : 9h - 18h
-                </p>
-               
-              </div>
+      {/* Adresse */}
+      <div
+        className="info-card"
+        itemProp="address"
+        itemScope
+        itemType="https://schema.org/PostalAddress"
+      >
+        <div className="info-card__icon">📍</div>
+        <h3 className="info-card__title">Notre Adresse</h3>
+        <p className="info-card__text">
+          <span itemProp="streetAddress">123 Avenue de la Beauté</span>
+          <br />
+          <span itemProp="postalCode">75008</span>{" "}
+          <span itemProp="addressLocality">Paris</span>,{" "}
+          <span itemProp="addressCountry">FR</span>
+        </p>
+      </div>
 
-              <div className="info-card">
-                <div className="info-card__icon">✉️</div>
-                <h3 className="info-card__title">Email</h3>
-                <p className="info-card__text">
-                  <span  itemprop="email">Claude.Martin@auradev.fr</span><br />
-                  Réponse sous 24h
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+      {/* Téléphone */}
+      <div className="info-card">
+        <div className="info-card__icon">📞</div>
+        <h3 className="info-card__title">Téléphone</h3>
+        <p className="info-card__text">
+          <span itemProp="telephone">+33 1 47 25 30 16</span>
+          <br />
+          lundi - vendredi : 9h - 18h
+        </p>
+      </div>
+
+      {/* Email */}
+      <div className="info-card">
+        <div className="info-card__icon">✉️</div>
+        <h3 className="info-card__title">Email</h3>
+        <p className="info-card__text">
+          <a href="mailto:Claude.Martin@auradev.fr" itemProp="email">
+            Claude.Martin@auradev.fr
+          </a>
+          <br />
+          Réponse sous 24h
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* Section Formulaire */}
         <section className="contact-form-section">
@@ -237,7 +263,7 @@ const Contact = () => {
                   <label htmlFor="telephone">Téléphone *</label>
                   <input
                     type="tel"
-                    id="telephone"
+                    id="telephone" 
                     name="telephone"
                     value={formData.telephone}
                     onChange={handleChange}

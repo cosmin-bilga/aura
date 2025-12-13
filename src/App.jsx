@@ -4,18 +4,26 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Contact from "./pages/Contact/Contact";
+import { HelmetProvider } from 'react-helmet-async';
+
+
+
+
+
 import Register from "./pages/Register/Register";
 import Error from "./pages/Error/Error";
 import Legal from "./pages/Legal/Legal";
+
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import CategoryOffers from "./pages/CategoryOffers/CategoryOffers";
-import OfferDetail from "./pages/OfferDetail/OfferDetail";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ServiceCatalog from "./pages/ServiceCatalog/ServiceCatalog";
 import "./styles/main.css";
 
 const App = () => {
   return (
+    <HelmetProvider>
+
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -35,12 +43,8 @@ const App = () => {
             {/* Formulaire d'inscription */}
             <Route path="/inscription" element={<Register />} />
 
-            {/* Détail d’une offre */}
-            <Route path="/offred/:id" element={<OfferDetail />} />
-
             <Route path="/Legal" element={<Legal />} />
             <Route path="/contact" element={<Contact />} />
-            
 
             <Route path="*" element={<Error />} />
           </Route>
@@ -48,6 +52,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </HelmetProvider>
   );
 };
 

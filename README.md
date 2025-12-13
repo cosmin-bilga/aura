@@ -1,16 +1,25 @@
-# React + Vite
+# USER CASE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+https://drive.google.com/file/d/1YZbwQlVQqq0r5SvbXxdPtNTKMoQpu3jz/view
 
-Currently, two official plugins are available:
+# MAQUETTES
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### TOURIA
 
-## React Compiler
+https://www.figma.com/design/OEcA7Uud4ArTjYDhyr5ulH/Untitled?node-id=0-1&t=Z7dWYcKjY7JT23Lm-1
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### JOSSELIN
 
-## Expanding the ESLint configuration
+https://www.figma.com/design/IneOhdF0Hd3XwngXqKvpoB/projet-aura?node-id=0-1&t=GatkBR6iVKcsBg3p-1
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### SAMUEL
+
+https://www.figma.com/design/16TAMDe6Qql83gyQZHP3pw/Aura?node-id=0-1&t=ajB9vkZQY32AJgfW-1
+
+### COSMIN
+
+https://www.figma.com/design/fXTbLlxKkXWRfvcPAENbCW/AURA?node-id=0-1&t=MKwYx1fMM3qKMzft-1
+
+# MCD
+
+https://drive.google.com/file/d/15bYUGs66jcrE4S-V-XR7fnu4OPWSHs8r/view?usp=sharing

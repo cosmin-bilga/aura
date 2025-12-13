@@ -62,8 +62,11 @@ function admin_connect(array $requestData): void
     if (true) {
         $token = generate_token();
         add_token($token, $res["id_admin"], "admin");
+
+        unset($res["password"]);
+
         http_response_code(202); // ACCEPTED
-        echo json_encode(["token" => $token, "message" => "Admin logged in"]);
+        echo json_encode(["token" => $token, "message" => "Admin logged in", "user" => $res]);
         return;
     }
     http_response_code(403); // FORBIDDEN
