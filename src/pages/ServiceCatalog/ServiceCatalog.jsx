@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/UseAuth";
 import FilterBar from "../../components/FilterBar/FilterBar";
 import CardOffers from "../../components/CardOffers/CardOffers";
 import { Helmet } from "react-helmet-async";
@@ -248,7 +248,7 @@ const ServiceCatalog = () => {
       } catch (e) {
         console.warn("Réponse NON JSON (offers) :", rawText);
         setErrorOffers(
-          "La réponse du serveur n'est pas au format JSON. Vérifiez l'API."
+          "La réponse du serveur n'est pas au format JSON. Vérifiez l'API.",
         );
         setLoadingOffers(false);
         return;
@@ -256,7 +256,7 @@ const ServiceCatalog = () => {
 
       if (!response.ok) {
         setErrorOffers(
-          (data && data.message) || "Erreur lors du chargement des services."
+          (data && data.message) || "Erreur lors du chargement des services.",
         );
         setLoadingOffers(false);
         return;
@@ -274,7 +274,7 @@ const ServiceCatalog = () => {
     } catch (err) {
       console.error("Erreur réseau (offers) :", err);
       setErrorOffers(
-        "Erreur réseau ou serveur lors du chargement des services."
+        "Erreur réseau ou serveur lors du chargement des services.",
       );
       setLoadingOffers(false);
     }
@@ -324,7 +324,7 @@ const ServiceCatalog = () => {
           headers: {
             "X-API-KEY": auth.token,
           },
-        }
+        },
       );
 
       const rawText = await response.text();
@@ -417,13 +417,13 @@ const ServiceCatalog = () => {
       sortBy,
       selectedDisponibility,
       maxPriceFilter,
-    ]
+    ],
   );
 
   // Pagination
   const totalPages = Math.max(
     1,
-    Math.ceil(filteredAndSortedOffers.length / PAGE_SIZE)
+    Math.ceil(filteredAndSortedOffers.length / PAGE_SIZE),
   );
 
   const paginatedOffers = useMemo(() => {
@@ -523,7 +523,7 @@ const ServiceCatalog = () => {
 
       if (!response.ok) {
         alert(
-          (data && data.message) || "Erreur lors de la suppression du favori."
+          (data && data.message) || "Erreur lors de la suppression du favori.",
         );
         setFavLoading(false);
         return;
@@ -554,20 +554,16 @@ const ServiceCatalog = () => {
   return (
     <main className="service-catalog">
       <>
-  <Helmet>
-    <title>Catalogue des services à domicile | Aura</title>
-    <meta
-      name="description"
-      content="Découvrez le catalogue des services Aura : ménage, garde d’enfants, massage, beauté et autres prestations à domicile, filtrables par prix, distance et disponibilité."
-    />
-    
-   
-  </Helmet>
+        <Helmet>
+          <title>Catalogue des services à domicile | Aura</title>
+          <meta
+            name="description"
+            content="Découvrez le catalogue des services Aura : ménage, garde d’enfants, massage, beauté et autres prestations à domicile, filtrables par prix, distance et disponibilité."
+          />
+        </Helmet>
+      </>
 
-  
-</>
-
-     {/* HERO */}
+      {/* HERO */}
       <section className="service-catalog__hero">
         <div className="service-catalog__hero-inner">
           <h1 className="service-catalog__title">Besoin d’un coup de main ?</h1>
